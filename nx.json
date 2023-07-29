@@ -43,9 +43,19 @@
   "generators": {
     "@nx/react": {
       "application": {
+        "style": "css",
+        "linter": "eslint",
+        "bundler": "webpack",
         "babel": true
       },
-      "library": {}
+      "library": {
+        "style": "css",
+        "linter": "eslint",
+        "unitTestRunner": "jest"
+      },
+      "component": {
+        "style": "css"
+      }
     },
     "@nx/next": {
       "application": {
