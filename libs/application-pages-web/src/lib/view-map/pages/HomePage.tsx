@@ -1,6 +1,8 @@
 import React from 'react';
 import { useRouterStore } from 'mobx-state-router';
 
+import { Header } from '@edthewise/shared-ui-components';
+
 export const HomePage = () => {
   const routerStore = useRouterStore();
 
@@ -12,6 +14,7 @@ export const HomePage = () => {
 
   return (
     <div>
+      <Header />
       <h1>Home</h1>
       <button onClick={handleClick}>Go to Electronics</button>
     </div>

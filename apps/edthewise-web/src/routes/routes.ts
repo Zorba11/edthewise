@@ -9,6 +9,10 @@ const notFound = createRouterState('notFound');
 
 export const routes = [
   {
+    name: 'signUp',
+    pattern: '/sign-up',
+  },
+  {
     name: 'home',
     pattern: '/',
   },

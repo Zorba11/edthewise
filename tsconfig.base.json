@@ -20,6 +20,12 @@
       ],
       "@edthewise/application-pages-web": [
         "libs/application-pages-web/src/index.ts"
+      ],
+      "@edthewise/application-users-web": [
+        "libs/application-users-web/src/index.ts"
+      ],
+      "@edthewise/shared-ui-components": [
+        "libs/shared-ui-components/src/index.ts"
       ]
     }
   },
