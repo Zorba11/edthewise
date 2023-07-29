@@ -24,6 +24,9 @@
       "@edthewise/application-users-web": [
         "libs/application-users-web/src/index.ts"
       ],
+      "@edthewise/foundation-firebase": [
+        "libs/foundation-firebase/src/index.ts"
+      ],
       "@edthewise/shared-ui-components": [
         "libs/shared-ui-components/src/index.ts"
       ]
