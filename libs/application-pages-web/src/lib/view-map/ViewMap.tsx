@@ -3,7 +3,7 @@ import { SignUp } from '@edthewise/application-users-web';
 
 export const viewMap = {
   department: <DepartmentPage />,
-  home: <HomePage />,
+  home: <SignUp />, // <HomePage />
   notFound: <NotFoundPage />,
   signUp: <SignUp />,
 };
