@@ -12,9 +12,17 @@ export const routes = [
     name: 'signUp',
     pattern: '/sign-up',
   },
+    {
+    name: 'signIn',
+    pattern: '/sign-in',
+  },
   {
     name: 'home',
     pattern: '/',
+  },
+  {
+    name: 'learn',
+    pattern: '/learn',
   },
   {
     name: 'department',

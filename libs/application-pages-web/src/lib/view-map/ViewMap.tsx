@@ -1,9 +1,11 @@
 import { DepartmentPage, HomePage, NotFoundPage } from './pages';
-import { SignUp } from '@edthewise/application-users-web';
+import { SignUp, SignIn } from '@edthewise/application-users-web';
+
 
 export const viewMap = {
   department: <DepartmentPage />,
-  home: <SignUp />, // <HomePage />
+  home: <HomePage />,
   notFound: <NotFoundPage />,
   signUp: <SignUp />,
+  signIn: <SignIn />,
 };
