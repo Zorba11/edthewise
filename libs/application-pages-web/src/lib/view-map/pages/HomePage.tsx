@@ -1,13 +1,26 @@
 import React from "react";
 import { useRouterStore } from "mobx-state-router";
-import { AppHeader, CardComponent } from "@edthewise/shared-ui-components";
+import { CardComponent, ICardComponentProps, DropDownMenu } from "@edthewise/shared-ui-components";
 import homeEdPic from "../../assets/ed-2.png";
 import { Box, Container } from "@mui/material";
 
 export const HomePage = () => {
   const routerStore = useRouterStore();
 
-  const titles = ["Compete", "Learn"];
+  const cardProps: ICardComponentProps[] = [
+    {
+      id: 1,
+      title: "Compete",
+      subtitle: "with Mates",
+      hoverColor: "#FDCD46",
+    },
+    {
+      id: 2,
+      title: "Learn",
+      subtitle: "with Ed",
+      hoverColor: "#4B82C3",
+    },
+  ];
 
   const handleClick = () => {
     routerStore.goTo("department", {
@@ -16,24 +29,31 @@ export const HomePage = () => {
   };
 
   return (
-    <Container>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+    <>
+      <Box sx={{ position: "absolute", top: 18, right: 25 }}>
+        <DropDownMenu />
+      </Box>
+      <Container>
         <Box
           sx={{
-            height: "25rem",
-            width: "25rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <img src={homeEdPic} alt="Ed the Wise" style={{ objectFit: "cover", height: "100%", width: "100%" }} />
+          <Box
+            sx={{
+              height: "25rem",
+              width: "25rem",
+            }}
+          >
+            <img src={homeEdPic} alt="Ed the Wise" style={{ objectFit: "cover", height: "100%", width: "100%" }} />
+          </Box>
+          <CardComponent cardProps={cardProps} />
         </Box>
-        <CardComponent titles={titles} />
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };
+
+export default HomePage;

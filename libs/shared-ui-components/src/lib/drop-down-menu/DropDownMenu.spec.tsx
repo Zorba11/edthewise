@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 
-import AppHeader from "./app-header";
+import DropDownMenu from "./DropDownMenu";
 
-describe("AppHeader", () => {
+describe("DropDownMenu", () => {
   it("should render successfully", () => {
-    const { baseElement } = render(<AppHeader />);
+    const { baseElement } = render(<DropDownMenu />);
     expect(baseElement).toBeTruthy();
   });
 });
