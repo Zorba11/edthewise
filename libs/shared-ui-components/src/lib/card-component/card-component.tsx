@@ -29,6 +29,7 @@ export const CardComponent = ({ cardProps }: IProps) => {
               height: "15rem",
               width: "23rem",
               backgroundColor: "#c3ced8",
+              transition: "background-color 0.5s ease-in-out",
               "&:hover": {
                 backgroundColor: prop.hoverColor, // Change the background color on hover
               },
