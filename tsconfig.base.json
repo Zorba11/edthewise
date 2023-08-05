@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@edthewise/application-compete-web": ["libs/application-compete-web/src/index.ts"],
       "@edthewise/application-exams-web": ["libs/application-exams-web/src/index.ts"],
+      "@edthewise/application-learning-web": ["libs/application-learning-web/src/index.ts"],
       "@edthewise/application-pages-web": ["libs/application-pages-web/src/index.ts"],
       "@edthewise/application-users-web": ["libs/application-users-web/src/index.ts"],
       "@edthewise/foundation-firebase": ["libs/foundation-firebase/src/index.ts"],

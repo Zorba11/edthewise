@@ -21,8 +21,12 @@ export const routes = [
     pattern: '/',
   },
   {
-    name: 'learn',
-    pattern: '/learn',
+    name: 'learnHome',
+    pattern: '/learn-home',
+  },
+  {
+    name: 'competeHome',
+    pattern: '/compete-home',
   },
   {
     name: 'department',
