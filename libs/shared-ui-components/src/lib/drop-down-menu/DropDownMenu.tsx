@@ -16,7 +16,18 @@ export const DropDownMenu = () => {
 
   return (
     <div>
-      <Avatar onClick={handleClick} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Avatar
+        sx={{
+          width: 55,
+          height: 55,
+          border: "3px solid",
+          boxShadow: "0px 0px 0px 3px #FDCD46",
+          borderRadius: "50%",
+        }}
+        onClick={handleClick}
+        alt="Remy Sharp"
+        src="/static/images/avatar/1.jpg"
+      />
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"

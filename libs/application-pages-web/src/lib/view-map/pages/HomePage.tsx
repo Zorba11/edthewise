@@ -12,13 +12,13 @@ export const HomePage = () => {
       id: 1,
       title: "Compete",
       subtitle: "with Mates",
-      hoverColor: "#FDCD46",
+      hoverColor: "#FDCD46", // yellowish
     },
     {
       id: 2,
       title: "Learn",
       subtitle: "with Ed",
-      hoverColor: "#4B82C3",
+      hoverColor: "#4B82C3", // blueish
     },
   ];
 
