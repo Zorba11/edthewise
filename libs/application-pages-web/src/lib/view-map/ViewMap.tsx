@@ -8,4 +8,5 @@ export const viewMap = {
   notFound: <NotFoundPage />,
   signUp: <SignUp />,
   signIn: <SignIn />,
+  learn: <div>Learn</div>,
 };
