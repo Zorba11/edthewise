@@ -1,3 +1,4 @@
+import { onEnterCompeteHome } from '@edthewise/application-routing-web';
 import {
   browserHistory,
   createRouterState,
@@ -28,9 +29,7 @@ export const routes = [
   {
     name: 'competeHome',
     pattern: '/compete-home',
-    onEnter: (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-      return Promise.resolve();
-  }
+    onEnter: onEnterCompeteHome
   },
   {
     name: 'department',
