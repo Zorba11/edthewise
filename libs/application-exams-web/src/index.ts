@@ -1,1 +1,2 @@
-export * from './lib/exam-start/exam-start';
+export * from './pages/QuestionCard';
+export * from './components/QuestionNavigation';

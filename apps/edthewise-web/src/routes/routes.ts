@@ -2,6 +2,7 @@ import {
   browserHistory,
   createRouterState,
   HistoryAdapter,
+  RouterState,
   RouterStore,
 } from 'mobx-state-router';
 
@@ -27,6 +28,9 @@ export const routes = [
   {
     name: 'competeHome',
     pattern: '/compete-home',
+    onEnter: (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+      return Promise.resolve();
+  }
   },
   {
     name: 'department',
@@ -36,6 +40,10 @@ export const routes = [
     name: 'notFound',
     pattern: '/not-found',
   },
+  {
+    name: 'competeExamCard',
+    pattern: '/compete-exam/:id',
+  }
 ];
 
 export function initRouter() {

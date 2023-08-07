@@ -7,18 +7,40 @@ import { Box, Container } from "@mui/material";
 export const HomePage = () => {
   const routerStore = useRouterStore();
 
+  const BUTTON_CARD_HEIGHT = "15rem";
+  const BUTTON_CARD_WIDTH = "23rem";
+  const BUTTON_CARD_FONT_SIZE = "3rem";
+
+  const learnNavigationClick = () => {
+    routerStore.goTo("learnHome");
+  };
+
+  const competeNavigationClick = () => {
+    routerStore.goTo("competeHome");
+  };
+
   const cardProps: ICardComponentProps[] = [
     {
       id: 1,
       title: "Compete",
       subtitle: "with Mates",
       hoverColor: "#FDCD46", // yellowish
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gridTemplateRows: "repeat(2, 1fr)",
+      onClick: competeNavigationClick,
     },
     {
       id: 2,
       title: "Learn",
       subtitle: "with Ed",
       hoverColor: "#4B82C3", // blueish
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: learnNavigationClick,
     },
   ];
 

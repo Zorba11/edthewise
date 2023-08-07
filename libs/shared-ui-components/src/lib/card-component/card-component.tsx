@@ -13,8 +13,8 @@ export const CardComponent = ({ cardProps }: IProps) => {
         p: 2,
         bgcolor: "white",
         display: "flex",
-        gridTemplateColumns: { md: "1fr 1fr" },
-        gap: 2,
+        flexWrap: "wrap",
+        gap: 4,
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -26,8 +26,8 @@ export const CardComponent = ({ cardProps }: IProps) => {
         >
           <Button
             sx={{
-              height: "15rem",
-              width: "23rem",
+              height: `${prop.buttonHeight}`,
+              width: `${prop.buttonWidth}`,
               backgroundColor: "#c3ced8",
               transition: "background-color 0.5s ease-in-out",
               "&:hover": {
@@ -36,14 +36,16 @@ export const CardComponent = ({ cardProps }: IProps) => {
             }}
             variant="contained"
             size="large"
+            onClick={prop.onClick}
           >
             <Box>
               <Typography
                 sx={{
                   fontFamily: "Work Sans",
+                  fontSize: `${prop.titleFontSize}`,
                 }}
-                variant="h2"
-                component="h2"
+                variant="h2" // titleVariant="h2" or titleVariant="h3"
+                component="h2" // titleComponent="h2" or titleComponent="h3"
               >
                 {prop.title}
               </Typography>

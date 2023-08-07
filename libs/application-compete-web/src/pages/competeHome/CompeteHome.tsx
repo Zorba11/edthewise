@@ -3,9 +3,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { DropDownMenu } from "@edthewise/shared-ui-components";
+import { CardComponent, DropDownMenu, ICardComponentProps } from "@edthewise/shared-ui-components";
 import { Container } from "@mui/material";
-import namedLogo from "../../assets/namedLogo.png";
+import headLogo from "../../assets/headLogo.png";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,6 +47,98 @@ export const CompeteHome = () => {
     setValue(newValue);
   };
 
+  const domains = [
+    {
+      id: 1,
+      title: "Medicine",
+    },
+    {
+      id: 2,
+      title: "PSC",
+    },
+  ];
+
+  const BUTTON_CARD_HEIGHT = "7rem";
+  const BUTTON_CARD_WIDTH = "13.5rem";
+  const BUTTON_CARD_FONT_SIZE = "1.5rem";
+  const BUTTON_HOVER_COLOR = "#FDCD46";
+
+  const mediCalTopics: ICardComponentProps[] = [
+    {
+      id: 1,
+      title: "Anatomy",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
+    },
+    {
+      id: 2,
+      title: "Pathology",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+    {
+      id: 3,
+      title: "Pharmacology",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+    {
+      id: 4,
+      title: "Microbiology",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+    {
+      id: 5,
+      title: "Biochemistry",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+    {
+      id: 6,
+      title: "Physiology",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+    {
+      id: 7,
+      title: "Forensic Medicine",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+    {
+      id: 8,
+      title: "Community Medicine",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+    {
+      id: 9,
+      title: "ENT",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+    },
+  ];
+
   return (
     <Box
       sx={{
@@ -65,30 +157,56 @@ export const CompeteHome = () => {
           paddingRight: "1rem", // add padding to move DropDownMenu to rightmost side
         }}
       >
-        <img src={namedLogo} alt="logo" />
-        <DropDownMenu />
+        {/* Logo container */}
+        <Box>
+          <img src={headLogo} alt="logo" style={{ height: "4rem", width: "12rem", marginTop: "2rem" }} />
+        </Box>
+        <Box
+          sx={{
+            marginTop: "2rem",
+            marginRight: "0.2rem",
+          }}
+        >
+          <DropDownMenu />
+        </Box>
       </Box>
+      {/* Title Message, Domain subject tabs */}
       <Container
         sx={{
           marginTop: "2rem",
         }}
       >
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Typography
+            variant="h4"
+            align="center"
+            sx={{
+              color: "#4B82C3",
+            }}
+            gutterBottom
+          >
+            "Pick a subject, explore its questions, and battle brains worldwide for winning prizes <span>🎉</span>!"
+          </Typography>
+        </Box>
+
         <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider", display: "flex", justifyContent: "center" }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab label="Item One" {...a11yProps(0)} />
-              <Tab label="Item Two" {...a11yProps(1)} />
-              <Tab label="Item Three" {...a11yProps(2)} />
+              <Tab label="Medicine" {...a11yProps(0)} />
+              <Tab label="PSC" {...a11yProps(1)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            Item One
+            <CardComponent cardProps={mediCalTopics} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
             Item Two
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={2}>
-            Item Three
           </CustomTabPanel>
         </Box>
       </Container>
