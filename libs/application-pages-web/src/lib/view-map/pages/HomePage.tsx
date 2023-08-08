@@ -1,11 +1,25 @@
-import React from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useRouterStore } from "mobx-state-router";
 import { CardComponent, ICardComponentProps, DropDownMenu } from "@edthewise/shared-ui-components";
 import homeEdPic from "../../assets/ed-2.png";
 import { Box, Container } from "@mui/material";
+import { AuthContext } from "@edthewise/foundation-firebase";
+import { userStore } from "@edthewise/application-stores-web";
 
-export const HomePage = () => {
+export const HomePage = (props: any) => {
   const routerStore = useRouterStore();
+
+  const user = useContext(AuthContext);
+
+  const [userEmail, setUserEmail] = React.useState<string>("");
+
+  useEffect(() => {
+    if (!user) {
+      routerStore.goTo("signIn");
+    } else {
+      setUserEmail(userStore.email);
+    }
+  }, [user, routerStore]);
 
   const BUTTON_CARD_HEIGHT = "15rem";
   const BUTTON_CARD_WIDTH = "23rem";
@@ -55,6 +69,7 @@ export const HomePage = () => {
       <Box sx={{ position: "absolute", top: 18, right: 25 }}>
         <DropDownMenu />
       </Box>
+      user email: {userEmail}
       <Container>
         <Box
           sx={{

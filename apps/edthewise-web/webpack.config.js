@@ -1,5 +1,5 @@
-const { composePlugins, withNx } = require('@nx/webpack');
-const { withReact } = require('@nx/react');
+const { composePlugins, withNx } = require("@nx/webpack");
+const { withReact } = require("@nx/react");
 
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), withReact(), (config) => {
@@ -9,10 +9,10 @@ module.exports = composePlugins(withNx(), withReact(), (config) => {
   config.module.rules.push({
     test: /\.(mp4|webm)$/,
     use: {
-      loader: 'file-loader',
+      loader: "file-loader",
       options: {
-        name: '[name].[hash].[ext]',
-        outputPath: 'assets/videos',
+        name: "[name].[hash].[ext]",
+        outputPath: "assets/videos",
       },
     },
   });
