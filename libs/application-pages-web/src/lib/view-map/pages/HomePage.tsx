@@ -13,13 +13,13 @@ export const HomePage = (props: any) => {
 
   const [userEmail, setUserEmail] = React.useState<string>("");
 
-  useEffect(() => {
-    if (!user) {
-      routerStore.goTo("signIn");
-    } else {
-      setUserEmail(userStore.email);
-    }
-  }, [user, routerStore]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     routerStore.goTo("signIn");
+  //   } else {
+  //     setUserEmail(userStore.email);
+  //   }
+  // }, [user, routerStore]);
 
   const BUTTON_CARD_HEIGHT = "15rem";
   const BUTTON_CARD_WIDTH = "23rem";
@@ -69,7 +69,7 @@ export const HomePage = (props: any) => {
       <Box sx={{ position: "absolute", top: 18, right: 25 }}>
         <DropDownMenu />
       </Box>
-      user email: {userEmail}
+      {/* user email: {userEmail} */}
       <Container>
         <Box
           sx={{

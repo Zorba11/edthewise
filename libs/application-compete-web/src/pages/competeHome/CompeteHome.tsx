@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { CardComponent, DropDownMenu, ICardComponentProps } from "@edthewise/shared-ui-components";
 import { Container } from "@mui/material";
 import headLogo from "../../assets/headLogo.png";
+import { useRouterStore } from "mobx-state-router";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -42,6 +43,7 @@ function a11yProps(index: number) {
 
 export const CompeteHome = () => {
   const [value, setValue] = React.useState(0);
+  const routerStore = useRouterStore();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -63,6 +65,12 @@ export const CompeteHome = () => {
   const BUTTON_CARD_FONT_SIZE = "1.5rem";
   const BUTTON_HOVER_COLOR = "#FDCD46";
 
+  const competeExamSubjectNavigationClick = () => {
+    routerStore.goTo("competeList", {
+      params: { subject: "medicine" },
+    });
+  };
+
   const mediCalTopics: ICardComponentProps[] = [
     {
       id: 1,
@@ -72,6 +80,7 @@ export const CompeteHome = () => {
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
       gridTemplateColumns: "repeat(4, 1fr)",
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 2,
@@ -80,6 +89,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 3,
@@ -88,6 +98,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 4,
@@ -96,6 +107,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 5,
@@ -104,6 +116,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 6,
@@ -112,6 +125,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 7,
@@ -120,6 +134,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 8,
@@ -128,6 +143,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
     {
       id: 9,
@@ -136,6 +152,7 @@ export const CompeteHome = () => {
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: competeExamSubjectNavigationClick,
     },
   ];
 

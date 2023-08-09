@@ -1,7 +1,7 @@
 import { LearnHome } from "@edthewise/application-learning-web";
 import { DepartmentPage, HomePage, NotFoundPage } from "./pages";
 import { SignUp, SignIn } from "@edthewise/application-users-web";
-import { CompeteHome } from "@edthewise/application-compete-web";
+import { CompeteHome, CompeteList } from "@edthewise/application-compete-web";
 import { ExamCard } from "@edthewise/application-exams-web";
 
 export const viewMap = {
@@ -12,5 +12,6 @@ export const viewMap = {
   signIn: <SignIn />,
   learnHome: <LearnHome />,
   competeHome: <CompeteHome />,
+  competeList: <CompeteList />,
   competeExamCard: <ExamCard />,
 };
