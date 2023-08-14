@@ -2,35 +2,31 @@ import { ExamsList } from "@edthewise/application-exams-web";
 import { ICardComponentProps } from "@edthewise/shared-ui-components";
 import { useRouterStore } from "mobx-state-router";
 
-export const LearnHome = () => {
+export const LearnList: React.FC = () => {
   const routerStore = useRouterStore();
 
   const BUTTON_CARD_HEIGHT = "7rem";
-  const BUTTON_CARD_WIDTH = "13.5rem";
+  const BUTTON_CARD_WIDTH = "10rem";
   const BUTTON_CARD_FONT_SIZE = "1.5rem";
   const BUTTON_HOVER_COLOR = "#4B82C3";
 
   const learnExamSubjectNavigationClick = () => {
-    routerStore.goTo("learnList", {
-      params: { subject: "anatomy" },
+    routerStore.goTo("learnExamStarter", {
+      params: { id: "1" },
     });
   };
 
   const tabs = [
     {
       id: 1,
-      tabTitle: "Medical",
-    },
-    {
-      id: 2,
-      tabTitle: "PSC",
+      tabTitle: "Anatomy",
     },
   ];
 
   const mediCalTopics: ICardComponentProps[] = [
     {
       id: 1,
-      title: "Anatomy",
+      title: "1",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
@@ -40,74 +36,72 @@ export const LearnHome = () => {
     },
     {
       id: 2,
-      title: "Pathology",
+      title: "2",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
       onClick: learnExamSubjectNavigationClick,
     },
     {
       id: 3,
-      title: "Pharmacology",
+      title: "3",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
       onClick: learnExamSubjectNavigationClick,
     },
     {
       id: 4,
-      title: "Microbiology",
+      title: "4",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
       onClick: learnExamSubjectNavigationClick,
     },
     {
       id: 5,
-      title: "Biochemistry",
+      title: "5",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
       onClick: learnExamSubjectNavigationClick,
     },
     {
       id: 6,
-      title: "Physiology",
+      title: "6",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
       onClick: learnExamSubjectNavigationClick,
     },
     {
       id: 7,
-      title: "Forensic Medicine",
+      title: "7",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
       onClick: learnExamSubjectNavigationClick,
     },
     {
       id: 8,
-      title: "Community Medicine",
+      title: "8",
       hoverColor: BUTTON_HOVER_COLOR,
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
-      onClick: learnExamSubjectNavigationClick,
-    },
-    {
-      id: 9,
-      title: "ENT",
-      hoverColor: BUTTON_HOVER_COLOR,
-      buttonHeight: BUTTON_CARD_HEIGHT,
-      buttonWidth: BUTTON_CARD_WIDTH,
-      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
       onClick: learnExamSubjectNavigationClick,
     },
   ];

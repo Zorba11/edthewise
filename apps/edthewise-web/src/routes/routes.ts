@@ -1,4 +1,4 @@
-import { onEnterCompeteHome, onEnterCompeteList } from '@edthewise/application-routing-web';
+import { onEnterCompeteHome, onEnterCompeteList, onEnterLearnExamStarter, onEnterLearnHome, onEnterLearnList } from '@edthewise/application-routing-web';
 import {
   browserHistory,
   createRouterState,
@@ -25,6 +25,17 @@ export const routes = [
   {
     name: 'learnHome',
     pattern: '/learn-home',
+    onEnter: onEnterLearnHome
+  },
+  {
+    name: 'learnList',
+    pattern: '/learn-list/:subject',
+    onEnter: onEnterLearnList
+  },
+  {
+    name: 'learnExamStarter',
+    pattern: '/learn-exam-starter/:id',
+    onEnter: onEnterLearnExamStarter
   },
   {
     name: 'competeHome',
@@ -47,6 +58,13 @@ export const routes = [
   {
     name: 'competeExamCard',
     pattern: '/compete-exam/:id',
+  },
+  {
+    name: 'learnExamCard',
+    pattern: '/learn-exam/:id',
+  }, {
+    name: 'learnExamResult',
+    pattern: '/learn-exam-result/:id',
   }
 ];
 

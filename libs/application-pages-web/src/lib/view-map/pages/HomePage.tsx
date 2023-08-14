@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useRouterStore } from "mobx-state-router";
-import { CardComponent, ICardComponentProps, DropDownMenu } from "@edthewise/shared-ui-components";
+import { CardComponent, ICardComponentProps, AvatarDropDownMenu } from "@edthewise/shared-ui-components";
 import homeEdPic from "../../assets/ed-2.png";
 import { Box, Container } from "@mui/material";
 import { AuthContext } from "@edthewise/foundation-firebase";
@@ -67,7 +67,7 @@ export const HomePage = (props: any) => {
   return (
     <>
       <Box sx={{ position: "absolute", top: 18, right: 25 }}>
-        <DropDownMenu />
+        <AvatarDropDownMenu />
       </Box>
       {/* user email: {userEmail} */}
       <Container>

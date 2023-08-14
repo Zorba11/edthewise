@@ -53,7 +53,7 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-export const DropDownMenu = () => {
+export const AvatarDropDownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -149,4 +149,4 @@ export const DropDownMenu = () => {
   );
 };
 
-export default DropDownMenu;
+export default AvatarDropDownMenu;

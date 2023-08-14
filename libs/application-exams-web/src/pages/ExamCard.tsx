@@ -15,14 +15,25 @@ import qimagePlaceholder from "../assets/qImagePlaceholder.png";
 import { useState } from "react";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../components/QuestionNavigation";
+import { IExamCardProps } from "./IExamCardProps";
+import { useRouterStore } from "mobx-state-router";
 
-export const ExamCard = () => {
+export const ExamCard = (props: IExamCardProps) => {
+  const routerStore = useRouterStore();
   const qNumber = 1;
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const handleImageClick = () => {
     setIsFullscreen(!isFullscreen);
   };
+
+  function handleAnswerSubmit(event: any): void {
+    event.preventDefault();
+    console.log("Answer Submitted");
+    routerStore.goTo("learnExamResult", {
+      params: { id: "1" },
+    });
+  }
 
   return (
     // QuestionCard container
@@ -116,6 +127,7 @@ export const ExamCard = () => {
                 },
               }}
               variant="contained"
+              onClick={handleAnswerSubmit}
             >
               Submit
             </Button>
@@ -139,21 +151,24 @@ export const ExamCard = () => {
 
       {/* Timer, Navigation Board, Left & Right Arrows */}
       {/* Timer */}
-      <Box
-        sx={{
-          position: "relative",
-          left: "14rem",
-          top: "5rem",
-        }}
-      >
-        <Timer />
-      </Box>
+      {props.withTimer && (
+        <Box
+          sx={{
+            position: "relative",
+            left: "14rem",
+            top: "5rem",
+          }}
+        >
+          <Timer />
+        </Box>
+      )}
+
       {/* Question Navigation Box */}
       <Box
         sx={{
-          position: "relative",
-          right: "10rem",
-          top: "10rem",
+          position: props.withTimer ? "relative" : "fixed",
+          right: props.withTimer ? "8rem" : "2rem",
+          top: props.withTimer ? "10rem" : "5rem",
         }}
       >
         <QuestionNavigation />

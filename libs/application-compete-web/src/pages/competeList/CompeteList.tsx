@@ -1,4 +1,4 @@
-import { CardComponent, DropDownMenu, ICardComponentProps } from "@edthewise/shared-ui-components";
+import { CardComponent, AvatarDropDownMenu, ICardComponentProps } from "@edthewise/shared-ui-components";
 import { Box, Container, Paper, Typography } from "@mui/material";
 import { useRouterStore } from "mobx-state-router";
 
@@ -44,7 +44,7 @@ export const CompeteList = () => {
           top: "2rem",
         }}
       >
-        <DropDownMenu />
+        <AvatarDropDownMenu />
       </Box>
       {/* exams list container */}
       <Container>
