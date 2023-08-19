@@ -16,24 +16,14 @@ import { useState } from "react";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../components/QuestionNavigation";
 import { IExamCardProps } from "./IExamCardProps";
-import { useRouterStore } from "mobx-state-router";
 
 export const ExamCard = (props: IExamCardProps) => {
-  const routerStore = useRouterStore();
   const qNumber = 1;
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const handleImageClick = () => {
     setIsFullscreen(!isFullscreen);
   };
-
-  function handleAnswerSubmit(event: any): void {
-    event.preventDefault();
-    console.log("Answer Submitted");
-    routerStore.goTo("learnExamResult", {
-      params: { id: "1" },
-    });
-  }
 
   return (
     // QuestionCard container
@@ -127,7 +117,7 @@ export const ExamCard = (props: IExamCardProps) => {
                 },
               }}
               variant="contained"
-              onClick={handleAnswerSubmit}
+              onClick={props.onFinishHandler}
             >
               Submit
             </Button>

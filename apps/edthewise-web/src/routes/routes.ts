@@ -62,9 +62,14 @@ export const routes = [
   {
     name: 'learnExamCard',
     pattern: '/learn-exam/:id',
-  }, {
+  }, 
+  {
     name: 'learnExamResult',
     pattern: '/learn-exam-result/:id',
+  },
+  {
+    name: 'competeExamResult',
+    pattern: '/compete-exam-result/:id',
   }
 ];
 
