@@ -1,4 +1,5 @@
 import {
+  Backdrop,
   Box,
   Button,
   Container,
@@ -13,17 +14,12 @@ import {
 
 import qimagePlaceholder from "../assets/qImagePlaceholder.png";
 import { useState } from "react";
-import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
+import { ImageBox, LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../components/QuestionNavigation";
 import { IExamCardProps } from "./IExamCardProps";
 
 export const ExamCard = (props: IExamCardProps) => {
   const qNumber = 1;
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  const handleImageClick = () => {
-    setIsFullscreen(!isFullscreen);
-  };
 
   return (
     // QuestionCard container
@@ -51,23 +47,11 @@ export const ExamCard = (props: IExamCardProps) => {
           </Typography>
           <Typography variant="body1" component="p">
             Which bone forms the prominence of the cheek? Which bone forms the prominence of the cheek Which bone forms
-            the prominence of the cheek Which bone forms the prominence of the cheek the prominence of the cheek Which
-            bone forms the prominence of the cheek the prominence of the cheek Which bone forms the prominence of the
-            cheek
+            the prominence of the cheek Which bone forms the prominence of the cheek the prominence of the cheek Which?
           </Typography>
         </Box>
         {/* Question Image */}
-        <Box
-          sx={{
-            marginTop: "1rem",
-            width: isFullscreen ? "100%" : "45rem",
-            height: isFullscreen ? "100vh" : "20rem",
-            cursor: "pointer",
-          }}
-          onClick={handleImageClick}
-        >
-          <img src={qimagePlaceholder} alt="questionimage" style={{ maxWidth: "100%", maxHeight: "100%" }} />
-        </Box>
+        <ImageBox src={qimagePlaceholder} />
         {/* Question Options */}
         <Box
           sx={{

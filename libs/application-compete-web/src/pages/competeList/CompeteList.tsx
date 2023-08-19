@@ -1,10 +1,8 @@
 import { CardComponent, AvatarDropDownMenu, ICardComponentProps } from "@edthewise/shared-ui-components";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useRouterStore } from "mobx-state-router";
-import GroupsIcon from "@mui/icons-material/Groups";
-import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
-import SportsScoreIcon from "@mui/icons-material/SportsScore";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { CompeteExamStarterDetails } from "../../components/CompeteExamStarterDetails";
+import { ExamTitleAndRules } from "../../components/ExamTitleAndRules";
 
 export const CompeteList = () => {
   const routerStore = useRouterStore();
@@ -18,6 +16,15 @@ export const CompeteList = () => {
       params: { id: "1" },
     });
   };
+
+  const rules = `🏆 Compete, Shine, and Win Big with EdTheWise! 🏆
+
+  Greetings, ambitious scholar! For a modest entrance fee of just ₹100, you can embark on our monthly compete exam. Not only will you challenge your knowledge and skills, but you also stand a chance to win a substantial prize!
+  
+  How does it work? Simple:
+  ✨ 40% of every rupee we collect from the compete exam goes straight into our prize pool.
+  ✨ The more students that compete, the bigger the prize!
+  ✨ Become the top scorer of the month and walk away with a grand prize of 25% of the total prize pool.`;
 
   const examListProps: ICardComponentProps[] = [
     {
@@ -52,27 +59,7 @@ export const CompeteList = () => {
       </Box>
       {/* exams list container */}
       <Container>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: "2rem",
-          }}
-        >
-          <Typography
-            sx={{
-              fontFamily: "Work Sans",
-              color: "#4B82C3",
-            }}
-            variant="h2"
-            component="h1"
-          >
-            Anatomy
-          </Typography>
-        </Box>
-        {/* Question */}
+        <ExamTitleAndRules title="Anatomy" rules={rules} />
         <Box
           sx={{
             width: "100%",
@@ -80,191 +67,20 @@ export const CompeteList = () => {
             flexDirection: "row",
             marginTop: "2rem",
             gap: "0",
+            justifyContent: "center",
+            position: "relative",
+            right: "3rem",
           }}
         >
           <CardComponent cardProps={examListProps} />
-          {CompeteExamDetails()}
+          <CompeteExamStarterDetails
+            studentsAttempted={10}
+            yourAttempts={2}
+            topScore={{ marks: 48, duration: "in 32 minutes" }}
+            prizeMoney={1000}
+          />
         </Box>
       </Container>
     </Box>
   );
-
-  function CompeteExamDetails() {
-    return (
-      <Paper
-        sx={{
-          width: "45%",
-          height: "27rem",
-          backgroundColor: "#f4f2f2",
-          marginTop: "1rem",
-        }}
-        elevation={5}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              marginTop: "4rem",
-              justifyContent: "center",
-              position: "relative",
-              top: "3rem",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              {/* Students attempted */}
-              <Typography color="#4B82C3" variant="h6" component="h4">
-                Students Attempted
-              </Typography>
-              <GroupsIcon
-                sx={{
-                  position: "relative",
-                  left: "0.5rem",
-                  bottom: "0.2rem",
-                  color: "#4B82C3",
-                }}
-                fontSize="large"
-              />
-              <Typography
-                sx={{
-                  position: "relative",
-                  left: "1rem",
-                  color: "#4B82C3",
-                }}
-                variant="h6"
-                component="h4"
-              >
-                : 10
-              </Typography>
-            </Box>
-
-            {/* User attempts */}
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                marginBottom: "0.2rem",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "#4B82C3",
-                }}
-                variant="h6"
-                component="h4"
-              >
-                Your Attempts
-              </Typography>
-              <BorderColorSharpIcon
-                sx={{
-                  color: "#4B82C3",
-                  position: "relative",
-                  left: "0.5rem",
-                }}
-              />
-              <Typography
-                sx={{
-                  color: "#4B82C3",
-                  position: "relative",
-                  left: "1rem",
-                  bottom: "0.1rem",
-                }}
-                variant="h6"
-                component="h4"
-              >
-                : 2
-              </Typography>
-            </Box>
-
-            {/* Top score */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                marginBottom: "0.3rem",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "#4B82C3",
-                }}
-                variant="h6"
-                component="h4"
-              >
-                Top Score
-              </Typography>
-              <SportsScoreIcon
-                sx={{
-                  color: "#4B82C3",
-                  position: "relative",
-                  left: "0.3rem",
-                  bottom: "0.3rem",
-                }}
-                fontSize="large"
-              />
-              <Typography
-                sx={{
-                  color: "#4B82C3",
-                  position: "relative",
-                  left: "1rem",
-                }}
-                variant="h6"
-                component="h4"
-              >
-                : <span> 48 marks </span> <span>in 32 minutes </span>
-              </Typography>
-            </Box>
-            {/* Price money */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "#4B82C3",
-                }}
-                variant="h6"
-                component="h4"
-              >
-                If you can beat, You will win :
-              </Typography>
-              <CurrencyRupeeIcon
-                sx={{
-                  color: "#4B82C3",
-                  position: "relative",
-                  left: "0.3rem",
-                  top: "0.2rem",
-                }}
-              />
-              <Typography
-                sx={{
-                  color: "#4B82C3",
-                  position: "relative",
-                  left: "0.4rem",
-                }}
-                variant="h6"
-                component="h4"
-              >
-                1000
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Paper>
-    );
-  }
 };

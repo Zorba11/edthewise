@@ -1,4 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
+import { ImageBox } from "../image-box/ImageBox";
+import qimagePlaceholder from "../assets/qImagePlaceholder.png";
 
 export const AnswerSummaryBox = () => (
   <Paper
@@ -6,7 +8,7 @@ export const AnswerSummaryBox = () => (
     sx={{
       backgroundColor: "#FDCD46",
       borderRadius: "2rem",
-      height: "15rem",
+      height: "37rem",
       display: "flex",
       flexDirection: "row",
       zIndex: 1,
@@ -28,6 +30,7 @@ export const AnswerSummaryBox = () => (
         the prominence of the cheek Which bone forms the prominence of the cheek the prominence of the cheek Which bone
         forms the prominence of the cheek the prominence of the cheek Which bone forms the prominence of the cheek
       </Typography>
+      <ImageBox src={qimagePlaceholder} />
       <Typography
         sx={{
           marginTop: "1rem",
