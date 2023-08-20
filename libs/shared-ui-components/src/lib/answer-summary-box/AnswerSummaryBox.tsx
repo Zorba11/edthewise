@@ -1,6 +1,7 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { ImageBox } from "../image-box/ImageBox";
 import qimagePlaceholder from "../assets/qImagePlaceholder.png";
+import { motion } from "framer-motion";
 
 export const AnswerSummaryBox = () => (
   <Paper
@@ -13,6 +14,10 @@ export const AnswerSummaryBox = () => (
       flexDirection: "row",
       zIndex: 1,
       marginTop: "0.7rem",
+      transition: "background-color 0.3s ease-in-out",
+      "&:hover": {
+        backgroundColor: "f4f4f4",
+      },
     }}
   >
     <Box

@@ -5,12 +5,12 @@ import {
   LearnHome,
   LearnList,
 } from "@edthewise/application-learning-web";
-import { DepartmentPage, HomePage, NotFoundPage } from "./pages";
 import { SignUp, SignIn } from "@edthewise/application-users-web";
 import { CompeteExamCard, CompeteExamResult, CompeteHome, CompeteList } from "@edthewise/application-compete-web";
+import HomePage from "./pages/HomePage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 export const viewMap = {
-  department: <DepartmentPage />,
   home: <HomePage />,
   notFound: <NotFoundPage />,
   signUp: <SignUp />,

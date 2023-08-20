@@ -3,3 +3,7 @@ export * from "./services/competeListRouteService";
 export * from "./services/learnListRouteService";
 export * from "./services/learnHomeRouteService";
 export * from "./services/learnExamStarterRouteService";
+export * from "./services/competeExamCardRouteService";
+export * from "./services/learnExamCardRouteService";
+export * from "./services/learnExamResultRouteService";
+export * from "./services/competeExamResultRouteService";

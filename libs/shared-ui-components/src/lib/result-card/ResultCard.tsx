@@ -1,4 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
+import { motion } from "framer-motion";
+import ResultCircle from "./ResultCircle";
 
 type ResultBoxProps = {
   score: number;
@@ -21,42 +23,10 @@ export const ResultBox = ({ score, totalQuestions, duration, message }: ResultBo
       }}
     >
       {/* Result circle */}
-      <Box
-        sx={{
-          position: "relative",
-          left: "3%",
-          top: "5.2%",
-          borderRadius: "146px",
-          background: "linear-gradient(145deg, #4475b0, #508bd1)",
-          boxShadow: "8px 8px 20px #d7ae3c, -8px -8px 20px #ffec51",
-          width: "14rem",
-          height: "14rem",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: 2,
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#fff",
-          }}
-          variant="h4"
-          component="h2"
-        >
-          {score}
-        </Typography>
-        <Typography
-          sx={{
-            color: "#fff",
-          }}
-          variant="h6"
-          component="h2"
-        >
-          out of {totalQuestions}
-        </Typography>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <ResultCircle score={score} totalQuestions={totalQuestions} />
       </Box>
+
       {/* Duration and Message */}
       <Box
         sx={{

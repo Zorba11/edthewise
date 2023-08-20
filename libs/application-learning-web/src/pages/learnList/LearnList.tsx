@@ -1,5 +1,5 @@
 import { ExamsList } from "@edthewise/application-exams-web";
-import { ICardComponentProps } from "@edthewise/shared-ui-components";
+import { ICardComponentProps, withFadeIn } from "@edthewise/shared-ui-components";
 import { useRouterStore } from "mobx-state-router";
 
 export const LearnList: React.FC = () => {
@@ -106,5 +106,5 @@ export const LearnList: React.FC = () => {
     },
   ];
 
-  return <ExamsList tabs={tabs} examsList={mediCalTopics} />;
+  return withFadeIn(<ExamsList tabs={tabs} examsList={mediCalTopics} />);
 };

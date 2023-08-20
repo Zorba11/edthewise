@@ -1,6 +1,7 @@
 import { Container, Box, Paper, Typography } from "@mui/material";
 import { AnswerSummaryBox } from "../answer-summary-box/AnswerSummaryBox";
 import { ResultBox } from "../result-card/ResultCard";
+import { motion } from "framer-motion";
 
 interface ResultAndQAProps {
   QAs: number[];
@@ -23,7 +24,7 @@ export const ResultAndQA: React.FC<ResultAndQAProps> = ({ QAs }) => {
         <ResultBox score={10} totalQuestions={20} duration={duration} message={resultMessage} />
         {/* Answer Summary */}
         {QAs.map((qa, index) => (
-          <AnswerSummaryBox key={index} />
+          <AnswerSummaryBox />
         ))}
       </Box>
     </Container>

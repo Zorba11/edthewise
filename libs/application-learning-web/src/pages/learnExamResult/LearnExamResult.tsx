@@ -1,13 +1,13 @@
-import { HeaderWithLogo, ResultAndQA } from "@edthewise/shared-ui-components";
+import { HeaderWithLogo, ResultAndQA, withFadeIn } from "@edthewise/shared-ui-components";
 import { Box } from "@mui/material";
 
 export const LearnExamResult = () => {
   const QAs = [1, 2, 3, 4];
 
-  return (
+  return withFadeIn(
     <Box>
       <HeaderWithLogo />
       <ResultAndQA QAs={QAs} />
-    </Box>
+    </Box>,
   );
 };

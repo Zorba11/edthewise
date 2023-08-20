@@ -1,9 +1,8 @@
-import { onEnterCompeteHome, onEnterCompeteList, onEnterLearnExamStarter, onEnterLearnHome, onEnterLearnList } from '@edthewise/application-routing-web';
+import { onEnterCompeteExamCard, onEnterCompeteExamResult, onEnterCompeteHome, onEnterCompeteList, onEnterLearnExamCard, onEnterLearnExamResult, onEnterLearnExamStarter, onEnterLearnHome, onEnterLearnList } from '@edthewise/application-routing-web';
 import {
   browserHistory,
   createRouterState,
   HistoryAdapter,
-  RouterState,
   RouterStore,
 } from 'mobx-state-router';
 
@@ -48,28 +47,28 @@ export const routes = [
     onEnter: onEnterCompeteList
   },
   {
-    name: 'department',
-    pattern: '/departments/:id',
-  },
-  {
     name: 'notFound',
     pattern: '/not-found',
   },
   {
     name: 'competeExamCard',
     pattern: '/compete-exam/:id',
+    onEnter: onEnterCompeteExamCard
   },
   {
     name: 'learnExamCard',
     pattern: '/learn-exam/:id',
+    onEnter: onEnterLearnExamCard
   }, 
   {
     name: 'learnExamResult',
     pattern: '/learn-exam-result/:id',
+    onEnter: onEnterLearnExamResult
   },
   {
     name: 'competeExamResult',
     pattern: '/compete-exam-result/:id',
+    onEnter: onEnterCompeteExamResult
   }
 ];
 
