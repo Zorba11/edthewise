@@ -1,0 +1,64 @@
+{
+  "name": "gpt4-azure-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/gpt4-azure-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/gpt4-azure-api",
+        "main": "apps/gpt4-azure-api/src/main.ts",
+        "tsConfig": "apps/gpt4-azure-api/tsconfig.app.json",
+        "assets": ["apps/gpt4-azure-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/gpt4-azure-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "gpt4-azure-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "gpt4-azure-api:build:development"
+        },
+        "production": {
+          "buildTarget": "gpt4-azure-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/gpt4-azure-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/gpt4-azure-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

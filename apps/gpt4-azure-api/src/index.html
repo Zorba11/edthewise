@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+
+    <h1>chatgpt-4</h1>
+    <form action="" method="post">
+      <input type="text" name="message" id="message">
+      <button type="submit" value="submit">Send</button>
+    </form>
+    <div id="chat-log">
+
+    </div>
+  </main>
+  <script>
+    const chatlog = document.getElementById('chat-log');
+    const message = document.getElementById('message');
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const messageText = message.value;
+      message.value = '';
+
+      const messageEl = document.createElement('div');
+      messageEl.classList.add('message');
+      messageEl.classList.add('message--sent');
+      messageEl.innerHTML = `
+      <div class="message__text">${messageText}</div>`;
+
+      chatlog.appendChild(messageEl);
+      chatlog.scrollTop = chatlog.scrollHeight;
+      fetch('http://localhost:3333/api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({message: messageText})
+      }).then(res => res.json())
+      .then(data => {
+        const messageEl = document.createElement('div');
+        messageEl.classList.add('message');
+        messageEl.classList.add('message--received');
+        messageEl.innerHTML = `
+        <div class="message__text">${data.completion.content}</div>`;
+        chatlog.appendChild(messageEl);
+        chatlog.scrollTop = chatlog.scrollHeight;
+      });
+    })
+  </script>
+</body>
+</html>

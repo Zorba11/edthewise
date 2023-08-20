@@ -1,4 +1,9 @@
-import { CardComponent, AvatarDropDownMenu, ICardComponentProps } from "@edthewise/shared-ui-components";
+import {
+  CardComponent,
+  AvatarDropDownMenu,
+  ICardComponentProps,
+  HeaderWithLogo,
+} from "@edthewise/shared-ui-components";
 import { Box, Container, Typography } from "@mui/material";
 import { useRouterStore } from "mobx-state-router";
 import { CompeteExamStarterDetails } from "../../components/CompeteExamStarterDetails";
@@ -47,16 +52,7 @@ export const CompeteList = () => {
         flexDirection: "column",
       }}
     >
-      <Box
-        sx={{
-          marginRight: "0",
-          position: "relative",
-          left: "95%",
-          top: "2rem",
-        }}
-      >
-        <AvatarDropDownMenu />
-      </Box>
+      <HeaderWithLogo />
       {/* exams list container */}
       <Container>
         <ExamTitleAndRules title="Anatomy" rules={rules} />

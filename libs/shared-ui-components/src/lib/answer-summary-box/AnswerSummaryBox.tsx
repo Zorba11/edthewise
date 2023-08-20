@@ -6,7 +6,7 @@ export const AnswerSummaryBox = () => (
   <Paper
     elevation={5}
     sx={{
-      backgroundColor: "#FDCD46",
+      // backgroundColor: "#FDCD46",
       borderRadius: "2rem",
       height: "37rem",
       display: "flex",

@@ -28,7 +28,7 @@ export const ResultBox = ({ score, totalQuestions, duration, message }: ResultBo
           top: "5.2%",
           borderRadius: "146px",
           background: "linear-gradient(145deg, #4475b0, #508bd1)",
-          boxShadow: "10px 10px 60px #406fa6, -10px -10px 60px #5696e0",
+          boxShadow: "8px 8px 20px #d7ae3c, -8px -8px 20px #ffec51",
           width: "14rem",
           height: "14rem",
           display: "flex",

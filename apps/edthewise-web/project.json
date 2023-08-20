@@ -15,10 +15,7 @@
         "baseHref": "/",
         "main": "apps/edthewise-web/src/main.tsx",
         "tsConfig": "apps/edthewise-web/tsconfig.app.json",
-        "assets": [
-          "apps/edthewise-web/src/favicon.ico",
-          "apps/edthewise-web/src/assets"
-        ],
+        "assets": ["apps/edthewise-web/src/favicon.ico", "apps/edthewise-web/src/assets"],
         "styles": ["apps/edthewise-web/src/styles.css"],
         "scripts": [],
         "isolatedConfig": true,
@@ -52,7 +49,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "edthewise-web:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "apps/edthewise-web/proxy.conf.json"
       },
       "configurations": {
         "development": {
