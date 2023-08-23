@@ -1,3 +1,5 @@
+All API Calls related to appwite should be here !
+
 # foundation-appwrite
 
 This library was generated with [Nx](https://nx.dev).
