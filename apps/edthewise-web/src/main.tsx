@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { App } from "./app/app";
 import "./index.css";
-import { AuthProvider } from "@edthewise/foundation-firebase";
 
 /**
  * Fonts
@@ -14,9 +13,7 @@ import "@fontsource/roboto/700.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root"),
 );

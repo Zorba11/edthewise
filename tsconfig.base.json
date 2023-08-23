@@ -23,7 +23,6 @@
       "@edthewise/application-routing-web": ["libs/application-routing-web/src/index.ts"],
       "@edthewise/application-stores-web": ["libs/application-stores-web/src/index.ts"],
       "@edthewise/application-users-web": ["libs/application-users-web/src/index.ts"],
-      "@edthewise/foundation-firebase": ["libs/foundation-firebase/src/index.ts"],
       "@edthewise/shared-ui-components": ["libs/shared-ui-components/src/index.ts"]
     }
   },

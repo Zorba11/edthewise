@@ -13,7 +13,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import edSignUp from "../../assets/ed-signup-2.png";
-import { auth } from "@edthewise/foundation-firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouterStore } from "mobx-state-router";
 import { userStore } from "@edthewise/application-stores-web";
@@ -44,30 +43,6 @@ export const SignUp = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
-
-    createUserWithEmailAndPassword(auth, data.get("email") as string, data.get("password") as string)
-      .then((userCredential) => {
-        console.log("user cred: ", userCredential);
-        // Signed in
-        const user = userCredential.user;
-
-        if (user) {
-          userStore.setLoggedIn(true);
-        }
-
-        if (userStore.isLoggedIn) {
-          routerStore.goTo("home");
-        }
-
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.log("error: ", error);
-        // ..
-      });
   };
 
   return (

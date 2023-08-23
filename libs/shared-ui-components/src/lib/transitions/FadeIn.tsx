@@ -11,7 +11,7 @@ export const FadeIn = ({ children }: FadeInProps) => {
   };
 
   return (
-    <motion.div initial="hidden" animate="visible" variants={variants}>
+    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} animate="visible" variants={variants}>
       {children}
     </motion.div>
   );

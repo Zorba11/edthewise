@@ -15,7 +15,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logoText from "../../assets/ed-signup-av.png";
 // import edSignUpVideo from '../assets/ed-signup-video.mp4';
 import edSignUp from "../../assets/ed-signup.png";
-import { auth } from "@edthewise/foundation-firebase";
 import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { userStore } from "@edthewise/application-stores-web";
 import { RouterStore, useRouterStore } from "mobx-state-router";
@@ -46,27 +45,6 @@ export const SignIn = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
-
-    try {
-      const userCreds: UserCredential = await signInWithEmailAndPassword(
-        auth,
-        data.get("email") as string,
-        data.get("password") as string,
-      );
-
-      const user = userCreds.user;
-
-      if (user) {
-        userStore.setLoggedIn(true);
-        userStore.setEmail(user.email as string);
-      }
-
-      if (userStore.isLoggedIn) {
-        routerStore.goTo("home");
-      }
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
