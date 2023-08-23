@@ -1,5 +1,4 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -13,18 +12,18 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import logoText from "../../assets/ed-signup-av.png";
-// import edSignUpVideo from '../assets/ed-signup-video.mp4';
 import edSignUp from "../../assets/ed-signup.png";
-import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { userStore } from "@edthewise/application-stores-web";
 import { RouterStore, useRouterStore } from "mobx-state-router";
+import { account, SIGN_IN_ERROR_MESSAGE } from "@edthewise/foundation-appwrite";
+import { Alert } from "@mui/material";
 
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        EdTheWise
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -37,14 +36,25 @@ const defaultTheme = createTheme();
 
 export const SignIn = () => {
   const routerStore = useRouterStore();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    const email = data.get("email") as string;
+    const password = data.get("password") as string;
+
+    try {
+      if (!email || !password) return;
+      const user = await account.createEmailSession(email, password);
+
+      if (user) {
+        routerStore.goTo("home");
+      }
+    } catch (err: any) {
+      setError(SIGN_IN_ERROR_MESSAGE);
+    }
   };
 
   return (
@@ -140,6 +150,7 @@ export const SignIn = () => {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            {error && <Alert severity="error">{error}</Alert>}
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"

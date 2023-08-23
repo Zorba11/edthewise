@@ -1,10 +1,7 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,9 +10,16 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import edSignUp from "../../assets/ed-signup-2.png";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouterStore } from "mobx-state-router";
-import { userStore } from "@edthewise/application-stores-web";
+import {
+  account,
+  SIGN_UP_ERROR_MESSAGE,
+  signUp,
+  USER_ALREADY_EXISTS,
+  USER_ALREADY_EXISTS_MESSAGE,
+} from "@edthewise/foundation-appwrite";
+import { Alert } from "@mui/material";
+import { Account } from "appwrite";
 
 function Copyright(props: any) {
   return (
@@ -35,14 +39,34 @@ const defaultTheme = createTheme();
 
 export const SignUp = () => {
   const routerStore = useRouterStore();
+  const [user, setUser] = useState({});
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    const email = data.get("email")?.toString();
+    const password = data.get("password")?.toString();
+    const firstName = data.get("firstName")?.toString();
+    const lastName = data.get("lastName")?.toString();
+
+    if (!email || !password || !firstName || !lastName) {
+      return;
+    }
+
+    try {
+      const fullName = `${firstName}-${lastName}`;
+      const user = await signUp(email, password, fullName);
+      setUser(user);
+      routerStore.goTo("signIn");
+    } catch (error: any) {
+      if (error.response && error.response.type === USER_ALREADY_EXISTS) {
+        setError(USER_ALREADY_EXISTS_MESSAGE);
+      } else {
+        setError(SIGN_UP_ERROR_MESSAGE);
+      }
+    }
   };
 
   return (
@@ -77,6 +101,7 @@ export const SignUp = () => {
             Wanna meet Ed?
             <br></br>Sign up here!
           </Typography>
+          {error && <Alert severity="error">{error}</Alert>}
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
