@@ -116,6 +116,7 @@ export const AvatarDropDownMenu = () => {
       >
         {menuItems.map((item, index) => (
           <MenuItem
+            key={index}
             onClick={handleClose}
             sx={{
               position: "relative",

@@ -1,12 +1,13 @@
 import React from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Badge, Box, Button, Paper, Typography } from "@mui/material";
 import { ICardComponentProps } from "./interfaces/ICardComponentProps";
 
 interface IProps {
   cardProps: ICardComponentProps[];
+  showBadge?: boolean;
 }
 
-export const CardComponent = ({ cardProps }: IProps) => {
+export const CardComponent = ({ cardProps, showBadge }: IProps) => {
   return (
     <Box
       sx={{
@@ -19,11 +20,52 @@ export const CardComponent = ({ cardProps }: IProps) => {
         justifyContent: "center",
       }}
     >
-      {cardProps.map((prop) => (
+      {cardProps.map((prop, index) => (
         <Paper
+          key={index}
           elevation={5}
           sx={{ margin: "0", padding: "4", background: "white", p: 2, display: "flex", flexDirection: "column" }}
         >
+          {showBadge && (
+            <Badge
+              badgeContent={
+                <Paper
+                  elevation={5}
+                  sx={{
+                    fontFamily: "Work Sans",
+                    width: "3.5rem",
+                    height: "3.5rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    backgroundColor: "#4B82C3",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "1rem",
+                    }}
+                    aria-label="prize"
+                    role="img"
+                  >
+                    🏆
+                  </span>{" "}
+                  <Typography
+                    sx={{
+                      fontFamily: "Work Sans",
+                      color: "white",
+                    }}
+                    variant="body2"
+                  >
+                    ₹100
+                  </Typography>
+                </Paper>
+              }
+            ></Badge>
+          )}
+
           <Button
             sx={{
               height: `${prop.buttonHeight}`,

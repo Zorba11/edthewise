@@ -90,7 +90,7 @@ export const ExamsList = (props: IExamsListProps) => {
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <CardComponent cardProps={props.examsList} />
+            <CardComponent showBadge={props.showBadge} cardProps={props.examsList} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
             Item Two

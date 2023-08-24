@@ -5,3 +5,5 @@ const client: Client = new Client()
     .setProject(process.env.NX_APPWRITE_PROJECT_ID as string);               // Your project ID
 
 export const account = new Account(client);
+
+export const database = new Databases(client);

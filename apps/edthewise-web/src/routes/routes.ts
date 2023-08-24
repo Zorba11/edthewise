@@ -1,14 +1,15 @@
-import { onEnterCompeteExamCard, onEnterCompeteExamResult, onEnterCompeteHome, onEnterCompeteList, onEnterLearnExamCard, onEnterLearnExamResult, onEnterLearnExamStarter, onEnterLearnHome, onEnterLearnList } from '@edthewise/application-routing-web';
+import { beforeEnterCompeteHome, onEnterCompeteExamCard, onEnterCompeteExamResult, onEnterCompeteHome, onEnterCompeteList, onEnterLearnExamCard, onEnterLearnExamResult, onEnterLearnExamStarter, onEnterLearnHome, onEnterLearnList } from '@edthewise/application-routing-web';
 import {
   browserHistory,
   createRouterState,
   HistoryAdapter,
+  Route,
   RouterStore,
 } from 'mobx-state-router';
 
 const notFound = createRouterState('notFound');
 
-export const routes = [
+export const routes: Route[] = [
   {
     name: 'signUp',
     pattern: '/sign-up',
@@ -29,7 +30,7 @@ export const routes = [
   {
     name: 'learnList',
     pattern: '/learn-list/:subject',
-    onEnter: onEnterLearnList
+    onEnter: onEnterLearnList,
   },
   {
     name: 'learnExamStarter',
@@ -39,7 +40,8 @@ export const routes = [
   {
     name: 'competeHome',
     pattern: '/compete-home',
-    onEnter: onEnterCompeteHome
+    onEnter: onEnterCompeteHome,
+    beforeEnter: beforeEnterCompeteHome
   },
   {
     name: 'competeList',
