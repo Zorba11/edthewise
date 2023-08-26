@@ -1,77 +1,86 @@
-import { beforeEnterCompeteHome, onEnterCompeteExamCard, onEnterCompeteExamResult, onEnterCompeteHome, onEnterCompeteList, onEnterLearnExamCard, onEnterLearnExamResult, onEnterLearnExamStarter, onEnterLearnHome, onEnterLearnList } from '@edthewise/application-routing-web';
 import {
-  browserHistory,
-  createRouterState,
-  HistoryAdapter,
-  Route,
-  RouterStore,
-} from 'mobx-state-router';
+  beforeEnterCompeteCard,
+  beforeEnterCompeteHome,
+  beforeEnterCompeteList,
+  onEnterCompeteExamCard,
+  onEnterCompeteExamResult,
+  onEnterCompeteHome,
+  onEnterCompeteList,
+  onEnterLearnExamCard,
+  onEnterLearnExamResult,
+  onEnterLearnExamStarter,
+  onEnterLearnHome,
+  onEnterLearnList,
+} from "@edthewise/application-routing-web";
+import { browserHistory, createRouterState, HistoryAdapter, Route, RouterStore } from "mobx-state-router";
 
-const notFound = createRouterState('notFound');
+const notFound = createRouterState("notFound");
 
 export const routes: Route[] = [
   {
-    name: 'signUp',
-    pattern: '/sign-up',
-  },
-    {
-    name: 'signIn',
-    pattern: '/sign-in',
+    name: "signUp",
+    pattern: "/sign-up",
   },
   {
-    name: 'home',
-    pattern: '/',
+    name: "signIn",
+    pattern: "/sign-in",
   },
   {
-    name: 'learnHome',
-    pattern: '/learn-home',
-    onEnter: onEnterLearnHome
+    name: "home",
+    pattern: "/",
   },
   {
-    name: 'learnList',
-    pattern: '/learn-list/:subject',
+    name: "learnHome",
+    pattern: "/learn-home",
+    onEnter: onEnterLearnHome,
+  },
+  {
+    name: "learnList",
+    pattern: "/learn-list/:subject",
     onEnter: onEnterLearnList,
   },
   {
-    name: 'learnExamStarter',
-    pattern: '/learn-exam-starter/:id',
-    onEnter: onEnterLearnExamStarter
+    name: "learnExamStarter",
+    pattern: "/learn-exam-starter/:id",
+    onEnter: onEnterLearnExamStarter,
   },
   {
-    name: 'competeHome',
-    pattern: '/compete-home',
+    name: "competeHome",
+    pattern: "/compete-home",
     onEnter: onEnterCompeteHome,
-    beforeEnter: beforeEnterCompeteHome
+    beforeEnter: beforeEnterCompeteHome,
   },
   {
-    name: 'competeList',
-    pattern: '/compete-list/:subject',
-    onEnter: onEnterCompeteList
+    name: "competeList",
+    pattern: "/compete-list/?=subject",
+    onEnter: onEnterCompeteList,
+    beforeEnter: beforeEnterCompeteList,
   },
   {
-    name: 'notFound',
-    pattern: '/not-found',
+    name: "notFound",
+    pattern: "/not-found",
   },
   {
-    name: 'competeExamCard',
-    pattern: '/compete-exam/:id',
-    onEnter: onEnterCompeteExamCard
+    name: "competeExamCard",
+    pattern: "/compete-exam/:id",
+    onEnter: onEnterCompeteExamCard,
+    beforeEnter: beforeEnterCompeteCard,
   },
   {
-    name: 'learnExamCard',
-    pattern: '/learn-exam/:id',
-    onEnter: onEnterLearnExamCard
-  }, 
-  {
-    name: 'learnExamResult',
-    pattern: '/learn-exam-result/:id',
-    onEnter: onEnterLearnExamResult
+    name: "learnExamCard",
+    pattern: "/learn-exam/:id",
+    onEnter: onEnterLearnExamCard,
   },
   {
-    name: 'competeExamResult',
-    pattern: '/compete-exam-result/:id',
-    onEnter: onEnterCompeteExamResult
-  }
+    name: "learnExamResult",
+    pattern: "/learn-exam-result/:id",
+    onEnter: onEnterLearnExamResult,
+  },
+  {
+    name: "competeExamResult",
+    pattern: "/compete-exam-result/:id",
+    onEnter: onEnterCompeteExamResult,
+  },
 ];
 
 export function initRouter() {

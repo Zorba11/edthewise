@@ -17,9 +17,22 @@ import { useState } from "react";
 import { ImageBox, LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../components/QuestionNavigation";
 import { IExamCardProps } from "./IExamCardProps";
+import QP1 from "../components/questions/QP1";
+import { questionsUiStore } from "@edthewise/application-stores-web";
+import { QTable } from "../components/questions/QTable";
+import { FMQuestions } from "@edthewise/foundation-appwrite";
+import { QP } from "../components/questions/QP";
+import { Options } from "../components/questions/Options";
 
 export const ExamCard = (props: IExamCardProps) => {
-  const qNumber = 1;
+  const qNumber = FMQuestions.QuestionsPool[0].MCQ[0].Qid ? FMQuestions.QuestionsPool[0].MCQ[0].Qid : "1";
+  const qp1desc = FMQuestions.QuestionsPool[0].MCQ[0].QP1 ? FMQuestions.QuestionsPool[0].MCQ[0].QP1 : "";
+
+  const qTableData = FMQuestions.QuestionsPool[0].MCQ[0].QTable;
+  const qp2 = FMQuestions.QuestionsPool[0].MCQ[0].QP2;
+  const qp3 = FMQuestions.QuestionsPool[0].MCQ[0].QP3 ? FMQuestions.QuestionsPool[0].MCQ[0].QP3 : "";
+
+  const answerOptions = FMQuestions.QuestionsPool[0].MCQ[0].Options ? FMQuestions.QuestionsPool[0].MCQ[0].Options : [];
 
   return (
     // QuestionCard container
@@ -27,6 +40,9 @@ export const ExamCard = (props: IExamCardProps) => {
       sx={{
         display: "flex",
         width: "70vw",
+        position: "relative",
+        top: "3rem",
+        left: "4rem",
       }}
     >
       <Paper
@@ -41,47 +57,37 @@ export const ExamCard = (props: IExamCardProps) => {
         elevation={4}
       >
         {/* Question Description*/}
-        <Box>
-          <Typography variant="subtitle1" component="h1">
-            Question {qNumber}:
-          </Typography>
-          <Typography variant="body1" component="p">
-            Which bone forms the prominence of the cheek? Which bone forms the prominence of the cheek Which bone forms
-            the prominence of the cheek Which bone forms the prominence of the cheek the prominence of the cheek Which?
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+            }}
+          >
+            <QP1 qNumber={qNumber} desc={qp1desc} />
+          </Box>
+          {/* Question Table */}
+          <QTable data={qTableData} />
+          <Box>
+            <QP questionDesc={qp2} />
+            <QP bold={true} questionDesc={qp3} />
+          </Box>
         </Box>
-        {/* Question Image */}
-        <ImageBox src={qimagePlaceholder} />
-        {/* Question Options */}
         <Box
           sx={{
             marginTop: "1rem",
             display: "flex",
           }}
         >
-          <FormControl>
-            <Grid container>
-              <Grid item xs={4}>
-                <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group">
-                  <FormControlLabel value="female" control={<Radio />} label="Female" />
-                  <FormControlLabel value="male" control={<Radio />} label="Male" />
-                </RadioGroup>
-              </Grid>
-              <Grid
-                sx={{
-                  marginRight: "10rem",
-                }}
-                item
-                xs={4}
-              >
-                <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group">
-                  <FormControlLabel value="other" control={<Radio />} label="Other" />
-                  <FormControlLabel value="something" control={<Radio />} label="other" />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <Box
+          {answerOptions.map((option, index) => (
+            <Options key={index} option={option} />
+          ))}
+
+          {/* <Box
             sx={{
               position: "relative",
               left: "3rem",
@@ -105,7 +111,7 @@ export const ExamCard = (props: IExamCardProps) => {
             >
               Submit
             </Button>
-          </Box>
+          </Box> */}
         </Box>
         {/* Answer Segment */}
         <Box

@@ -22,6 +22,7 @@ export const ExamTitleAndRules = ({ title, rules }: ExamTitleAndRulesProps) => {
         sx={{
           fontFamily: "Work Sans",
           color: "#4B82C3",
+          marginBottom: "2rem",
         }}
         variant="h2"
         component="h1"

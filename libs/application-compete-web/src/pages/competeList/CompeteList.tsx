@@ -8,6 +8,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { useRouterStore } from "mobx-state-router";
 import { CompeteExamStarterDetails } from "../../components/CompeteExamStarterDetails";
 import { ExamTitleAndRules } from "../../components/ExamTitleAndRules";
+import { competeListUiStore } from "@edthewise/application-stores-web";
 
 export const CompeteList = () => {
   const routerStore = useRouterStore();
@@ -21,6 +22,8 @@ export const CompeteList = () => {
       params: { id: "1" },
     });
   };
+
+  const subjectTitle = competeListUiStore.currentSubjectTitle;
 
   const rules = `🏆 Compete, Shine, and Win Big with EdTheWise! 🏆
 
@@ -55,7 +58,7 @@ export const CompeteList = () => {
       <HeaderWithLogo />
       {/* exams list container */}
       <Container>
-        <ExamTitleAndRules title="Anatomy" rules={rules} />
+        <ExamTitleAndRules title={subjectTitle} rules={rules} />
         <Box
           sx={{
             width: "100%",
