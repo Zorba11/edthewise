@@ -1,7 +1,11 @@
 import { Box, Typography } from "@mui/material";
 
-export const QuestionNavigation = () => {
-  const questionNumbers = Array.from({ length: 50 }, (_, i) => i + 1); // create an array of question numbers from 1 to 50
+interface IQuestionNavigationProps {
+  totalQNumber: number;
+}
+
+export const QuestionNavigation = ({ totalQNumber }: IQuestionNavigationProps) => {
+  const questionNumbers = Array.from({ length: totalQNumber }, (_, i) => i + 1); // create an array of question numbers from 1 to totalQNumber
 
   return (
     <Box
@@ -10,20 +14,21 @@ export const QuestionNavigation = () => {
         flexDirection: "column",
         alignItems: "center",
         width: "34rem",
-        height: "18rem",
         padding: "1rem",
         borderRadius: "1rem",
         backgroundColor: "#F5F5F5",
+        minHeight: "fit-content",
       }}
     >
       <Box
         sx={{
           display: "grid",
           gridTemplateColumns: "repeat(10, 1fr)",
-          gridTemplateRows: "repeat(15, 1fr)",
+          gridTemplateRows: `repeat(${Math.ceil(totalQNumber / 10)}, 1fr)`, // set the number of rows based on the totalQNumber prop
           gap: "0.7rem",
         }}
       >
+        {/* question number circle */}
         {questionNumbers.map((questionNumber) => (
           <Box
             key={questionNumber}

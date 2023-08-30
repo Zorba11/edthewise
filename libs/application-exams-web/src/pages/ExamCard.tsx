@@ -1,38 +1,22 @@
-import {
-  Backdrop,
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Paper,
-  Radio,
-  RadioGroup,
-  Typography,
-} from "@mui/material";
-
-import qimagePlaceholder from "../assets/qImagePlaceholder.png";
-import { useState } from "react";
-import { ImageBox, LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
+import { Box, Grid, Paper } from "@mui/material";
+import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../components/QuestionNavigation";
 import { IExamCardProps } from "./IExamCardProps";
 import QP1 from "../components/questions/QP1";
-import { questionsUiStore } from "@edthewise/application-stores-web";
 import { QTable } from "../components/questions/QTable";
 import { FMQuestions } from "@edthewise/foundation-appwrite";
 import { QP } from "../components/questions/QP";
 import { Options } from "../components/questions/Options";
+import { SubmitButton } from "../components/questions/SubmitButton";
 
 export const ExamCard = (props: IExamCardProps) => {
-  const qNumber = FMQuestions.QuestionsPool[0].MCQ[0].Qid ? FMQuestions.QuestionsPool[0].MCQ[0].Qid : "1";
-  const qp1desc = FMQuestions.QuestionsPool[0].MCQ[0].QP1 ? FMQuestions.QuestionsPool[0].MCQ[0].QP1 : "";
-
-  const qTableData = FMQuestions.QuestionsPool[0].MCQ[0].QTable;
-  const qp2 = FMQuestions.QuestionsPool[0].MCQ[0].QP2;
-  const qp3 = FMQuestions.QuestionsPool[0].MCQ[0].QP3 ? FMQuestions.QuestionsPool[0].MCQ[0].QP3 : "";
-
-  const answerOptions = FMQuestions.QuestionsPool[0].MCQ[0].Options ? FMQuestions.QuestionsPool[0].MCQ[0].Options : [];
+  const qNumber = props.questionData.qNumber;
+  const qp1desc = props.questionData.qp1desc;
+  const totalQNumber = 32;
+  const answerOptions = props.questionData.answerOptions;
+  const qp3 = props.questionData.qp3;
+  const qp2 = props.questionData.qp2;
+  const qTableData = props.questionData.qTableData;
 
   return (
     // QuestionCard container
@@ -50,7 +34,7 @@ export const ExamCard = (props: IExamCardProps) => {
           marginLeft: "7rem",
           marginTop: "3rem",
           width: "52rem",
-          height: "40rem",
+          minHeight: "40rem",
           padding: "2rem",
           borderRadius: "1rem",
         }}
@@ -83,35 +67,18 @@ export const ExamCard = (props: IExamCardProps) => {
             display: "flex",
           }}
         >
-          {answerOptions.map((option, index) => (
-            <Options key={index} option={option} />
-          ))}
-
-          {/* <Box
-            sx={{
-              position: "relative",
-              left: "3rem",
-              top: "1.7rem",
-            }}
-          >
-            <Button
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Options options={answerOptions} />
+            </Grid>
+            <Grid
               sx={{
-                width: "9rem",
-                height: "3rem",
-                backgroundColor: "#4B82C3",
-
-                transition: "background-color 0.5s ease-in-out",
-                "&:active": {
-                  backgroundColor: "#FDCD46",
-                  color: "#4B82C3",
-                },
+                width: "100%",
               }}
-              variant="contained"
-              onClick={props.onFinishHandler}
             >
-              Submit
-            </Button>
-          </Box> */}
+              <SubmitButton onClick={() => {}} />
+            </Grid>
+          </Grid>
         </Box>
         {/* Answer Segment */}
         <Box
@@ -151,7 +118,7 @@ export const ExamCard = (props: IExamCardProps) => {
           top: props.withTimer ? "10rem" : "5rem",
         }}
       >
-        <QuestionNavigation />
+        <QuestionNavigation totalQNumber={totalQNumber} />
         {/* Left & Right Arrows */}
         <Box
           sx={{

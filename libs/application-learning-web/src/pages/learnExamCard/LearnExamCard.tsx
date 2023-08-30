@@ -1,4 +1,5 @@
-import { ExamCard } from "@edthewise/application-exams-web";
+import { ExamCard, IExamCardProps } from "@edthewise/application-exams-web";
+import { questionsUiStore } from "@edthewise/application-stores-web";
 import { withFadeIn } from "@edthewise/shared-ui-components";
 import { useRouterStore } from "mobx-state-router";
 
@@ -12,5 +13,16 @@ export const LearnExamCard = () => {
     });
   };
 
-  return withFadeIn(<ExamCard onFinishHandler={goToLearnExamResult} withTimer={false} />);
+  const onFinishHandler = (event: any) => {
+    event.preventDefault();
+    console.log("onFinishHandler");
+  };
+
+  const examCardProps: IExamCardProps = {
+    onFinishHandler: onFinishHandler,
+    withTimer: true,
+    questionData: questionsUiStore.currentQuestion.questionData,
+  };
+
+  return <ExamCard {...examCardProps} />;
 };

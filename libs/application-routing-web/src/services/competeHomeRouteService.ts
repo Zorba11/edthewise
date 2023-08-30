@@ -1,19 +1,21 @@
 import { RouterState, RouterStore } from "mobx-state-router";
 import { examStore } from "@edthewise/application-stores-web";
-import { getSubjects } from "@edthewise/foundation-appwrite";
+import { examsService } from "@edthewise/foundation-appwrite";
 
 export const onEnterCompeteHome = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-
   return Promise.resolve();
-}
+};
 
-export const beforeEnterCompeteHome = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+export const beforeEnterCompeteHome = async (
+  fromState: RouterState,
+  toState: RouterState,
+  routerStore: RouterStore,
+) => {
+  const subjectTitles = await examsService.getSubjectTitles();
 
-  const subjectTitles = await getSubjects();
-
-  if(subjectTitles) {
+  if (subjectTitles) {
     examStore.setSubjectTitles(subjectTitles);
   }
-  
+
   return Promise.resolve();
-}
+};
