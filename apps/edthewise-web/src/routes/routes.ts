@@ -1,8 +1,7 @@
 import {
-  beforeEnterCompeteCard,
+  CompeteExamCardRouteService,
   beforeEnterCompeteHome,
   beforeEnterCompeteList,
-  onEnterCompeteExamCard,
   onEnterCompeteExamResult,
   onEnterCompeteHome,
   onEnterCompeteList,
@@ -12,9 +11,13 @@ import {
   onEnterLearnHome,
   onEnterLearnList,
 } from "@edthewise/application-routing-web";
+import { container } from "@edthewise/common-inversify";
+import { TOKENS } from "@edthewise/common-tokens-web";
 import { browserHistory, createRouterState, HistoryAdapter, Route, RouterStore } from "mobx-state-router";
 
 const notFound = createRouterState("notFound");
+
+const competeExamCardRouteService = container.get<CompeteExamCardRouteService>(TOKENS.CompeteExamCardRouteServiceToken);
 
 export const routes: Route[] = [
   {
@@ -63,8 +66,8 @@ export const routes: Route[] = [
   {
     name: "competeExamCard",
     pattern: "/compete-exam/:id",
-    onEnter: onEnterCompeteExamCard,
-    beforeEnter: beforeEnterCompeteCard,
+    onEnter: competeExamCardRouteService.onEnterCompeteExamCard,
+    beforeEnter: competeExamCardRouteService.beforeEnterCompeteCard,
   },
   {
     name: "learnExamCard",

@@ -1,13 +1,17 @@
 import { QuestionsUiStore, questionsUiStore } from "@edthewise/application-stores-web";
 import { FMQuestions } from "@edthewise/foundation-appwrite";
+import { injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
 
-export const onEnterCompeteExamCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-  return Promise.resolve();
-};
+@injectable()
+export class CompeteExamCardRouteService {
+  onEnterCompeteExamCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    return Promise.resolve();
+  };
 
-export const beforeEnterCompeteCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-  questionsUiStore.setFirstQuestionSet();
+  beforeEnterCompeteCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    questionsUiStore.setFirstQuestionSet();
 
-  return Promise.resolve();
-};
+    return Promise.resolve();
+  };
+}

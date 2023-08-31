@@ -23,6 +23,9 @@
       "@edthewise/application-routing-web": ["libs/application-routing-web/src/index.ts"],
       "@edthewise/application-stores-web": ["libs/application-stores-web/src/index.ts"],
       "@edthewise/application-users-web": ["libs/application-users-web/src/index.ts"],
+      "@edthewise/common-base-inversify": ["common-base-inversify/src/index.ts"],
+      "@edthewise/common-inversify": ["libs/common-inversify/src/index.ts"],
+      "@edthewise/common-tokens-web": ["libs/common-tokens-web/src/index.ts"],
       "@edthewise/foundation-appwrite": ["libs/foundation-appwrite/src/index.ts"],
       "@edthewise/shared-ui-components": ["libs/shared-ui-components/src/index.ts"]
     }
