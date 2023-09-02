@@ -1,4 +1,7 @@
 export const TOKENS = {
+  /**
+   * Route Services tokens
+   */
   CompeteExamCardRouteServiceToken: Symbol.for("CompeteExamCardRouteServiceToken"),
   CompeteExamResultRouteServiceToken: Symbol.for("CompeteExamResultRouteServiceToken"),
   CompeteHomeRouteServiceToken: Symbol.for("CompeteHomeRouteServiceToken"),
@@ -8,4 +11,12 @@ export const TOKENS = {
   LearnExamStarterRouteServiceToken: Symbol.for("LearnExamStarterRouteServiceToken"),
   LearnHomeRouteServiceToken: Symbol.for("LearnHomeRouteServiceToken"),
   LearnListRouteServiceToken: Symbol.for("LearnListRouteServiceToken"),
+  /**
+   * Store tokens
+   */
+  QuestionsStoreToken: Symbol.for("QuestionsStoreToken"),
+  /**
+   * Services tokens
+   */
+  QuestionsServiceToken: Symbol.for("QuestionsServiceToken"),
 };

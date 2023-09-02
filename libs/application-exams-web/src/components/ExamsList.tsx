@@ -3,11 +3,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { CardComponent, AvatarDropDownMenu, HeaderWithLogo } from "@edthewise/shared-ui-components";
+import { CardComponent, HeaderWithLogo } from "@edthewise/shared-ui-components";
 import { Container } from "@mui/material";
-import headLogo from "../assets/headLogo.png";
 import { IExamsListProps } from "./IExamsListProps";
-import { HeadLogo } from "@edthewise/application-assets-web";
 
 interface TabPanelProps {
   children?: React.ReactNode;

@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React from "react";
 import { useRouterStore } from "mobx-state-router";
 import { CardComponent, ICardComponentProps, AvatarDropDownMenu } from "@edthewise/shared-ui-components";
 import homeEdPic from "../../assets/ed-2.png";
 import { Box, Container } from "@mui/material";
-import { userStore } from "@edthewise/application-stores-web";
 
 export const HomePage = (props: any) => {
   const routerStore = useRouterStore();
@@ -46,12 +45,6 @@ export const HomePage = (props: any) => {
       onClick: learnNavigationClick,
     },
   ];
-
-  const handleClick = () => {
-    routerStore.goTo("department", {
-      params: { id: "electronics" },
-    });
-  };
 
   return (
     <>

@@ -1,6 +1,4 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import { ICardComponentProps } from "@edthewise/shared-ui-components";
 import { useRouterStore } from "mobx-state-router";
 import { ExamsList } from "@edthewise/application-exams-web";

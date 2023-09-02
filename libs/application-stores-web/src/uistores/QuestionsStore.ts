@@ -1,25 +1,22 @@
 import { IExamCardData } from "@edthewise/application-exams-web";
-import { FMQuestions } from "@edthewise/foundation-appwrite";
+import { TOKENS } from "@edthewise/common-tokens-web";
+import { FMQuestions, QuestionsService } from "@edthewise/foundation-appwrite";
+import { inject, injectable } from "inversify";
 import { action, computed, makeAutoObservable } from "mobx";
 import "reflect-metadata";
 
-// Not exactly a UI store now
-export class QuestionsUiStore {
-  private currentSubjectTitle: string;
-  private questionsOrder: string[];
-  private totalQNumber: number;
-
+@injectable()
+export class QuestionsStore {
   private qp1Desc: string;
   private currQNumber: string;
   private qTableData: any[];
   private qp2: string;
   private qp3: string;
   private answerOptions: { label: string; value: string }[];
+  private totalQNumber: number;
 
-  constructor() {
+  constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
     makeAutoObservable(this);
-    this.currentSubjectTitle = "";
-    this.questionsOrder = [];
     this.currQNumber = "";
     this.qp1Desc = "";
     this.qTableData = [];
@@ -27,6 +24,7 @@ export class QuestionsUiStore {
     this.qp3 = "";
     this.answerOptions = [];
     this.totalQNumber = 0;
+    this.questionsService = questionsService;
   }
 
   @computed
@@ -48,17 +46,8 @@ export class QuestionsUiStore {
     return this.currQNumber;
   }
 
-  @action
-  setCurrentSubjectTitle(subjectTitles: string) {
-    this.currentSubjectTitle = subjectTitles;
-  }
-
-  @action
-  setQuestionsOrder(questionsOrder: string[]) {
-    this.questionsOrder = questionsOrder;
-  }
-
   setFirstQuestionSet() {
+    const question = this.questionsService.getFirstQuestion();
     this.currQNumber = FMQuestions.QuestionsPool[0].MCQ[0].Qid ? FMQuestions.QuestionsPool[0].MCQ[0].Qid : "1";
     this.qp1Desc = FMQuestions.QuestionsPool[0].MCQ[0].QP1 ? FMQuestions.QuestionsPool[0].MCQ[0].QP1 : "";
 
@@ -72,5 +61,3 @@ export class QuestionsUiStore {
     this.totalQNumber = FMQuestions.QuestionsPool[0].MCQ.length;
   }
 }
-
-export const questionsUiStore = new QuestionsUiStore();

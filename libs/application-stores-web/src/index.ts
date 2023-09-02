@@ -3,4 +3,4 @@ export * from "./stores/ExamStore";
 
 // ui stores
 export * from "./uistores/CompeteListUiStore";
-export * from "./uistores/QuestionsUiStore";
+export * from "./uistores/QuestionsStore";

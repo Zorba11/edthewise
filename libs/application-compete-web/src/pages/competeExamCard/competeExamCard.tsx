@@ -1,9 +1,12 @@
 import { ExamCard, IExamCardProps } from "@edthewise/application-exams-web";
-import { questionsUiStore } from "@edthewise/application-stores-web";
+import { QuestionsStore } from "@edthewise/application-stores-web";
+import { container } from "@edthewise/common-inversify";
+import { TOKENS } from "@edthewise/common-tokens-web";
 import { useRouterStore } from "mobx-state-router";
 
 export const CompeteExamCard = () => {
   const routerStore = useRouterStore();
+  const questionsStore = container.get<QuestionsStore>(TOKENS.QuestionsStoreToken);
 
   const goToCompeteExamResult = (event: any) => {
     event.preventDefault();
@@ -31,7 +34,7 @@ export const CompeteExamCard = () => {
   const examCardProps: IExamCardProps = {
     onFinishHandler: onFinishHandler,
     withTimer: true,
-    questionData: questionsUiStore.currentQuestion.questionData,
+    questionData: questionsStore.currentQuestion.questionData,
   };
 
   return <ExamCard {...examCardProps} />;
