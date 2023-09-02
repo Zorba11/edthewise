@@ -1,18 +1,18 @@
 import { competeListUiStore } from "@edthewise/application-stores-web";
+import { injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
 
-export const onEnterCompeteList = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-  return Promise.resolve();
-};
+@injectable()
+export class CompeteListRouteService {
+  onEnterCompeteList = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    return Promise.resolve();
+  };
 
-export const beforeEnterCompeteList = async (
-  fromState: RouterState,
-  toState: RouterState,
-  routerStore: RouterStore,
-) => {
-  const subjectTitle = toState.queryParams.subject;
+  beforeEnterCompeteList = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    const subjectTitle = toState.queryParams.subject;
 
-  competeListUiStore.setCurrentSubjectTitle(subjectTitle);
+    competeListUiStore.setCurrentSubjectTitle(subjectTitle);
 
-  return Promise.resolve();
-};
+    return Promise.resolve();
+  };
+}

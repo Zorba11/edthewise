@@ -1,15 +1,13 @@
 import {
   CompeteExamCardRouteService,
-  beforeEnterCompeteHome,
-  beforeEnterCompeteList,
-  onEnterCompeteExamResult,
-  onEnterCompeteHome,
-  onEnterCompeteList,
-  onEnterLearnExamCard,
-  onEnterLearnExamResult,
-  onEnterLearnExamStarter,
-  onEnterLearnHome,
-  onEnterLearnList,
+  CompeteExamResultRouteService,
+  CompeteHomeRouteService,
+  CompeteListRouteService,
+  LearnExamCardRouteService,
+  LearnExamResultRouteService,
+  LearnExamStarterRouteService,
+  LearnHomeRouteService,
+  LearnListRouteService,
 } from "@edthewise/application-routing-web";
 import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
@@ -18,6 +16,18 @@ import { browserHistory, createRouterState, HistoryAdapter, Route, RouterStore }
 const notFound = createRouterState("notFound");
 
 const competeExamCardRouteService = container.get<CompeteExamCardRouteService>(TOKENS.CompeteExamCardRouteServiceToken);
+const competeExamResultRouteService = container.get<CompeteExamResultRouteService>(
+  TOKENS.CompeteExamResultRouteServiceToken,
+);
+const competeHomeRouteService = container.get<CompeteHomeRouteService>(TOKENS.CompeteHomeRouteServiceToken);
+const competeListRouteService = container.get<CompeteListRouteService>(TOKENS.CompeteListRouteServiceToken);
+const learnExamCardRouteService = container.get<LearnExamCardRouteService>(TOKENS.LearnExamCardRouteServiceToken);
+const learnExamResultRouteService = container.get<LearnExamResultRouteService>(TOKENS.LearnExamResultRouteServiceToken);
+const learnExamStarterRouteService = container.get<LearnExamStarterRouteService>(
+  TOKENS.LearnExamStarterRouteServiceToken,
+);
+const learnHomeRouteService = container.get<LearnHomeRouteService>(TOKENS.LearnHomeRouteServiceToken);
+const learnListRouteService = container.get<LearnListRouteService>(TOKENS.LearnListRouteServiceToken);
 
 export const routes: Route[] = [
   {
@@ -35,29 +45,29 @@ export const routes: Route[] = [
   {
     name: "learnHome",
     pattern: "/learn-home",
-    onEnter: onEnterLearnHome,
+    onEnter: learnHomeRouteService.onEnterLearnHome,
   },
   {
     name: "learnList",
     pattern: "/learn-list/:subject",
-    onEnter: onEnterLearnList,
+    onEnter: learnListRouteService.onEnterLearnList,
   },
   {
     name: "learnExamStarter",
     pattern: "/learn-exam-starter/:id",
-    onEnter: onEnterLearnExamStarter,
+    onEnter: learnExamStarterRouteService.onEnterLearnExamStarter,
   },
   {
     name: "competeHome",
     pattern: "/compete-home",
-    onEnter: onEnterCompeteHome,
-    beforeEnter: beforeEnterCompeteHome,
+    onEnter: competeHomeRouteService.onEnterCompeteHome,
+    beforeEnter: competeHomeRouteService.beforeEnterCompeteHome,
   },
   {
     name: "competeList",
     pattern: "/compete-list/?=subject",
-    onEnter: onEnterCompeteList,
-    beforeEnter: beforeEnterCompeteList,
+    onEnter: competeListRouteService.onEnterCompeteList,
+    beforeEnter: competeListRouteService.beforeEnterCompeteList,
   },
   {
     name: "notFound",
@@ -72,17 +82,17 @@ export const routes: Route[] = [
   {
     name: "learnExamCard",
     pattern: "/learn-exam/:id",
-    onEnter: onEnterLearnExamCard,
+    onEnter: learnExamCardRouteService.onEnterLearnExamCard,
   },
   {
     name: "learnExamResult",
     pattern: "/learn-exam-result/:id",
-    onEnter: onEnterLearnExamResult,
+    onEnter: learnExamResultRouteService.onEnterLearnExamResult,
   },
   {
     name: "competeExamResult",
     pattern: "/compete-exam-result/:id",
-    onEnter: onEnterCompeteExamResult,
+    onEnter: competeExamResultRouteService.onEnterCompeteExamResult,
   },
 ];
 

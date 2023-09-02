@@ -1,6 +1,9 @@
+import { injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
 
-export const onEnterLearnList = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-
-  return Promise.resolve();
+@injectable()
+export class LearnListRouteService {
+  onEnterLearnList = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    return Promise.resolve();
+  };
 }
