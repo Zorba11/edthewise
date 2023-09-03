@@ -36,7 +36,7 @@ export const CompeteHome = () => {
     });
   };
 
-  const mediCalTopics: ICardComponentProps[] = examStore.subjectTitles.map((title, index) => ({
+  const examTopics: ICardComponentProps[] = examStore.subjectTitles.map((title, index) => ({
     id: index + 1,
     title,
     hoverColor: BUTTON_HOVER_COLOR,
@@ -46,5 +46,5 @@ export const CompeteHome = () => {
     onClick: () => competeExamSubjectNavigationClick(title),
   }));
 
-  return <ExamsList showBadge={true} tabs={domains} examsList={mediCalTopics} />;
+  return <ExamsList showBadge={true} tabs={domains} examsList={examTopics} />;
 };

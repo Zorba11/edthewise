@@ -1,5 +1,5 @@
-export const QuestionEntryForm = (props: any) => {
-  return <div>Hello</div>;
+export const AdminQuestionEntryForm = (props: any) => {
+  return <div>Hi00</div>;
 };
 
 /**
