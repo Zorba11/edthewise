@@ -1,8 +1,7 @@
 import { IExamCardData } from "@edthewise/application-exams-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { FMQuestions, QuestionsService } from "@edthewise/foundation-appwrite";
+import { QuestionsService } from "@edthewise/foundation-appwrite";
 import { inject, injectable } from "inversify";
-import { action, computed, makeAutoObservable, observable } from "mobx";
 import "reflect-metadata";
 import { Mappers } from "../utils/Mappers";
 
@@ -15,11 +14,9 @@ export class QuestionsStore {
   private qp3: string;
   private answerOptions: { label: string; value: string }[];
   private totalQNumber: number;
-  @observable
   private _currentQuestion: IExamCardData;
 
   constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
-    makeAutoObservable(this);
     this.currQNumber = "0";
     this.qp1Desc = "";
     this.qTableData = [];
@@ -31,17 +28,14 @@ export class QuestionsStore {
     this._currentQuestion = {} as IExamCardData;
   }
 
-  @computed
   get currentQuestion(): IExamCardData {
     return this._currentQuestion;
   }
 
-  @computed
   get currentQuestionNumber(): string {
     return this.currQNumber;
   }
 
-  @action
   async setFirstQuestionSet() {
     try {
       const question = await this.questionsService.getFirstQuestion();
