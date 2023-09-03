@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@edthewise/application-admin-web": ["libs/application-admin-web/src/index.ts"],
       "@edthewise/application-assets-web": ["libs/application-assets-web/src/index.ts"],
       "@edthewise/application-compete-web": ["libs/application-compete-web/src/index.ts"],
       "@edthewise/application-exams-web": ["libs/application-exams-web/src/index.ts"],
