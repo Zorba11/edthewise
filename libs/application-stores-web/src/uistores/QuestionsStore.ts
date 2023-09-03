@@ -2,8 +2,9 @@ import { IExamCardData } from "@edthewise/application-exams-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { FMQuestions, QuestionsService } from "@edthewise/foundation-appwrite";
 import { inject, injectable } from "inversify";
-import { action, computed, makeAutoObservable } from "mobx";
+import { action, computed, makeAutoObservable, observable } from "mobx";
 import "reflect-metadata";
+import { Mappers } from "../utils/Mappers";
 
 @injectable()
 export class QuestionsStore {
@@ -14,10 +15,12 @@ export class QuestionsStore {
   private qp3: string;
   private answerOptions: { label: string; value: string }[];
   private totalQNumber: number;
+  @observable
+  private _currentQuestion: IExamCardData;
 
   constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
     makeAutoObservable(this);
-    this.currQNumber = "";
+    this.currQNumber = "0";
     this.qp1Desc = "";
     this.qTableData = [];
     this.qp2 = "";
@@ -25,20 +28,12 @@ export class QuestionsStore {
     this.answerOptions = [];
     this.totalQNumber = 0;
     this.questionsService = questionsService;
+    this._currentQuestion = {} as IExamCardData;
   }
 
   @computed
   get currentQuestion(): IExamCardData {
-    return {
-      questionData: {
-        qNumber: this.currQNumber,
-        qp1desc: this.qp1Desc,
-        qTableData: this.qTableData,
-        qp2: this.qp2,
-        qp3: this.qp3,
-        answerOptions: this.answerOptions,
-      },
-    };
+    return this._currentQuestion;
   }
 
   @computed
@@ -46,18 +41,16 @@ export class QuestionsStore {
     return this.currQNumber;
   }
 
-  setFirstQuestionSet() {
-    const question = this.questionsService.getFirstQuestion();
-    this.currQNumber = FMQuestions.QuestionsPool[0].MCQ[0].Qid ? FMQuestions.QuestionsPool[0].MCQ[0].Qid : "1";
-    this.qp1Desc = FMQuestions.QuestionsPool[0].MCQ[0].QP1 ? FMQuestions.QuestionsPool[0].MCQ[0].QP1 : "";
+  @action
+  async setFirstQuestionSet() {
+    try {
+      const question = await this.questionsService.getFirstQuestion();
 
-    this.qTableData = FMQuestions.QuestionsPool[0].MCQ[0].QTable as any[];
-
-    this.qp2 = FMQuestions.QuestionsPool[0].MCQ[0].QP2 ? FMQuestions.QuestionsPool[0].MCQ[0].QP2 : "";
-    this.qp3 = FMQuestions.QuestionsPool[0].MCQ[0].QP3 ? FMQuestions.QuestionsPool[0].MCQ[0].QP3 : "";
-
-    this.answerOptions = FMQuestions.QuestionsPool[0].MCQ[0].Options ? FMQuestions.QuestionsPool[0].MCQ[0].Options : [];
-
-    this.totalQNumber = FMQuestions.QuestionsPool[0].MCQ.length;
+      if (question) {
+        this._currentQuestion = Mappers.mapQuestionToCard(question.documents[0]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

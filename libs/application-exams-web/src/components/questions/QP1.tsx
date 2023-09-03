@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Paper, Typography } from "@mui/material";
 
 interface IExamCardProps {
-  qNumber: string;
+  qNumber: number;
   desc: string;
 }
 

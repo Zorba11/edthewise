@@ -15,8 +15,8 @@ export class CompeteExamCardRouteService {
     return Promise.resolve();
   };
 
-  beforeEnterCompeteCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-    this.questionsUiStore.setFirstQuestionSet();
+  beforeEnterCompeteCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    await this.questionsUiStore.setFirstQuestionSet();
 
     return Promise.resolve();
   };
