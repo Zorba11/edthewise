@@ -1,0 +1,34 @@
+{
+  "name": "ed-the-wise-admin-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ed-the-wise-admin-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/ed-the-wise-admin-e2e/cypress.json",
+        "devServerTarget": "ed-the-wise-admin:serve:development",
+        "testingType": "e2e",
+        "tsConfig": "apps/ed-the-wise-admin-e2e/tsconfig.json"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "ed-the-wise-admin:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "ed-the-wise-admin:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/ed-the-wise-admin-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["ed-the-wise-admin"]
+}

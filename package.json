@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start-web": "nx serve edthewise-web",
+    "start-admin": "nx serve ed-the-wise-admin",
     "lint-web": "nx lint edthewise-web",
     "lint-application-users-web": "nx lint application-users-web",
     "start-gpt": "nx run gpt4-azure-api:serve"
@@ -64,7 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "babel-jest": "^29.4.1",
-    "cypress": "^4.2.0",
+    "cypress": "^12.16.0",
     "eslint": "~8.15.0",
     "eslint-config-next": "13.4.1",
     "eslint-config-prettier": "8.1.0",
