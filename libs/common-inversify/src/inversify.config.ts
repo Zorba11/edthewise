@@ -1,3 +1,4 @@
+import { AdminQStore } from "@edthewise/application-admin-stores-web";
 import {
   CompeteExamCardRouteService,
   CompeteExamResultRouteService,
@@ -10,8 +11,9 @@ import {
   LearnListRouteService,
 } from "@edthewise/application-routing-web";
 import { QuestionsStore } from "@edthewise/application-stores-web";
-import { TOKENS } from "@edthewise/common-tokens-web";
+import { ADMIN_TOKENS, TOKENS } from "@edthewise/common-tokens-web";
 import { QuestionsService } from "@edthewise/foundation-appwrite";
+import { AdminQService } from "@edthewise/foundation-communication-admin";
 import { Container } from "inversify";
 
 const container = new Container();
@@ -40,5 +42,17 @@ container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).in
  * Service Bindings to IOC container
  */
 container.bind<QuestionsService>(TOKENS.QuestionsServiceToken).to(QuestionsService).inSingletonScope();
+
+if ((process.env.NX_APP_NAME as string) === "edthewise-ADMIN") {
+  /**
+   * Store bindings
+   */
+  container.bind<AdminQStore>(ADMIN_TOKENS.AdminQStoreToken).to(AdminQStore).inSingletonScope();
+
+  /**
+   * Service bindings
+   * */
+  container.bind<AdminQService>(ADMIN_TOKENS.AdminQServiceToken).to(AdminQService).inSingletonScope();
+}
 
 export { container };

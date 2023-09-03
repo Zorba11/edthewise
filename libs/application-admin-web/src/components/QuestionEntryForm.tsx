@@ -1,3 +1,6 @@
+import { AdminQStore, IAdminQStore } from "@edthewise/application-admin-stores-web";
+import { container } from "@edthewise/common-inversify";
+import { ADMIN_TOKENS, TOKENS } from "@edthewise/common-tokens-web";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
@@ -16,6 +19,8 @@ export const AdminQuestionEntryForm = (props: any) => {
     qComponentOrder: "",
   });
 
+  const adminQStore: IAdminQStore = container.get<AdminQStore>(ADMIN_TOKENS.AdminQStoreToken);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -26,6 +31,7 @@ export const AdminQuestionEntryForm = (props: any) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    adminQStore.createQuestionDocument();
     // Do something with the form data
   };
 

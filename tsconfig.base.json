@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@edthewise/application-admin-stores-web": ["libs/application-admin-stores-web/src/index.ts"],
       "@edthewise/application-admin-web": ["libs/application-admin-web/src/index.ts"],
       "@edthewise/application-assets-web": ["libs/application-assets-web/src/index.ts"],
       "@edthewise/application-compete-web": ["libs/application-compete-web/src/index.ts"],
@@ -28,6 +29,7 @@
       "@edthewise/common-inversify": ["libs/common-inversify/src/index.ts"],
       "@edthewise/common-tokens-web": ["libs/common-tokens-web/src/index.ts"],
       "@edthewise/foundation-appwrite": ["libs/foundation-appwrite/src/index.ts"],
+      "@edthewise/foundation-communication-admin": ["libs/foundation-communication-admin/src/index.ts"],
       "@edthewise/shared-ui-components": ["libs/shared-ui-components/src/index.ts"]
     }
   },

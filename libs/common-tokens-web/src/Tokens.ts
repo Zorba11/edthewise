@@ -20,3 +20,12 @@ export const TOKENS = {
    */
   QuestionsServiceToken: Symbol.for("QuestionsServiceToken"),
 };
+
+export const ADMIN_TOKENS = {
+  /**
+   * ADMin app tokens
+   */
+
+  AdminQStoreToken: Symbol.for("AdminQStoreToken"),
+  AdminQServiceToken: Symbol.for("AdminQServiceToken"),
+};
