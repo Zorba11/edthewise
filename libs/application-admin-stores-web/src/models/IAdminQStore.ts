@@ -1,3 +1,9 @@
+import { IExamCardData } from "@edthewise/foundation-appwrite";
+
+export interface IQuestionData {
+  qNumber: number;
+}
+
 export interface IAdminQStore {
-  createQuestionDocument(): boolean;
+  createQuestionDocument(qData: any, collectionTitle: string): Promise<boolean>;
 }

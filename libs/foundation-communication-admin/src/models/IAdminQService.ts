@@ -1,3 +1,3 @@
 export interface IAdminQService {
-  createQuestionDocument(): boolean;
+  createQuestionDocument(collectionTitle: string): Promise<boolean>;
 }

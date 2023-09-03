@@ -1,10 +1,16 @@
 import { AdminQStore, IAdminQStore } from "@edthewise/application-admin-stores-web";
+import { InputValidator } from "@edthewise/application-fairness-web";
 import { container } from "@edthewise/common-inversify";
 import { ADMIN_TOKENS, TOKENS } from "@edthewise/common-tokens-web";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { IExamCardData, client } from "@edthewise/foundation-appwrite";
+import { Alert, Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
-export const AdminQuestionEntryForm = (props: any) => {
+export interface IAdminQuestionEntryFormProps {
+  title: string;
+}
+
+export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
   const [formData, setFormData] = useState({
     qp1: "",
     qp2: "",
@@ -19,7 +25,13 @@ export const AdminQuestionEntryForm = (props: any) => {
     qComponentOrder: "",
   });
 
+  const [error, setError] = useState("");
+
+  const collectionTitle = props.title;
+
   const adminQStore: IAdminQStore = container.get<AdminQStore>(ADMIN_TOKENS.AdminQStoreToken);
+
+  const inputValidator = new InputValidator();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -29,9 +41,12 @@ export const AdminQuestionEntryForm = (props: any) => {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    adminQStore.createQuestionDocument();
+
+    inputValidator.validateAdminQData(formData);
+
+    await adminQStore.createQuestionDocument({}, collectionTitle);
     // Do something with the form data
   };
 
@@ -40,22 +55,40 @@ export const AdminQuestionEntryForm = (props: any) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
         height: "100vh",
       }}
     >
       <Box
         sx={{
-          marginTop: "10rem",
+          marginTop: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "fixed",
+          top: 0,
+          backgroundColor: "#fff",
+          zIndex: 1,
+          paddingBottom: "2rem",
         }}
       >
-        <Typography variant="h2" component="h1" sx={{ mb: 2 }}>
-          EdTheWise Admin Board
+        <Typography variant="h3" component="h1" sx={{ mb: 2 }}>
+          EdTheWise
+        </Typography>
+        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+          Q form for{" "}
+          <span
+            style={{
+              color: "#3f51b5",
+            }}
+          >
+            ({collectionTitle})
+          </span>
         </Typography>
       </Box>
 
-      <Box
+      <Paper
         component="form"
         onSubmit={handleSubmit}
         sx={{
@@ -63,8 +96,14 @@ export const AdminQuestionEntryForm = (props: any) => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          width: "100%",
+          width: "80%",
+          position: "sticky",
+          backgroundColor: "#f5f5f5",
+          height: "100vh",
+          borderRadius: "1rem",
+          marginTop: "11rem",
         }}
+        elevation={3}
       >
         <TextField
           label="QP1"
@@ -165,10 +204,18 @@ export const AdminQuestionEntryForm = (props: any) => {
           variant="outlined"
           sx={{ width: "50%", height: "100%" }}
         />
-        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+        {error && <Alert severity="error">{error}</Alert>}
+        <Button
+          style={{
+            marginBottom: "2rem",
+          }}
+          type="submit"
+          variant="contained"
+          sx={{ mt: 2 }}
+        >
           Submit
         </Button>
-      </Box>
+      </Paper>
     </Box>
   );
 };

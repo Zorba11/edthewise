@@ -13,3 +13,6 @@ export * from "./db/collections";
 export * from "./model-db/ACAACollection";
 
 export * from "./models/questions/IExamCardData";
+
+// utils
+export * from "./utils/CollectionsMapper";

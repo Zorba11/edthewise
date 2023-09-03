@@ -13,7 +13,7 @@ import {
 import { QuestionsStore } from "@edthewise/application-stores-web";
 import { ADMIN_TOKENS, TOKENS } from "@edthewise/common-tokens-web";
 import { QuestionsService } from "@edthewise/foundation-appwrite";
-import { AdminQService } from "@edthewise/foundation-communication-admin";
+import { AdminLoginService, AdminQService } from "@edthewise/foundation-communication-admin";
 import { Container } from "inversify";
 
 const container = new Container();
@@ -53,6 +53,7 @@ if ((process.env.NX_APP_NAME as string) === "edthewise-ADMIN") {
    * Service bindings
    * */
   container.bind<AdminQService>(ADMIN_TOKENS.AdminQServiceToken).to(AdminQService).inSingletonScope();
+  container.bind<AdminLoginService>(ADMIN_TOKENS.AdminLoginServiceToken).to(AdminLoginService).inSingletonScope();
 }
 
 export { container };

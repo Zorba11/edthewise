@@ -13,9 +13,14 @@ export class AdminQStore implements IAdminQStore {
     this.adminQService = adminQService;
   }
 
-  createQuestionDocument(): boolean {
-    console.log("createQuestionDocument");
-    this.adminQService.createQuestionDocument();
-    return true;
+  async createQuestionDocument(qData: any, collectionTitle: string): Promise<boolean> {
+    try {
+      console.log("createQuestionDocument");
+      await this.adminQService.createQuestionDocument(collectionTitle);
+      return true;
+    } catch (error) {
+      console.log("createQuestionDocument - error: ", error);
+      return false;
+    }
   }
 }
