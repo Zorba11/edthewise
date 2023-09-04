@@ -7,9 +7,9 @@ export class AdminLoginService {
     try {
       const email = "zorbaspixel@gmail.com";
       const pw = "12345678";
-      const adminUser = account.createEmailSession(email, pw);
+      const adminUser = await account.createEmailSession(email, pw);
 
-      if (adminUser) client.setJWT((await adminUser).providerAccessToken);
+      if (adminUser) client.setJWT(adminUser.providerAccessToken);
     } catch (error) {
       console.log("Service - login - error: ", error);
     }

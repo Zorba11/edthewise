@@ -1,3 +1,5 @@
+import { IValidatedQData } from "./IValidatedQData";
+
 export interface IAdminQService {
-  createQuestionDocument(collectionTitle: string): Promise<boolean>;
+  createQuestionDocument(qData: IValidatedQData, collectionTitle: string): Promise<boolean>;
 }

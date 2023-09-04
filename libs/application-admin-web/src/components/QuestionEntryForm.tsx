@@ -5,6 +5,8 @@ import { ADMIN_TOKENS, TOKENS } from "@edthewise/common-tokens-web";
 import { IExamCardData, client } from "@edthewise/foundation-appwrite";
 import { Alert, Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { IMCQData } from "../models/IMCQData";
+import { IValidatedQData } from "@edthewise/foundation-communication-admin";
 
 export interface IAdminQuestionEntryFormProps {
   title: string;
@@ -16,12 +18,11 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
     qp2: "",
     qp3: "",
     qp4: "",
-    qTable1: [],
-    qTable2: [],
-    qOptions: [],
+    qTable1: "",
+    qTable2: "",
+    qOptions: "",
     year: "",
     qAnswer: "",
-    qId: "",
     qComponentOrder: "",
   });
 
@@ -43,10 +44,16 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError("");
 
-    inputValidator.validateAdminQData(formData);
+    if (!formData.qp1 || !formData.qComponentOrder || !formData.qAnswer || !formData.qTable1) {
+      setError("The highlighted fields are required, if you don't have the data, enter 'NA'");
+      return;
+    }
 
-    await adminQStore.createQuestionDocument({}, collectionTitle);
+    const validatedFormData = inputValidator.validateAdminQData(formData, collectionTitle);
+
+    await adminQStore.createQuestionDocument(validatedFormData, collectionTitle);
     // Do something with the form data
   };
 
@@ -106,6 +113,7 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
         elevation={3}
       >
         <TextField
+          multiline
           label="QP1"
           name="qp1"
           value={formData.qp1}
@@ -113,8 +121,11 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           margin="normal"
           variant="outlined"
           sx={{ width: "50%", height: "100%" }}
+          error={error && !formData.qp1 ? true : false}
+          helperText={error && !formData.qp1 ? "This field is required" : null}
         />
         <TextField
+          multiline
           label="QP2"
           name="qp2"
           value={formData.qp2}
@@ -124,6 +135,7 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           sx={{ width: "50%", height: "100%" }}
         />
         <TextField
+          multiline
           label="QP3"
           name="qp3"
           value={formData.qp3}
@@ -133,6 +145,7 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           sx={{ width: "50%", height: "100%" }}
         />
         <TextField
+          multiline
           label="QP4"
           name="qp4"
           value={formData.qp4}
@@ -142,6 +155,7 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           sx={{ width: "50%", height: "100%" }}
         />
         <TextField
+          multiline
           label="QTable1"
           name="qTable1"
           value={formData.qTable1}
@@ -149,8 +163,11 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           margin="normal"
           variant="outlined"
           sx={{ width: "50%", height: "100%" }}
+          error={error && !formData.qp1 ? true : false}
+          helperText={error && !formData.qp1 ? "This field is required" : null}
         />
         <TextField
+          multiline
           label="QTable2"
           name="qTable2"
           value={formData.qTable2}
@@ -160,6 +177,7 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           sx={{ width: "50%", height: "100%" }}
         />
         <TextField
+          multiline
           label="QOptions"
           name="qOptions"
           value={formData.qOptions}
@@ -167,8 +185,11 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           margin="normal"
           variant="outlined"
           sx={{ width: "50%", height: "100%" }}
+          error={error && !formData.qp1 ? true : false}
+          helperText={error && !formData.qp1 ? "This field is required" : null}
         />
         <TextField
+          multiline
           label="Year"
           name="year"
           value={formData.year}
@@ -178,6 +199,7 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           sx={{ width: "50%", height: "100%" }}
         />
         <TextField
+          multiline
           label="QAnswer"
           name="qAnswer"
           value={formData.qAnswer}
@@ -185,17 +207,11 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           margin="normal"
           variant="outlined"
           sx={{ width: "50%", height: "100%" }}
+          error={error && !formData.qp1 ? true : false}
+          helperText={error && !formData.qp1 ? "This field is required" : null}
         />
         <TextField
-          label="QId"
-          name="qId"
-          value={formData.qId}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
-          sx={{ width: "50%", height: "100%" }}
-        />
-        <TextField
+          multiline
           label="QComponent_Order"
           name="qComponentOrder"
           value={formData.qComponentOrder}
@@ -203,6 +219,8 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           margin="normal"
           variant="outlined"
           sx={{ width: "50%", height: "100%" }}
+          error={error && !formData.qp1 ? true : false}
+          helperText={error && !formData.qp1 ? "This field is required" : null}
         />
         {error && <Alert severity="error">{error}</Alert>}
         <Button

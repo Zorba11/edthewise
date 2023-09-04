@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { IAdminQStore } from "../models/IAdminQStore";
 import { ADMIN_TOKENS } from "@edthewise/common-tokens-web";
-import { IAdminQService } from "@edthewise/foundation-communication-admin";
+import { IAdminQService, IValidatedQData } from "@edthewise/foundation-communication-admin";
 
 @injectable()
 export class AdminQStore implements IAdminQStore {
@@ -15,8 +15,7 @@ export class AdminQStore implements IAdminQStore {
 
   async createQuestionDocument(qData: any, collectionTitle: string): Promise<boolean> {
     try {
-      console.log("createQuestionDocument");
-      await this.adminQService.createQuestionDocument(collectionTitle);
+      await this.adminQService.createQuestionDocument(qData, collectionTitle);
       return true;
     } catch (error) {
       console.log("createQuestionDocument - error: ", error);
