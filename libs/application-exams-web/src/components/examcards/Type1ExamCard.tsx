@@ -16,6 +16,7 @@ export const Type1ExamCard = (props: IExamCardProps) => {
   const qp3 = props.questionData.qp3;
   const qp2 = props.questionData.qp2;
   const qTableData1 = props.questionData.qTableData1;
+  const disableSubmit = props?.disableSubmit ? props.disableSubmit : false;
 
   return (
     <Box
@@ -74,7 +75,7 @@ export const Type1ExamCard = (props: IExamCardProps) => {
                 width: "100%",
               }}
             >
-              <SubmitButton onClick={() => {}} />
+              <SubmitButton disable={disableSubmit} onClick={() => {}} />
             </Grid>
           </Grid>
         </Box>
@@ -109,26 +110,28 @@ export const Type1ExamCard = (props: IExamCardProps) => {
       )}
 
       {/* Question Navigation Box */}
-      <Box
-        sx={{
-          position: props.withTimer ? "relative" : "fixed",
-          right: props.withTimer ? "8rem" : "2rem",
-          top: props.withTimer ? "10rem" : "5rem",
-        }}
-      >
-        <QuestionNavigation totalQNumber={totalQNumber} />
-        {/* Left & Right Arrows */}
+      {props.withNavigation && (
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "3rem",
+            position: props.withTimer ? "relative" : "fixed",
+            right: props.withTimer ? "8rem" : "2rem",
+            top: props.withTimer ? "10rem" : "5rem",
           }}
         >
-          <LeftArrow />
-          <RightArrow />
+          <QuestionNavigation totalQNumber={totalQNumber} />
+          {/* Left & Right Arrows */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "3rem",
+            }}
+          >
+            <LeftArrow />
+            <RightArrow />
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 };

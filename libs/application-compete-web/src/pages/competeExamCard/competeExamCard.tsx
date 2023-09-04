@@ -35,6 +35,7 @@ export const CompeteExamCard = () => {
     onFinishHandler: onFinishHandler,
     withTimer: true,
     questionData: questionsStore.currentQuestion.questionData,
+    withNavigation: true,
   };
 
   return <ExamCard {...examCardProps} />;

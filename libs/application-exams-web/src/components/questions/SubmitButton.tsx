@@ -2,9 +2,13 @@ import { Box, Button } from "@mui/material";
 
 interface ISubmitButtonProps {
   onClick: () => void;
+  disable: boolean;
 }
 
-export const SubmitButton = ({ onClick }: ISubmitButtonProps) => {
+export const SubmitButton = ({ onClick, disable }: ISubmitButtonProps) => {
+  if (!disable) {
+    disable = true;
+  }
   return (
     <Box
       sx={{
@@ -26,6 +30,7 @@ export const SubmitButton = ({ onClick }: ISubmitButtonProps) => {
         }}
         variant="contained"
         onClick={onClick}
+        disabled={disable ? true : false}
       >
         Submit
       </Button>

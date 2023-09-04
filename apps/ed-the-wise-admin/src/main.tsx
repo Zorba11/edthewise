@@ -3,8 +3,8 @@ import * as ReactDOM from "react-dom/client";
 import App from "./app/app";
 import React from "react";
 import { Context } from "@redtea/react-inversify";
-import { container } from "@edthewise/common-inversify";
 import "reflect-metadata";
+import { container } from "@edthewise/common-admin-inversify";
 
 const rootElement = document.getElementById("root");
 if (rootElement) {

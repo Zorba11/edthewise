@@ -8,5 +8,6 @@ export interface IExamCardData {
     qOptions: { label: string; value: string }[];
     qTableData2?: { label: string; value: string }[];
     qComponentOrder?: string;
+    qAnswer?: { label: string; value: string }[];
   };
 }

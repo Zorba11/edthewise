@@ -1,4 +1,5 @@
 export * from "./AdminQuestionStore/AdminQStore";
+export * from "./AdminQuestionStore/AdminQPreviewStore";
 
 /**
  * interfaces

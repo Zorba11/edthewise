@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@edthewise/application-admin-routing-web": ["libs/application-admin-routing-web/src/index.ts"],
       "@edthewise/application-admin-stores-web": ["libs/application-admin-stores-web/src/index.ts"],
       "@edthewise/application-admin-web": ["libs/application-admin-web/src/index.ts"],
       "@edthewise/application-assets-web": ["libs/application-assets-web/src/index.ts"],
@@ -26,6 +27,8 @@
       "@edthewise/application-routing-web": ["libs/application-routing-web/src/index.ts"],
       "@edthewise/application-stores-web": ["libs/application-stores-web/src/index.ts"],
       "@edthewise/application-users-web": ["libs/application-users-web/src/index.ts"],
+      "@edthewise/common-admin-inversify": ["libs/common-admin-inversify/src/index.ts"],
+      "@edthewise/common-admin-token": ["libs/common-admin-token/src/index.ts"],
       "@edthewise/common-base-inversify": ["common-base-inversify/src/index.ts"],
       "@edthewise/common-inversify": ["libs/common-inversify/src/index.ts"],
       "@edthewise/common-tokens-web": ["libs/common-tokens-web/src/index.ts"],

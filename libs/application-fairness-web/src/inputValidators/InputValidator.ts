@@ -2,27 +2,12 @@ import { IValidatedQData } from "@edthewise/foundation-communication-admin";
 
 export class InputValidator {
   validateAdminQData(qData: any, collectionTitle: string): any {
-    // const qTable1Object = parsedQTABLE1.reduce((acc: any, cur, index) => {
-    //   acc[`QTABLE1[${index}]`] = JSON.stringify(cur);
-    //   return acc;
-    // }, {});
-
-    // const qTable2Object = parsedQTABLE2.reduce((acc: any, cur, index) => {
-    //   acc[`QTABLE2[${index}]`] = JSON.stringify(cur);
-    //   return acc;
-    // }, {});
-
-    // const qOptionsObject = parsedQOptions.reduce((acc: any, cur, index) => {
-    //   acc[`QOPTIONS[${index}]`] = JSON.stringify(cur);
-    //   return acc;
-    // }, {});
-
     const QOPTIONS = this.convertStringToJson(qData.qOptions);
     const QTABLE1 = this.convertStringToJson(qData.qTable1);
     const QTABLE2 = this.convertStringToJson(qData.qTable2);
     const ANSWER = this.convertStringToJson(qData.qAnswer);
 
-    const Qid = `FM-MCQ-${Date.now().toPrecision}-${Math.floor(Math.random() * 10000)}`;
+    const Qid = `{Date.now().toPrecision}-${Math.floor(Math.random() * 10000)}`;
 
     const validatedQData = {
       QP1: qData.qp1,

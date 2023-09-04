@@ -2,33 +2,34 @@ import { injectable } from "inversify";
 import { IAdminQService } from "../models/IAdminQService";
 import { CollectionsMapper, ExamsDbId, database } from "@edthewise/foundation-appwrite";
 import { v4 as uuidv4 } from "uuid";
+import { AppwriteException } from "appwrite";
+import { IValidatedQData } from "../models/IValidatedQData";
 
 @injectable()
 export class AdminQService implements IAdminQService {
-  async createQuestionDocument(qData: any, collectionTitle: string): Promise<boolean> {
+  async createQuestionDocument(qData: any, collectionTitle: string): Promise<any> {
     const collectionId = CollectionsMapper.mapTitleToCollectionId(collectionTitle);
     const documentId = uuidv4();
-
-    // if (typeof qData.QOPTIONS["0"] !== "string") {
-    //   qData.QOPTIONS["0"] = String(qData.QOPTIONS["0"]);
-    // }
-    // if (typeof qData.QOPTIONS["1"] !== "string") {
-    //   qData.QOPTIONS["1"] = String(qData.QOPTIONS["0"]);
-    // }
-    // if (typeof qData.QOPTIONS["2"] !== "string") {
-    //   qData.QOPTIONS["2"] = String(qData.QOPTIONS["0"]);
-    // }
-    // if (typeof qData.QOPTIONS["3"] !== "string") {
-    //   qData.QOPTIONS["3"] = String(qData.QOPTIONS["0"]);
-    // }
-
-    // const qDataJson = JSON.stringify(qData);
     try {
       const newDocument = await database.createDocument(ExamsDbId, collectionId, documentId, qData);
-      return true;
+
+      if (newDocument.$id) {
+        console.log("Service - createQuestionDocument - newDocument.$id: ", newDocument.$id);
+      }
+      return newDocument;
     } catch (error) {
-      console.log("Service - createQuestionDocument - error: ", error);
-      return false;
+      throw new AppwriteException(String(error));
+    }
+  }
+
+  async updateQuestionDocument(qData: IValidatedQData, collectionTitle: string, documentId: string): Promise<any> {
+    try {
+      const collectionId = CollectionsMapper.mapTitleToCollectionId(collectionTitle);
+      const newDocument = await database.updateDocument(ExamsDbId, collectionId, documentId, qData);
+
+      return newDocument;
+    } catch (error) {
+      throw new AppwriteException(String(error));
     }
   }
 }

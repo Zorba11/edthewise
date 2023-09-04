@@ -52,7 +52,7 @@ export const Options = ({ options, onChange }: IOptionsProps) => {
                 <Grid
                   sx={{
                     position: "relative",
-                    left: "22rem",
+                    // left: "22rem",
                     width: "50%",
                   }}
                   item
