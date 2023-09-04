@@ -36,6 +36,7 @@ export const CompeteExamCard = () => {
     withTimer: true,
     questionData: questionsStore.currentQuestion.questionData,
     withNavigation: true,
+    disableSubmit: false,
   };
 
   return <ExamCard {...examCardProps} />;

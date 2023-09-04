@@ -6,9 +6,6 @@ interface ISubmitButtonProps {
 }
 
 export const SubmitButton = ({ onClick, disable }: ISubmitButtonProps) => {
-  if (!disable) {
-    disable = true;
-  }
   return (
     <Box
       sx={{

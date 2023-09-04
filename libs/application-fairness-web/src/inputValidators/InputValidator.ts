@@ -1,5 +1,3 @@
-import { IValidatedQData } from "@edthewise/foundation-communication-admin";
-
 export class InputValidator {
   validateAdminQData(qData: any, collectionTitle: string): any {
     const QOPTIONS = this.convertStringToJson(qData.qOptions);
@@ -7,7 +5,7 @@ export class InputValidator {
     const QTABLE2 = this.convertStringToJson(qData.qTable2);
     const ANSWER = this.convertStringToJson(qData.qAnswer);
 
-    const Qid = `{Date.now().toPrecision}-${Math.floor(Math.random() * 10000)}`;
+    const Qid = `${collectionTitle}-${Math.floor(Math.random() * 10000).toString()}`;
 
     const validatedQData = {
       QP1: qData.qp1,

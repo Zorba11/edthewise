@@ -40,3 +40,5 @@ container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).in
  * Service Bindings to IOC container
  */
 container.bind<QuestionsService>(TOKENS.QuestionsServiceToken).to(QuestionsService).inSingletonScope();
+
+export { container };

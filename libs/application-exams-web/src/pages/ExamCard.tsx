@@ -8,10 +8,10 @@ export const ExamCard = (props: any) => {
     : "QP1,QTable1,QP2,QP3,OP";
 
   const renderQCard = (qComponentOrder: string) => {
-    switch (qComponentOrder) {
-      case "QP1,QTable1,QP2,QP3,OP":
+    switch (qComponentOrder?.toLowerCase()) {
+      case "qp1,qtable1,qp2,qp3,op":
         return <Type1ExamCard {...props} />;
-      case "QP1,OP":
+      case "qp1,op":
         return <Type2ExamCard {...props} />;
       default:
         return <div>Not ABle to render card</div>;

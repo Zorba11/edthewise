@@ -29,6 +29,8 @@ export const AdminQPreview = (props: IAdminQPreviewProps) => {
     adminQStore.setCurrentFormData(null);
     adminQStore.setDataFromStore(false);
     routerStore.goTo("home");
+
+    // send to GPT Fine tuning
   };
 
   const handleUnhappyClick = (e: any) => {
