@@ -43,6 +43,10 @@ export const Options = ({ options, onChange }: IOptionsProps) => {
                     value={option.value}
                     control={<Radio />}
                     label={`${option.label}) ${option.value}`}
+                    sx={{
+                      textAlign: "left",
+                    }}
+                    labelPlacement="end"
                   />
                 </Grid>
               ))}

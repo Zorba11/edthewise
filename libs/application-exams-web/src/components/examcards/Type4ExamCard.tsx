@@ -1,20 +1,19 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper } from "@mui/material";
 import QP1 from "../questions/QP1";
 import { QTable } from "../questions/QTable";
-import { QP } from "../questions/QP";
 import { Options } from "../questions/Options";
 import { SubmitButton } from "../questions/SubmitButton";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../QuestionNavigation";
 import { IExamCardProps } from "../../pages/IExamCardProps";
 
-export const Type2ExamCard = (props: IExamCardProps) => {
+export const Type4ExamCard = (props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
   const qp1desc = props.questionData.qp1;
   const totalQNumber = 32;
   const answerOptions = props.questionData.qOptions;
-  const answer = props.questionData.qAnswer;
-  const disableSubmit = props?.disableSubmit ? true : false;
+  const qTableData1 = props.questionData.qTableData1;
+  const disableSubmit = props?.disableSubmit ? props.disableSubmit : false;
   const onSubmitHandler = props?.onSubmitHandler ? props.onSubmitHandler : () => ({});
 
   return (
@@ -32,12 +31,9 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           marginLeft: "7rem",
           marginTop: "3rem",
           width: "52rem",
-          // minHeight: "25rem",
-          // maxHeight: "42rem",
+          minHeight: "31rem",
           padding: "2rem",
           borderRadius: "1rem",
-          display: "flex", // Set display to "flex" to make the container adapt to the content inside
-          flexDirection: "column",
         }}
         elevation={4}
       >
@@ -51,12 +47,12 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           <Box
             sx={{
               display: "flex",
-              position: "relative",
-              top: "1rem",
             }}
           >
             <QP1 qNumber={qNumber} desc={qp1desc} />
           </Box>
+          {/* Question Table */}
+          <QTable data={qTableData1} />
         </Box>
         <Box
           sx={{
@@ -65,49 +61,34 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} container>
+            <Grid item xs={12}>
               <Options options={answerOptions} />
             </Grid>
-            {/* Answer Segment */}
-
-            {answer && (
-              <Box
-                sx={{
-                  marginTop: "1rem",
-                  width: "45rem",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  position: "relative",
-                  left: "2rem",
-                }}
-              >
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    fontWeight: "bold",
-                    position: "relative",
-                    top: "3rem",
-                    left: "1rem",
-                  }}
-                  component="h1"
-                >
-                  {answer && "Answer: " + answer[0].label + ") " + answer[0].value}
-                </Typography>
-              </Box>
-            )}
             <Grid
               sx={{
                 width: "100%",
-                marginTop: "5rem",
-                position: "relative",
-                bottom: "1rem",
               }}
             >
               <SubmitButton disable={disableSubmit} onSubmitHandler={onSubmitHandler} />
             </Grid>
           </Grid>
         </Box>
+        {/* Answer Segment */}
+        <Box
+          sx={{
+            marginTop: "1rem",
+            width: "45rem",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* <Typography visibility="visible" variant="body1" component="p">
+            Answer: Other, Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aut quasi a, nam itaque
+            illo mollitia dolorum? Iste perferendis repudiandae, cupiditate sunt incidunt, maiores tempora sint velit
+          </Typography> */}
+        </Box>
       </Paper>
+
       {/* Timer, Navigation Board, Left & Right Arrows */}
       {/* Timer */}
       {props.withTimer && (
@@ -121,6 +102,7 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           <Timer />
         </Box>
       )}
+
       {/* Question Navigation Box */}
       {props.withNavigation && (
         <Box

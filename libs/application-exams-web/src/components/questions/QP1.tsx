@@ -10,7 +10,14 @@ const ExamCard = ({ qNumber, desc }: IExamCardProps) => {
     <Paper elevation={0}>
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-          <Typography variant="subtitle1" component="h2">
+          <Typography
+            sx={{
+              position: "relative",
+              bottom: "1rem",
+            }}
+            variant="subtitle1"
+            component="h2"
+          >
             {`Question: ${qNumber}`}
           </Typography>
           <Typography variant="subtitle1" component="h2">

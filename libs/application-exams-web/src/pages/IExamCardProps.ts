@@ -5,4 +5,5 @@ export interface IExamCardProps extends IExamCardData {
   withTimer: boolean;
   withNavigation: boolean;
   disableSubmit?: boolean;
+  onSubmitHandler?: (event: any) => void;
 }

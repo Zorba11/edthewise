@@ -17,6 +17,7 @@ export const Type1ExamCard = (props: IExamCardProps) => {
   const qp2 = props.questionData.qp2;
   const qTableData1 = props.questionData.qTableData1;
   const disableSubmit = props?.disableSubmit ? props.disableSubmit : false;
+  const onSubmitHandler = props?.onSubmitHandler ? props.onSubmitHandler : () => ({});
 
   return (
     <Box
@@ -33,9 +34,10 @@ export const Type1ExamCard = (props: IExamCardProps) => {
           marginLeft: "7rem",
           marginTop: "3rem",
           width: "52rem",
-          minHeight: "40rem",
           padding: "2rem",
           borderRadius: "1rem",
+          display: "flex", // Set display to "flex" to make the container adapt to the content inside
+          flexDirection: "column", //
         }}
         elevation={4}
       >
@@ -75,7 +77,7 @@ export const Type1ExamCard = (props: IExamCardProps) => {
                 width: "100%",
               }}
             >
-              <SubmitButton disable={disableSubmit} onClick={() => {}} />
+              <SubmitButton disable={disableSubmit} onSubmitHandler={onSubmitHandler} />
             </Grid>
           </Grid>
         </Box>

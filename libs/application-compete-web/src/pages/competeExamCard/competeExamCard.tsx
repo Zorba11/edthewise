@@ -31,12 +31,18 @@ export const CompeteExamCard = () => {
     console.log("onFinishHandler");
   };
 
+  const onSubmitHandler = (event: any): void => {
+    event.preventDefault();
+    console.log("onSubmitHandler");
+  };
+
   const examCardProps: IExamCardProps = {
     onFinishHandler: onFinishHandler,
     withTimer: true,
     questionData: questionsStore.currentQuestion.questionData,
     withNavigation: true,
     disableSubmit: false,
+    onSubmitHandler: onSubmitHandler,
   };
 
   return <ExamCard {...examCardProps} />;

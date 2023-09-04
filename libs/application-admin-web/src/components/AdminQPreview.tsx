@@ -34,8 +34,8 @@ export const AdminQPreview = (props: IAdminQPreviewProps) => {
   };
 
   const handleUnhappyClick = (e: any) => {
-    adminQStore.setDataFromStore(true);
     e?.preventDefault();
+    adminQStore.setDataFromStore(true);
     routerStore.goTo("home");
   };
 

@@ -2,18 +2,19 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import QP1 from "../questions/QP1";
 import { QTable } from "../questions/QTable";
 import { QP } from "../questions/QP";
-import { Options } from "../questions/Options";
 import { SubmitButton } from "../questions/SubmitButton";
+import { Options } from "../questions/Options";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../QuestionNavigation";
 import { IExamCardProps } from "../../pages/IExamCardProps";
 
-export const Type2ExamCard = (props: IExamCardProps) => {
+export const Type3ExamCard = (props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
   const qp1desc = props.questionData.qp1;
+  const qp2 = props.questionData.qp2;
   const totalQNumber = 32;
   const answerOptions = props.questionData.qOptions;
-  const answer = props.questionData.qAnswer;
+  const answer = props?.questionData?.qAnswer;
   const disableSubmit = props?.disableSubmit ? true : false;
   const onSubmitHandler = props?.onSubmitHandler ? props.onSubmitHandler : () => ({});
 
@@ -32,12 +33,9 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           marginLeft: "7rem",
           marginTop: "3rem",
           width: "52rem",
-          // minHeight: "25rem",
-          // maxHeight: "42rem",
+          minHeight: "25rem",
           padding: "2rem",
           borderRadius: "1rem",
-          display: "flex", // Set display to "flex" to make the container adapt to the content inside
-          flexDirection: "column",
         }}
         elevation={4}
       >
@@ -52,10 +50,21 @@ export const Type2ExamCard = (props: IExamCardProps) => {
             sx={{
               display: "flex",
               position: "relative",
-              top: "1rem",
+              right: "1rem",
             }}
           >
             <QP1 qNumber={qNumber} desc={qp1desc} />
+          </Box>
+          {/* QP2 */}
+          <Box
+            sx={{
+              display: "flex",
+              textAlign: "justify",
+              position: "relative",
+              bottom: "1rem",
+            }}
+          >
+            <QP questionDesc={qp2} />
           </Box>
         </Box>
         <Box
@@ -65,49 +74,44 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} container>
+            <Grid item xs={12}>
               <Options options={answerOptions} />
             </Grid>
-            {/* Answer Segment */}
-
-            {answer && (
-              <Box
-                sx={{
-                  marginTop: "1rem",
-                  width: "45rem",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  position: "relative",
-                  left: "2rem",
-                }}
-              >
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    fontWeight: "bold",
-                    position: "relative",
-                    top: "3rem",
-                    left: "1rem",
-                  }}
-                  component="h1"
-                >
-                  {answer && "Answer: " + answer[0].label + ") " + answer[0].value}
-                </Typography>
-              </Box>
-            )}
             <Grid
               sx={{
                 width: "100%",
-                marginTop: "5rem",
                 position: "relative",
-                bottom: "1rem",
+                top: "4rem",
               }}
             >
               <SubmitButton disable={disableSubmit} onSubmitHandler={onSubmitHandler} />
             </Grid>
           </Grid>
         </Box>
+        {/* Answer Segment */}
+        <Box
+          sx={{
+            marginTop: "1rem",
+            width: "45rem",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontWeight: "bold",
+              position: "relative",
+              left: "1rem",
+              bottom: "2.4rem",
+            }}
+            component="h1"
+          >
+            {answer && "Answer: " + answer[0].label + ") " + answer[0].value}
+          </Typography>
+        </Box>
       </Paper>
+
       {/* Timer, Navigation Board, Left & Right Arrows */}
       {/* Timer */}
       {props.withTimer && (
@@ -121,6 +125,7 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           <Timer />
         </Box>
       )}
+
       {/* Question Navigation Box */}
       {props.withNavigation && (
         <Box
