@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import QP1 from "../questions/QP1";
 import { QTable } from "../questions/QTable";
 import { Options } from "../questions/Options";
@@ -6,12 +6,15 @@ import { SubmitButton } from "../questions/SubmitButton";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../QuestionNavigation";
 import { IExamCardProps } from "../../pages/IExamCardProps";
+import { QP } from "../questions/QP";
 
 export const Type4ExamCard = (props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
   const qp1desc = props.questionData.qp1;
+  const qp2desc = props.questionData.qp2 ? props.questionData.qp2 : ""x;
   const totalQNumber = 32;
   const answerOptions = props.questionData.qOptions;
+  const answer = props.questionData.qAnswer;
   const qTableData1 = props.questionData.qTableData1;
   const disableSubmit = props?.disableSubmit ? props.disableSubmit : false;
   const onSubmitHandler = props?.onSubmitHandler ? props.onSubmitHandler : () => ({});
@@ -64,28 +67,39 @@ export const Type4ExamCard = (props: IExamCardProps) => {
             <Grid item xs={12}>
               <Options options={answerOptions} />
             </Grid>
+            <Grid item xs={12}>
+              {/* Answer Segment */}
+              <Box
+                sx={{
+                  marginTop: "1rem",
+                  width: "45rem",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    fontWeight: "bold",
+                    position: "relative",
+                    bottom: "0.5rem",
+                  }}
+                  component="h1"
+                >
+                  {answer && "Answer: " + answer[0].label + ") " + answer[0].value}
+                </Typography>
+              </Box>
+            </Grid>
             <Grid
               sx={{
                 width: "100%",
+                position: "relative",
+                top: "1.2rem",
               }}
             >
               <SubmitButton disable={disableSubmit} onSubmitHandler={onSubmitHandler} />
             </Grid>
           </Grid>
-        </Box>
-        {/* Answer Segment */}
-        <Box
-          sx={{
-            marginTop: "1rem",
-            width: "45rem",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          {/* <Typography visibility="visible" variant="body1" component="p">
-            Answer: Other, Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aut quasi a, nam itaque
-            illo mollitia dolorum? Iste perferendis repudiandae, cupiditate sunt incidunt, maiores tempora sint velit
-          </Typography> */}
         </Box>
       </Paper>
 

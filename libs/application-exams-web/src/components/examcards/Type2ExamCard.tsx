@@ -32,12 +32,11 @@ export const Type2ExamCard = (props: IExamCardProps) => {
           marginLeft: "7rem",
           marginTop: "3rem",
           width: "52rem",
-          // minHeight: "25rem",
-          // maxHeight: "42rem",
+          minHeight: "55rem",
+          maxHeight: "50rem",
           padding: "2rem",
           borderRadius: "1rem",
-          display: "flex", // Set display to "flex" to make the container adapt to the content inside
-          flexDirection: "column",
+          height: "auto",
         }}
         elevation={4}
       >

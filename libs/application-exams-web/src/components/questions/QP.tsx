@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 
 export interface IQuestionPartProps {
-  questionDesc: string | undefined;
+  questionDesc: string;
   bold?: boolean;
 }
 

@@ -10,8 +10,6 @@ export const SubmitButton = ({ onSubmitHandler, disable }: ISubmitButtonProps) =
     <Box
       sx={{
         position: "relative",
-
-        top: "1.7rem",
       }}
     >
       <Button
