@@ -11,7 +11,7 @@ import { IExamCardProps } from "../../pages/IExamCardProps";
 export const Type3ExamCard = (props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
   const qp1desc = props.questionData.qp1;
-  const qp2 = props.questionData.qp2;
+  const qp2 = props.questionData.qp2 ? props.questionData.qp2 : "";
   const totalQNumber = 32;
   const answerOptions = props.questionData.qOptions;
   const answer = props?.questionData?.qAnswer;
@@ -64,7 +64,7 @@ export const Type3ExamCard = (props: IExamCardProps) => {
               bottom: "1rem",
             }}
           >
-            <QP questionDesc={qp2} />
+            <QP bold={false} questionDesc={qp2} />
           </Box>
         </Box>
         <Box

@@ -10,11 +10,11 @@ import { IExamCardProps } from "../../pages/IExamCardProps";
 
 export const Type1ExamCard = (props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
-  const qp1desc = props.questionData.qp1;
+  const qp1desc = props.questionData.qp1 ? props.questionData.qp1 : "";
   const totalQNumber = 32;
   const answerOptions = props.questionData.qOptions;
-  const qp3 = props.questionData.qp3;
-  const qp2 = props.questionData.qp2;
+  const qp3 = props.questionData.qp3 ? props.questionData.qp3 : "";
+  const qp2 = props.questionData.qp2 ? props.questionData.qp2 : "";
   const qTableData1 = props.questionData.qTableData1;
   const disableSubmit = props?.disableSubmit ? props.disableSubmit : false;
   const onSubmitHandler = props?.onSubmitHandler ? props.onSubmitHandler : () => ({});

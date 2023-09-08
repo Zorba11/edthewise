@@ -1,9 +1,5 @@
 import { Box, FormControl, FormControlLabel, Grid, Radio, RadioGroup } from "@mui/material";
-
-interface IOption {
-  label: string;
-  value: string;
-}
+import { IOption } from "../examcards/IQOptions";
 
 interface IOptionsProps {
   options: IOption[];

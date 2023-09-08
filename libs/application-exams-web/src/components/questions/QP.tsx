@@ -9,6 +9,7 @@ export const QP = ({ questionDesc, bold }: IQuestionPartProps) => {
   return (
     <Typography
       sx={{
+        marginLeft: "1rem",
         fontWeight: bold ? "bold" : "normal",
       }}
       variant="subtitle1"

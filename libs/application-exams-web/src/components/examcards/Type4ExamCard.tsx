@@ -11,7 +11,7 @@ import { QP } from "../questions/QP";
 export const Type4ExamCard = (props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
   const qp1desc = props.questionData.qp1;
-  const qp2desc = props.questionData.qp2 ? props.questionData.qp2 : ""x;
+  const qp2desc = props.questionData.qp2 ? props.questionData.qp2 : "";
   const totalQNumber = 32;
   const answerOptions = props.questionData.qOptions;
   const answer = props.questionData.qAnswer;
