@@ -1,4 +1,4 @@
-export const SubjectList: string[] = [
+export const AccaSubjectList: string[] = [
   "Financial Management (FM)",
   "Business And Technology (BT)",
   "Management Accounting (MA)",

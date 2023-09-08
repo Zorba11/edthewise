@@ -1,6 +1,5 @@
 import { Type1ExamCard } from "../components/examcards/Type1ExamCard";
 import { Type2ExamCard } from "../components/examcards/Type2ExamCard";
-import { Type3ExamCard } from "../components/examcards/Type3ExamCard";
 import { Type4ExamCard } from "../components/examcards/Type4ExamCard";
 import { Type5ExamCard } from "../components/examcards/Type5ExamCard";
 
