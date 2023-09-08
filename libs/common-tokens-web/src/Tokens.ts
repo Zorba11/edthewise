@@ -15,8 +15,11 @@ export const TOKENS = {
    * Store tokens
    */
   QuestionsStoreToken: Symbol.for("QuestionsStoreToken"),
+  ExamStoreToken: Symbol.for("ExamStoreToken"),
   /**
    * Services tokens
    */
   QuestionsServiceToken: Symbol.for("QuestionsServiceToken"),
+  CompeteListServiceToken: Symbol.for("CompeteListServiceToken"),
+  ExamsServiceToken: Symbol.for("ExamsServiceToken"),
 };

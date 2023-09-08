@@ -1,15 +1,21 @@
+import { TOKENS } from "@edthewise/common-tokens-web";
+import { ExamsService } from "@edthewise/foundation-appwrite";
+import { inject, injectable } from "inversify";
 import "reflect-metadata";
 
-class ExamsStore {
+@injectable()
+export class ExamsStore {
   subjectTitles: string[];
+  private examsService: ExamsService;
 
-  constructor() {
+  constructor(@inject(TOKENS.ExamsServiceToken) examsService: ExamsService) {
     this.subjectTitles = ["Hello"];
+    this.examsService = examsService;
   }
 
-  setSubjectTitles(subjectTitles: string[]) {
+  async setSubjectTitles() {
+    const subjectTitles = await this.examsService.getSubjectTitles();
+    if (!subjectTitles) return;
     this.subjectTitles = subjectTitles;
   }
 }
-
-export const examStore = new ExamsStore();

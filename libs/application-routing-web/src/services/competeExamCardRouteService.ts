@@ -5,7 +5,7 @@ import { RouterState, RouterStore } from "mobx-state-router";
 
 @injectable()
 export class CompeteExamCardRouteService {
-  questionsUiStore: QuestionsStore;
+  private questionsUiStore: QuestionsStore;
 
   constructor(@inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore) {
     this.questionsUiStore = questionsUiStore;

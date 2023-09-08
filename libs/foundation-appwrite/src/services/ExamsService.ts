@@ -1,20 +1,22 @@
-import { database } from "../appwrite-config/config";
-import { ExamsCollectionId, ExamsDbId, SubjectsDocId } from "../db/collections";
+import { injectable } from "inversify";
 import { AccaSubjectList } from "../model-db/ACAACollection";
-import { IExamCardData } from "../models/questions/IExamCardData";
+import "reflect-metadata";
 
 // Use inversify JS to make this injectable
 // and inject into QuestionsUiStore
 // Add data to the DB accordingly
+@injectable()
 export class ExamsService {
-  getSubjectTitles = async (): Promise<string[]> => {
-    // const examListRequest = await database.getDocument(ExamsDbId, ExamsCollectionId, SubjectsDocId);
-    // const subjectTitles = examListRequest.ACCA;
+  getSubjectTitles = async (): Promise<string[] | undefined> => {
+    try {
+      // const examListRequest = await database.getDocument(ExamsDbId, ExamsCollectionId, SubjectsDocId);
+      // const subjectTitles = examListRequest.ACCA;
 
-    const subjectTitles = AccaSubjectList;
+      const subjectTitles = AccaSubjectList;
 
-    return subjectTitles;
+      return subjectTitles;
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
-
-export const examsService = new ExamsService();

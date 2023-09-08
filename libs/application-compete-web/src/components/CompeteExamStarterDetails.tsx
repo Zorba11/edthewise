@@ -144,7 +144,7 @@ export const CompeteExamStarterDetails = ({
               variant="h6"
               component="h4"
             >
-              : <span>{topScore.marks} marks </span> <span>{topScore.duration}</span>
+              : <span>{topScore}</span>
             </Typography>
           </Box>
           {/* Price money */}

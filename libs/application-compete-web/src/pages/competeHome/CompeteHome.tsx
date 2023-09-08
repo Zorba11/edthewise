@@ -2,7 +2,10 @@ import * as React from "react";
 import { ICardComponentProps } from "@edthewise/shared-ui-components";
 import { useRouterStore } from "mobx-state-router";
 import { ExamsList } from "@edthewise/application-exams-web";
-import { examStore } from "@edthewise/application-stores-web";
+import { useContainer } from "@redtea/react-inversify";
+import { TOKENS } from "@edthewise/common-tokens-web";
+import { ExamsStore } from "@edthewise/application-stores-web";
+import "reflect-metadata";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -12,6 +15,10 @@ interface TabPanelProps {
 
 export const CompeteHome = () => {
   const routerStore = useRouterStore();
+  const container = useContainer();
+
+  const examStore = container.get<ExamsStore>(TOKENS.ExamStoreToken);
+
   const title = examStore.subjectTitles[0];
 
   const domains = [

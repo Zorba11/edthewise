@@ -5,6 +5,7 @@ export * from "./messages/ErrorMessages";
 export * from "./services/signupService";
 export * from "./services/ExamsService";
 export * from "./services/QuestionsService";
+export * from "./services/CompeteListService";
 
 // interfaces
 export * from "./models/ISignUpRespose";

@@ -9,9 +9,9 @@ import {
   LearnHomeRouteService,
   LearnListRouteService,
 } from "@edthewise/application-routing-web";
-import { QuestionsStore } from "@edthewise/application-stores-web";
+import { CompeteListStore, CompeteListStoreToken, ExamsStore, QuestionsStore } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { QuestionsService } from "@edthewise/foundation-appwrite";
+import { CompeteListService, ExamsService, QuestionsService } from "@edthewise/foundation-appwrite";
 import { Container } from "inversify";
 
 const container = new Container();
@@ -35,10 +35,14 @@ container.bind<LearnListRouteService>(TOKENS.LearnListRouteServiceToken).to(Lear
  * Store Bindings to IOC container
  */
 container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).inSingletonScope();
+container.bind<CompeteListStore>(CompeteListStoreToken).to(CompeteListStore).inSingletonScope();
+container.bind<ExamsStore>(TOKENS.ExamStoreToken).to(ExamsStore).inSingletonScope();
 
 /**
  * Service Bindings to IOC container
  */
 container.bind<QuestionsService>(TOKENS.QuestionsServiceToken).to(QuestionsService).inSingletonScope();
+container.bind<CompeteListService>(TOKENS.CompeteListServiceToken).to(CompeteListService).inSingletonScope();
+container.bind<ExamsService>(TOKENS.ExamsServiceToken).to(ExamsService).inSingletonScope();
 
 export { container };

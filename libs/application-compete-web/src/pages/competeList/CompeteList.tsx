@@ -1,17 +1,16 @@
-import {
-  CardComponent,
-  AvatarDropDownMenu,
-  ICardComponentProps,
-  HeaderWithLogo,
-} from "@edthewise/shared-ui-components";
-import { Box, Container, Typography } from "@mui/material";
+import { CardComponent, ICardComponentProps, HeaderWithLogo } from "@edthewise/shared-ui-components";
+import { Box, Container } from "@mui/material";
 import { useRouterStore } from "mobx-state-router";
 import { CompeteExamStarterDetails } from "../../components/CompeteExamStarterDetails";
 import { ExamTitleAndRules } from "../../components/ExamTitleAndRules";
-import { competeListUiStore } from "@edthewise/application-stores-web";
+import { CompeteListStore, CompeteListStoreToken } from "@edthewise/application-stores-web";
+import { container } from "@edthewise/common-inversify";
+import { IExamStats } from "libs/application-stores-web/src/models/IExamStats";
 
 export const CompeteList = () => {
   const routerStore = useRouterStore();
+
+  const competeListStore = container.get<CompeteListStore>(CompeteListStoreToken);
 
   const BUTTON_CARD_HEIGHT = "25rem";
   const BUTTON_CARD_WIDTH = "23rem";
@@ -23,7 +22,8 @@ export const CompeteList = () => {
     });
   };
 
-  const subjectTitle = competeListUiStore.currentSubjectTitle;
+  const subjectTitle = competeListStore.currentSubjectTitle;
+  const examStats: IExamStats = competeListStore.currentExamStats;
 
   const rules = `🏆 Compete, Shine, and Win Big with EdTheWise! 🏆
 
@@ -37,7 +37,7 @@ export const CompeteList = () => {
   const examListProps: ICardComponentProps[] = [
     {
       id: 1,
-      title: "June 2023",
+      title: examStats.examTitle,
       hoverColor: "#FDCD46", // yellowish
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
@@ -73,10 +73,10 @@ export const CompeteList = () => {
         >
           <CardComponent cardProps={examListProps} />
           <CompeteExamStarterDetails
-            studentsAttempted={10}
+            studentsAttempted={examStats?.studentsAttempted}
             yourAttempts={2}
-            topScore={{ marks: 48, duration: "in 32 minutes" }}
-            prizeMoney={1000}
+            topScore={examStats?.topScore}
+            prizeMoney={examStats?.prizeMoney}
           />
         </Box>
       </Container>
