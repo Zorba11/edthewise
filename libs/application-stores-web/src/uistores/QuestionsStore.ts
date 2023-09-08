@@ -7,25 +7,24 @@ import { Mappers } from "../utils/Mappers";
 
 @injectable()
 export class QuestionsStore {
-  private qp1Desc: string;
   private currQNumber: string;
-  private qTableData: any[];
-  private qp2: string;
-  private qp3: string;
-  private answerOptions: { label: string; value: string }[];
-  private totalQNumber: number;
   private _currentQuestion: IExamCardData;
+  private _subject: string;
 
   constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
     this.currQNumber = "0";
-    this.qp1Desc = "";
-    this.qTableData = [];
-    this.qp2 = "";
-    this.qp3 = "";
-    this.answerOptions = [];
-    this.totalQNumber = 0;
     this.questionsService = questionsService;
     this._currentQuestion = {} as IExamCardData;
+    this._subject = "";
+  }
+
+  set subject(subject: string) {
+    this._subject = subject;
+    this.questionsService.setSubject(subject);
+  }
+
+  get subject(): string {
+    return this._subject;
   }
 
   get currentQuestion(): IExamCardData {

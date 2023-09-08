@@ -19,7 +19,7 @@ export const CompeteList = () => {
 
   const competeExamNavigationClick = () => {
     routerStore.goTo("competeExamCard", {
-      params: { id: "1" },
+      params: { id: "1", subject: subjectTitle },
     });
   };
 
