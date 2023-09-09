@@ -11,6 +11,7 @@ export const LeftArrow = () => {
             color: "#FDCD46", // Change the background color on hover
           },
         }}
+        fontSize="large"
         color="primary"
       />
     </Box>
@@ -26,6 +27,7 @@ export const RightArrow = () => {
             color: "#FDCD46",
           },
         }}
+        fontSize="large"
         color="primary"
       />
     </Box>

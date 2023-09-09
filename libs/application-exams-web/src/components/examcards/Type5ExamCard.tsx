@@ -8,6 +8,7 @@ import { QuestionNavigation } from "../QuestionNavigation";
 import { IExamCardProps } from "../../pages/IExamCardProps";
 import { QP } from "../questions/QP";
 import { IOption } from "./IQOptions";
+import ExamRightPane from "./ExamRightPane";
 
 interface IType5ExamCardProps {
   questionData: {
@@ -32,11 +33,9 @@ export const Type5ExamCard = ({
   disableSubmit = false,
   onSubmitHandler = () => ({}),
   onFinishHandler = () => ({}),
-  withTimer = true,
-  withNavigation = true,
 }: IType5ExamCardProps) => {
   const {
-    qNumber,
+    qNumber = "1",
     qp1 = "",
     qp2 = "",
     qp3 = "",
@@ -80,7 +79,7 @@ export const Type5ExamCard = ({
         width: "70vw",
         position: "relative",
         top: "3rem",
-        left: "4rem",
+        left: "2rem",
       }}
     >
       <Paper
@@ -106,7 +105,7 @@ export const Type5ExamCard = ({
               display: "flex",
             }}
           >
-            <QP1 qNumber={qNumber} desc={formattedQp1} />
+            <QP1 qNumber={questionData.qNumber} desc={formattedQp1} />
           </Box>
           {/* Question Table */}
           <QTable data={formattedQTableData1} />
@@ -202,41 +201,9 @@ export const Type5ExamCard = ({
 
       {/* Timer, Navigation Board, Left & Right Arrows */}
       {/* Timer */}
-      {withTimer && (
-        <Box
-          sx={{
-            position: "relative",
-            left: "14rem",
-            top: "5rem",
-          }}
-        >
-          <Timer />
-        </Box>
-      )}
+      {/* {withTimer && (
 
-      {/* Question Navigation Box */}
-      {withNavigation && (
-        <Box
-          sx={{
-            position: withTimer ? "relative" : "fixed",
-            right: withTimer ? "8rem" : "2rem",
-            top: withTimer ? "10rem" : "5rem",
-          }}
-        >
-          <QuestionNavigation totalQNumber={totalQNumber} />
-          {/* Left & Right Arrows */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "3rem",
-            }}
-          >
-            <LeftArrow />
-            <RightArrow />
-          </Box>
-        </Box>
-      )}
+      )} */}
     </Box>
   );
 };

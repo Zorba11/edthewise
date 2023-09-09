@@ -9,7 +9,7 @@ export const ExamStarter = () => {
   const handleStartJourney = (e: any) => {
     e.preventDefault();
     routerStore.goTo("learnExamCard", {
-      params: { id: 1 },
+      params: { subject: "Financial Management (FM)", id: "1" },
     });
   };
 
