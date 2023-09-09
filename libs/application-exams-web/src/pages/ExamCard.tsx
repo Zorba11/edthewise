@@ -10,6 +10,8 @@ export const ExamCard = (props: any) => {
     ? props.questionData.qComponentOrder
     : "QP1,QTable1,QP2,QP3,OP";
 
+  const sqType = props?.questionData?.sqType ? props.questionData.sqType : "sq";
+
   const totalQNumber = 32;
 
   const renderQCard = (qComponentOrder: string) => {

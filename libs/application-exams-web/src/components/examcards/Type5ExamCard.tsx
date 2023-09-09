@@ -80,6 +80,7 @@ export const Type5ExamCard = ({
         position: "relative",
         top: "3rem",
         left: "2rem",
+        minHeight: "fit-content",
       }}
     >
       <Paper
@@ -87,7 +88,6 @@ export const Type5ExamCard = ({
           marginLeft: "7rem",
           marginTop: "3rem",
           width: "52rem",
-          minHeight: "31rem",
           padding: "2rem",
           borderRadius: "1rem",
         }}
