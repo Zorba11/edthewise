@@ -1,6 +1,6 @@
 import { RouterState, RouterStore } from "mobx-state-router";
 
-class AdminQPreviewRouteService {
+class AdminSQEntryFormRouteService {
   onEnter = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
   };
@@ -10,4 +10,4 @@ class AdminQPreviewRouteService {
   };
 }
 
-export const adminQPreviewRouteService = new AdminQPreviewRouteService();
+export const adminSQEntryFormRouteService = new AdminSQEntryFormRouteService();

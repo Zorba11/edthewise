@@ -16,17 +16,6 @@ export const CompeteExamCard = () => {
     });
   };
 
-  // const qNumber = FMQuestions.QuestionsPool[0].MCQ[0].Qid ? FMQuestions.QuestionsPool[0].MCQ[0].Qid : "1";
-  // const qp1desc = FMQuestions.QuestionsPool[0].MCQ[0].QP1 ? FMQuestions.QuestionsPool[0].MCQ[0].QP1 : "";
-
-  // const qTableData = FMQuestions.QuestionsPool[0].MCQ[0].QTable;
-  // const qp2 = FMQuestions.QuestionsPool[0].MCQ[0].QP2;
-  // const qp3 = FMQuestions.QuestionsPool[0].MCQ[0].QP3 ? FMQuestions.QuestionsPool[0].MCQ[0].QP3 : "";
-
-  // const answerOptions = FMQuestions.QuestionsPool[0].MCQ[0].Options ? FMQuestions.QuestionsPool[0].MCQ[0].Options : [];
-
-  // const totalQNumber = FMQuestions.QuestionsPool[0].MCQ.length;
-
   const onFinishHandler = (event: any) => {
     event.preventDefault();
     console.log("onFinishHandler");
@@ -35,6 +24,7 @@ export const CompeteExamCard = () => {
   const onSubmitHandler = (event: any): void => {
     event.preventDefault();
     console.log("onSubmitHandler");
+    questionsStore.setNextQuestion();
   };
 
   const examCardProps: IExamCardProps = {

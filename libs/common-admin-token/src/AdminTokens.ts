@@ -6,13 +6,16 @@ export const ADMIN_TOKENS = {
   /**
    * Store tokens
    */
-  AdminQStoreToken: Symbol.for("AdminQStoreToken"),
+  AdminMCQStoreToken: Symbol.for("AdminMCQStoreToken"),
+  AdminmcQPreviewStoreToken: Symbol.for("AdminmcQPreviewStoreToken"),
+
+  AdminSQStoreToken: Symbol.for("AdminSQStoreToken"),
+  AdminSQPreviewStoreToken: Symbol.for("AdminSQPreviewStoreToken"),
 
   /**
    * Service tokens
    */
   AdminQServiceToken: Symbol.for("AdminQServiceToken"),
   AdminLoginServiceToken: Symbol.for("AdminLoginServiceToken"),
-  AdminQPreviewRouteServiceToken: Symbol.for("AdminQPreviewRouteServiceToken"),
-  AdminQPreviewStoreToken: Symbol.for("AdminQPreviewStoreToken"),
+  AdminMCQPreviewRouteServiceToken: Symbol.for("AdminQPreviewRouteServiceToken"),
 };

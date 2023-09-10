@@ -12,7 +12,7 @@ export const Type2ExamCard = (props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
   const qp1desc = props.questionData.qp1;
   const totalQNumber = 32;
-  const answerOptions = props.questionData.qOptions;
+  const answerOptions = props.questionData.qOptions ? props.questionData.qOptions : [];
   const answer = props.questionData.qAnswer;
   const disableSubmit = props?.disableSubmit ? true : false;
   const onSubmitHandler = props?.onSubmitHandler ? props.onSubmitHandler : () => ({});

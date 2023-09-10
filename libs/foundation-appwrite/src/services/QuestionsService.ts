@@ -14,7 +14,7 @@ export class QuestionsService {
     this.setCollectionIds(this._subject);
   };
 
-  getFirstQuestion = async (): Promise<any> => {
+  getQuestions = async (): Promise<any> => {
     try {
       const questions = await database.listDocuments(ExamsDbId, this.collectionIds[0]);
       return questions;

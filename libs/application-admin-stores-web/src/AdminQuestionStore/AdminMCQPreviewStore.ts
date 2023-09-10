@@ -1,14 +1,16 @@
 import { injectable } from "inversify";
 
 @injectable()
-export class AdminQPreviewStore {
+export class AdminMCQPreviewStore {
   private questionPreview: any;
+  sqMcqs: any[];
 
   constructor() {
     this.questionPreview = {};
+    this.sqMcqs = [];
   }
 
-  setQuestionPreview(qData: any) {
+  setQuestionPreview(qData: any, store?: boolean): void {
     this.questionPreview = {
       qNumber: qData.QId,
       qp1: qData.QP1,
@@ -32,6 +34,10 @@ export class AdminQPreviewStore {
 
     const qAnswer = this.parseJsonData(qData.ANSWER);
     this.questionPreview.qAnswer = qAnswer;
+
+    if (store) {
+      this.sqMcqs.push(this.questionPreview);
+    }
   }
 
   private parseJsonData(data: string): any {

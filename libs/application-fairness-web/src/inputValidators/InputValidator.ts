@@ -1,5 +1,5 @@
 export class InputValidator {
-  validateAdminQData(qData: any, collectionTitle: string): any {
+  validateAdminMCQData(qData: any, collectionTitle: string, sqId?: string): any {
     const QOPTIONS = this.convertStringToJson(qData.qOptions);
     const QTABLE1 = this.convertStringToJson(qData.qTable1);
     const QTABLE2 = this.convertStringToJson(qData.qTable2);
@@ -19,9 +19,31 @@ export class InputValidator {
       QId: Qid,
       QComponent_Order: qData.qComponentOrder,
       usersSeen: [],
+      sqId: sqId ? sqId : null,
     };
 
     return validatedQData;
+  }
+
+  validateAdminSQData(qData: any, collectionTitle: string): any {
+    const Qid = `${collectionTitle}-${Math.floor(Math.random() * 10000).toString()}`;
+
+    const sqTable1 = this.convertStringToJson(qData.sqTable1);
+    const sqTable2 = this.convertStringToJson(qData.sqTable2);
+
+    const validateAdminSQData = {
+      sqId: Qid,
+      sqTitle: qData.sqTitle,
+      sqDesc1: qData.sqDesc1,
+      sqDesc2: qData.sqDesc2,
+      sqDesc3: qData.sqDesc3,
+      sqBoxComponentOrder: qData.sqBoxComponentOrder,
+      sqTable1: sqTable1,
+      sqTable2: sqTable2,
+      usersSeen: "",
+    };
+
+    return validateAdminSQData;
   }
 
   private convertStringToJson(str: string): string {
@@ -32,27 +54,4 @@ export class InputValidator {
     });
     return JSON.stringify(result);
   }
-
-  // private parseToQTable(qTableData: string) {
-  //   if (!qTableData || typeof qTableData !== "string") {
-  //     return [];
-  //   }
-
-  //   const inputArray = qTableData.split(",");
-
-  //   const outputArray = [];
-
-  //   for (let i = 0; i < inputArray.length; i += 2) {
-  //     const label = inputArray[i]?.trim();
-  //     const value = inputArray[i + 1]?.trim();
-
-  //     if (!label || !value) break;
-  //     outputArray.push({ label, value });
-  //   }
-
-  //   return outputArray.map((item) => ({
-  //     label: item.label,
-  //     value: String(item.value),
-  //   }));
-  // }
 }

@@ -7,4 +7,5 @@ export interface IExamCardProps extends IExamCardData {
   disableSubmit?: boolean;
   onSubmitHandler?: (event: any) => void;
   withEd?: boolean;
+  sqQuestions?: any[];
 }

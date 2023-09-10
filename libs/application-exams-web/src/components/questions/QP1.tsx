@@ -1,8 +1,8 @@
 import { Box, Card, CardContent, Paper, Typography } from "@mui/material";
 
 interface IExamCardProps {
-  qNumber: number;
-  desc: string;
+  qNumber?: number;
+  desc?: string;
 }
 
 const ExamCard = ({ qNumber, desc }: IExamCardProps) => {

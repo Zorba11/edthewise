@@ -23,7 +23,7 @@ export const LearnList: React.FC = () => {
     },
   ];
 
-  const mediCalTopics: ICardComponentProps[] = [
+  const aCCATopics: ICardComponentProps[] = [
     {
       id: 1,
       title: "1",
@@ -106,5 +106,18 @@ export const LearnList: React.FC = () => {
     },
   ];
 
-  return withFadeIn(<ExamsList tabs={tabs} examsList={mediCalTopics} />);
+  const pscExamsList: ICardComponentProps[] = [
+    {
+      id: 8,
+      title: "8",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(4, 1fr)",
+      onClick: learnExamSubjectNavigationClick,
+    },
+  ];
+
+  return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={aCCATopics} />);
 };

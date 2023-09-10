@@ -1,8 +1,11 @@
-import { AdminQPreview, AdminQuestionEntryForm } from "@edthewise/application-admin-web";
+import { AdminMCQPreview, AdminMCQEntryForm, AdminSQEntryForm, AdminSQPreview } from "@edthewise/application-admin-web";
 import { NotFoundPage } from "../pages/NotFound";
 
 export const adminViewMap = {
-  home: <AdminQuestionEntryForm title="FM-MCQ-ACCA" />,
+  home: <AdminMCQEntryForm title="FM-MCQ-ACCA" />,
   notFound: <NotFoundPage />,
-  questionPreview: <AdminQPreview title="FM-MCQ-ACCA" />,
+  mCQPreview: <AdminMCQPreview title="FM-MCQ-ACCA" />,
+  sqEntryForm: <AdminSQEntryForm title="FM-SQ-ACCA" />,
+  sqPreview: <AdminSQPreview title="FM-SQ-ACCA" />,
+  sqMCQEntryForm: <AdminMCQEntryForm title="FM-MCQ-ACCA" />,
 };

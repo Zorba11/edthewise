@@ -1,4 +1,4 @@
-import { AdminQStore, IAdminQStore } from "@edthewise/application-admin-stores-web";
+import { AdminMCQStore, AdminSQPreviewStore, IAdminMCQStore } from "@edthewise/application-admin-stores-web";
 import { InputValidator } from "@edthewise/application-fairness-web";
 import { Alert, Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ export interface IAdminQuestionEntryFormProps {
   title: string;
 }
 
-export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
+export const AdminMCQEntryForm = (props: IAdminQuestionEntryFormProps) => {
   const routerStore = useRouterStore();
   const [formData, setFormData] = useState({
     qp1: "",
@@ -29,9 +29,16 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
 
   const collectionTitle = props.title;
 
-  const adminQStore: IAdminQStore = container.get<AdminQStore>(ADMIN_TOKENS.AdminQStoreToken);
+  const adminQStore: IAdminMCQStore = container.get<AdminMCQStore>(ADMIN_TOKENS.AdminMCQStoreToken);
+  const adminSQPreviewStore = container.get<AdminSQPreviewStore>(ADMIN_TOKENS.AdminSQPreviewStoreToken);
 
   const inputValidator = new InputValidator();
+
+  const handleNavigateToSQEntryForm = (event: any) => {
+    event?.preventDefault();
+
+    routerStore.goTo("sqEntryForm");
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -52,12 +59,24 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
 
     adminQStore.setCurrentFormData(formData);
 
-    const validatedFormData = inputValidator.validateAdminQData(formData, collectionTitle);
+    let validatedFormData;
+
+    if (routerStore.getCurrentRoute()?.name === "sqMCQEntryForm") {
+      // add sqID
+      const sqId = adminSQPreviewStore.getSqid();
+      validatedFormData = inputValidator.validateAdminMCQData(formData, collectionTitle, sqId);
+    } else {
+      validatedFormData = inputValidator.validateAdminMCQData(formData, collectionTitle);
+    }
 
     const questionCreated = await adminQStore.createQuestionDocument(validatedFormData, collectionTitle);
 
     if (questionCreated) {
-      routerStore.goTo("questionPreview");
+      if (routerStore.getCurrentRoute()?.name === "sqMCQEntryForm") {
+        routerStore.goTo("sqPreview");
+      } else {
+        routerStore.goTo("mCQPreview");
+      }
     }
     // Do something with the form data
   };
@@ -106,7 +125,13 @@ export const AdminQuestionEntryForm = (props: IAdminQuestionEntryFormProps) => {
           </span>
         </Typography>
       </Box>
-
+      <Button
+        variant="contained"
+        onClick={handleNavigateToSQEntryForm}
+        sx={{ mt: 2, position: "fixed", top: "7rem", left: "70%" }}
+      >
+        Go to SQ Entry Form
+      </Button>
       <Paper
         component="form"
         onSubmit={handleSubmit}

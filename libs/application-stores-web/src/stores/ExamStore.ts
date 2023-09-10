@@ -5,17 +5,20 @@ import "reflect-metadata";
 
 @injectable()
 export class ExamsStore {
-  subjectTitles: string[];
+  aCCAsubjectTitles!: string[];
+  pSCsubjectTitles!: string[];
   private examsService: ExamsService;
 
   constructor(@inject(TOKENS.ExamsServiceToken) examsService: ExamsService) {
-    this.subjectTitles = ["Hello"];
+    this.aCCAsubjectTitles = ["Hello"];
     this.examsService = examsService;
+    this.setSubjectTitles();
   }
 
   async setSubjectTitles() {
     const subjectTitles = await this.examsService.getSubjectTitles();
     if (!subjectTitles) return;
-    this.subjectTitles = subjectTitles;
+    this.aCCAsubjectTitles = subjectTitles.ACCA;
+    this.pSCsubjectTitles = subjectTitles.PSC;
   }
 }

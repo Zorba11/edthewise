@@ -19,7 +19,7 @@ export const CompeteHome = () => {
 
   const examStore = container.get<ExamsStore>(TOKENS.ExamStoreToken);
 
-  const title = examStore.subjectTitles[0];
+  const title = examStore.aCCAsubjectTitles[0];
 
   const domains = [
     {
@@ -28,7 +28,7 @@ export const CompeteHome = () => {
     },
     {
       id: 2,
-      tabTitle: "CPA",
+      tabTitle: "UPSC",
     },
   ];
 
@@ -43,7 +43,7 @@ export const CompeteHome = () => {
     });
   };
 
-  const examTopics: ICardComponentProps[] = examStore.subjectTitles.map((title, index) => ({
+  const examTopics: ICardComponentProps[] = examStore.aCCAsubjectTitles.map((title, index) => ({
     id: index + 1,
     title,
     hoverColor: BUTTON_HOVER_COLOR,
@@ -53,5 +53,15 @@ export const CompeteHome = () => {
     onClick: () => competeExamSubjectNavigationClick(title),
   }));
 
-  return <ExamsList showBadge={true} tabs={domains} examsList={examTopics} />;
+  const pscExamsList: ICardComponentProps[] = examStore.pSCsubjectTitles.map((title, index) => ({
+    id: index + 1,
+    title,
+    hoverColor: BUTTON_HOVER_COLOR,
+    buttonHeight: BUTTON_CARD_HEIGHT,
+    buttonWidth: BUTTON_CARD_WIDTH,
+    titleFontSize: BUTTON_CARD_FONT_SIZE,
+    onClick: () => competeExamSubjectNavigationClick(title),
+  }));
+
+  return <ExamsList showBadge={true} tabs={domains} aCCAexamsList={examTopics} pSCExamsList={pscExamsList} />;
 };

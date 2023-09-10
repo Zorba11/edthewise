@@ -1,42 +1,55 @@
-import { AdminQPreviewStore, AdminQStore, IAdminQStore } from "@edthewise/application-admin-stores-web";
+import {
+  AdminMCQPreviewStore,
+  AdminMCQStore,
+  AdminSQPreviewStore,
+  AdminSQStore,
+  IAdminMCQStore,
+  IAdminSQStore,
+} from "@edthewise/application-admin-stores-web";
 import { ExamCard, IExamCardProps } from "@edthewise/application-exams-web";
 import { ADMIN_TOKENS } from "@edthewise/common-admin-token";
 import { Box, Button } from "@mui/material";
 import { useContainer } from "@redtea/react-inversify";
 import { useRouterStore } from "mobx-state-router";
 
-export interface IAdminQPreviewProps {
+interface IAdminQPreviewProps {
   title: string;
 }
 
-export const AdminQPreview = (props: IAdminQPreviewProps) => {
+export const AdminSQPreview = (props: IAdminQPreviewProps) => {
   const container = useContainer();
   const routerStore = useRouterStore();
 
-  const qPreviewStore = container.get<AdminQPreviewStore>(ADMIN_TOKENS.AdminQPreviewStoreToken);
-  const adminQStore: IAdminQStore = container.get<AdminQStore>(ADMIN_TOKENS.AdminQStoreToken);
+  const qPreviewStore = container.get<AdminSQPreviewStore>(ADMIN_TOKENS.AdminSQPreviewStoreToken);
+  const adminSQStore: IAdminSQStore = container.get<AdminSQStore>(ADMIN_TOKENS.AdminSQStoreToken);
+  const adminMCQStore = container.get<AdminMCQStore>(ADMIN_TOKENS.AdminMCQStoreToken);
 
   const examCardProps: IExamCardProps = {
     onFinishHandler: () => ({}),
     withTimer: false,
     withNavigation: false,
     disableSubmit: true,
-    ...qPreviewStore?.getQPreview(),
+    questionData: qPreviewStore.getQPreview(),
   };
 
   const handleHappyClick = (e: any) => {
     e?.preventDefault();
-    adminQStore.setCurrentFormData(null);
-    adminQStore.setDataFromStore(false);
-    routerStore.goTo("home");
+
+    routerStore.goTo("sqMCQEntryForm");
 
     // send to GPT Fine tuning
   };
 
   const handleUnhappyClick = (e: any) => {
     e?.preventDefault();
-    adminQStore.setDataFromStore(true);
-    routerStore.goTo("home");
+
+    if (examCardProps?.sqQuestions?.length !== undefined && !(examCardProps.sqQuestions.length > 0)) {
+      adminMCQStore.setDataFromStore(true);
+      routerStore.goTo("sqMCQEntryForm");
+    } else {
+      adminSQStore.setDataFromStore(true);
+      routerStore.goTo("sqEntryForm");
+    }
   };
 
   return (

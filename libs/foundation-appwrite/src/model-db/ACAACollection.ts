@@ -15,6 +15,8 @@ export const AccaSubjectList: string[] = [
   "Advanced Audit and Assurance (AAA)",
 ];
 
+export const PscSubjectList: string[] = ["General Studies"];
+
 /***
  * MCQ: Multiple Choice Questions
  * SQ: Scenario Questions

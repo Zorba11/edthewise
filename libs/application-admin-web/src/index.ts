@@ -1,5 +1,7 @@
-export * from "./components/QuestionEntryForm";
-export * from "./components/AdminQPreview";
+export * from "./components/AdminMCQEntryForm";
+export * from "./components/AdminMCQPreview";
+export * from "./components/AdminSQEntryForm";
+export * from "./components/AdminSQPreview";
 
 // INTERFACES
 export * from "./models/IMCQData";

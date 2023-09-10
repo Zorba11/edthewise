@@ -9,15 +9,15 @@ import { IExamCardProps } from "../../pages/IExamCardProps";
 import { QP } from "../questions/QP";
 
 export const Type4ExamCard = (props: IExamCardProps) => {
-  const qNumber = props.questionData.qNumber;
-  const qp1desc = props.questionData.qp1;
-  const qp2desc = props.questionData.qp2 ? props.questionData.qp2 : "";
+  const qNumber = props?.questionData?.qNumber ? props?.questionData.qNumber : 1;
+  const qp1desc = props?.questionData?.qp1 ? props?.questionData?.qp1 : "";
+  const qp2desc = props?.questionData.qp2 ? props?.questionData.qp2 : "";
   const totalQNumber = 32;
-  const answerOptions = props.questionData.qOptions;
-  const answer = props.questionData.qAnswer;
-  const qTableData1 = props.questionData.qTableData1;
-  const disableSubmit = props?.disableSubmit ? props.disableSubmit : false;
-  const onSubmitHandler = props?.onSubmitHandler ? props.onSubmitHandler : () => ({});
+  const answerOptions = props?.questionData?.qOptions ? props?.questionData?.qOptions : [];
+  const answer = props?.questionData.qAnswer;
+  const qTableData1 = props?.questionData.qTableData1;
+  const disableSubmit = props?.disableSubmit ? props?.disableSubmit : false;
+  const onSubmitHandler = props?.onSubmitHandler ? props?.onSubmitHandler : () => ({});
 
   return (
     <Box

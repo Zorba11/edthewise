@@ -6,11 +6,11 @@ import { Type5ExamCard } from "../components/examcards/Type5ExamCard";
 import ExamCardContainer from "../components/examcards/ExamCardContainer";
 
 export const ExamCard = (props: any) => {
-  const qComponentOrder = props?.questionData?.qComponentOrder
-    ? props.questionData.qComponentOrder
-    : "QP1,QTable1,QP2,QP3,OP";
+  let qComponentOrder = props?.questionData?.qComponentOrder ? props.questionData.qComponentOrder : "SQ";
 
-  const sqType = props?.questionData?.sqType ? props.questionData.sqType : "sq";
+  const sqType = props?.questionData?.questionData?.sqType ? props?.questionData?.questionData?.sqType : false;
+
+  if (sqType) qComponentOrder = "SQ";
 
   const totalQNumber = 32;
 
@@ -18,19 +18,9 @@ export const ExamCard = (props: any) => {
     switch (qComponentOrder?.toLowerCase()) {
       case "qp1,qtable1,qp2,qp3,op":
         // revert back after SQ Implementation
-        // return (
-        //   <ExamCardContainer withNavigation={true} withTimer={props.withTimer} totalQNumber={totalQNumber}>
-        //     <Type5ExamCard {...props} />
-        //   </ExamCardContainer>
-        // );
         return (
-          <ExamCardContainer
-            withEd={props?.withEd}
-            withNavigation={true}
-            withTimer={props.withTimer}
-            totalQNumber={totalQNumber}
-          >
-            <SQExamCard {...props} />
+          <ExamCardContainer withNavigation={true} withTimer={props.withTimer} totalQNumber={totalQNumber}>
+            <Type5ExamCard {...props} />
           </ExamCardContainer>
         );
       case "qp1,op":
@@ -52,10 +42,16 @@ export const ExamCard = (props: any) => {
         </ExamCardContainer>;
         break;
       case "sq":
-        <ExamCardContainer withNavigation={true} withTimer={true} totalQNumber={totalQNumber}>
-          <SQExamCard {...props} />
-        </ExamCardContainer>;
-        break;
+        return (
+          <ExamCardContainer
+            withEd={true}
+            withNavigation={true}
+            withTimer={props?.questionData?.withTimer}
+            totalQNumber={totalQNumber}
+          >
+            <SQExamCard {...props?.questionData?.questionData} />
+          </ExamCardContainer>
+        );
       default:
         return <div>Not ABle to render card</div>;
     }

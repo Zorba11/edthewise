@@ -3,48 +3,115 @@ import { Type5ExamCard } from "./Type5ExamCard";
 import { QP } from "../questions/QP";
 import { SQTitle } from "../questions/SQTitle";
 import ScenarioBox from "../questions/ScenarioBox";
+import ExamCardContainer from "./ExamCardContainer";
+import { Type2ExamCard } from "./Type2ExamCard";
+import { Type4ExamCard } from "./Type4ExamCard";
+import { container } from "@edthewise/common-admin-inversify";
+import { AdminMCQPreviewStore, AdminSQPreviewStore } from "@edthewise/application-admin-stores-web";
+import { ADMIN_TOKENS } from "@edthewise/common-admin-token";
 
 export const SQExamCard = (props: any) => {
-  const cards = [1, 2, 3, 4, 5]; // An array of 5 cards
+  const sqTitle = props?.sqTitle ? props.sqTitle : "Scenario";
 
-  const sqTitle = `The following scenario relates to questions 16 to 20.`;
+  const sqDesc1 = props?.sqDesc1 ? props.sqDesc1 : "hello";
 
-  const sqDesc2 = `Herd Co is based in a country whose currency is the dollar ($). The company expects to receive €1,500,000 in six
-  months’ time from Find Co, a foreign customer. The finance director of Herd Co is concerned that the euro (€) may
-  depreciate against the dollar before the foreign customer makes payment and she is looking at hedging the receipt.`;
+  const sqDesc2 = props?.sqDesc2 ? props.sqDesc2 : "hello";
 
-  const sqDesc3 = `Herd Co has in issue loan notes with a total nominal value of $4 million which can be redeemed in 10 years’ time. The
-  interest paid on the loan notes is at a variable rate linked to LIBOR. The finance director of Herd Co believes that interest
-  rates may increase in the near future.`;
-
-  const sqDesc4 = `The spot exchange rate is €1·543 per $1. The domestic short-term interest rate is 2% per year, while the foreign
-  short-term interest rate is 5% per year.`;
+  const sqDesc3 = props?.sqDesc3 ? props.sqDesc3 : "hello";
 
   let ScenarioContent;
 
-  const type1 = "sq";
+  const type = props?.sqBoxComponentOrder ? props.sqBoxComponentOrder : "";
 
-  switch (type1) {
-    case "sq":
-      ScenarioContent = (
-        <>
-          <SQTitle desc={sqTitle} />
-          <QP questionDesc={sqDesc2} />
-          <QP questionDesc={sqDesc3} />
-          <QP questionDesc={sqDesc4} />
-        </>
-      );
-      break;
-    default:
-      return;
+  const scenarioContent = getScenarioContent({ type, sqTitle, sqDesc1, sqDesc2, sqDesc3 });
+
+  const totalQNumber = 32;
+
+  const qPreviewStore = container.get<AdminSQPreviewStore>(ADMIN_TOKENS.AdminSQPreviewStoreToken);
+  const mcqPreviewStore = container.get<AdminMCQPreviewStore>(ADMIN_TOKENS.AdminmcQPreviewStoreToken);
+
+  const shouldRenderQuestions = qPreviewStore.mcqs?.length > 0 ? true : false;
+
+  if (shouldRenderQuestions) {
+    qPreviewStore.mcqs.map((mcq: any) => {
+      mcqPreviewStore.setQuestionPreview(mcq, true);
+    });
   }
+
+  const renderQCard = (qComponentOrder: string, cardProps: any) => {
+    const newProps = {
+      ...props,
+      questionData: cardProps,
+    };
+
+    switch (qComponentOrder?.toLowerCase()) {
+      case "qp1,qtable1,qp2,qp3,op":
+        // revert back after SQ Implementation
+        return (
+          <ExamCardContainer withNavigation={true} withTimer={cardProps.withTimer} totalQNumber={totalQNumber}>
+            <Type5ExamCard {...newProps} />
+          </ExamCardContainer>
+        );
+      case "qp1,op":
+        return <Type2ExamCard {...newProps} />;
+      case "qp1,qp2,op":
+        return (
+          <ExamCardContainer withNavigation={true} withTimer={true} totalQNumber={totalQNumber}>
+            <Type5ExamCard {...newProps} />
+          </ExamCardContainer>
+        );
+      case "qp1,qtable1,op":
+        <ExamCardContainer withNavigation={true} withTimer={true} totalQNumber={totalQNumber}>
+          <Type4ExamCard {...newProps} />
+        </ExamCardContainer>;
+        break;
+      case "qp1,qtable1,qp2,qtable2,qp3,op":
+        <ExamCardContainer withNavigation={true} withTimer={true} totalQNumber={totalQNumber}>
+          <Type4ExamCard {...newProps} />
+        </ExamCardContainer>;
+        break;
+      default:
+        return <div>Not ABle to render card</div>;
+    }
+  };
 
   return (
     <Box sx={{ overflowY: "scroll", display: "flex", flexDirection: "column", width: "60%" }}>
-      <ScenarioBox type="sq">{ScenarioContent}</ScenarioBox>
-      {cards.map((card) => (
-        <Type5ExamCard {...props} />
-      ))}
+      <ScenarioBox type="sq">{scenarioContent}</ScenarioBox>
+      {shouldRenderQuestions && mcqPreviewStore.sqMcqs.map((mcq: any) => renderQCard(mcq.qComponentOrder, mcq))}
     </Box>
   );
+};
+
+interface IScenarioContentProps {
+  type?: string;
+  sqTitle: string;
+  sqDesc1: string;
+  sqDesc2: string;
+  sqDesc3: string;
+}
+
+const getScenarioContent = ({ type, sqTitle, sqDesc1, sqDesc2, sqDesc3 }: IScenarioContentProps) => {
+  switch (type?.toLowerCase()) {
+    case "sq":
+      return (
+        <>
+          <SQTitle desc={sqTitle} />
+          <QP questionDesc={sqDesc1} />
+          <QP questionDesc={sqDesc2} />
+          <QP questionDesc={sqDesc3} />
+        </>
+      );
+    case "sqdesc1,sqdesc2,sqdesc3":
+      return (
+        <>
+          <SQTitle desc={sqTitle} />
+          <QP questionDesc={sqDesc1} />
+          <QP questionDesc={sqDesc2} />
+          <QP questionDesc={sqDesc3} />
+        </>
+      );
+    default:
+      return null;
+  }
 };

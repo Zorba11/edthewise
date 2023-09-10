@@ -112,5 +112,17 @@ export const LearnHome = () => {
     },
   ];
 
-  return withFadeIn(<ExamsList tabs={tabs} examsList={mediCalTopics} />);
+  const pscExamsList: ICardComponentProps[] = [
+    {
+      id: 9,
+      title: "ENT",
+      hoverColor: BUTTON_HOVER_COLOR,
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: learnExamSubjectNavigationClick,
+    },
+  ];
+
+  return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={mediCalTopics} />);
 };

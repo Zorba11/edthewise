@@ -35,7 +35,7 @@ export const Type5ExamCard = ({
   onFinishHandler = () => ({}),
 }: IType5ExamCardProps) => {
   const {
-    qNumber = "1",
+    qNumber = 1,
     qp1 = "",
     qp2 = "",
     qp3 = "",
@@ -105,7 +105,7 @@ export const Type5ExamCard = ({
               display: "flex",
             }}
           >
-            <QP1 qNumber={questionData.qNumber} desc={formattedQp1} />
+            <QP1 qNumber={questionData?.qNumber} desc={formattedQp1} />
           </Box>
           {/* Question Table */}
           <QTable data={formattedQTableData1} />
