@@ -16,9 +16,14 @@ export class LearnExamCardRouteService {
   };
 
   beforeEnterLearnCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-    if (!this.userStore.isLoggedIn) {
-      return Promise.resolve(routerStore.goTo("signIn"));
-    }
+    /**
+     * TODO: Uncomment this when goinf live
+     * make sure userStore is injected correctly too
+     */
+
+    // if (!this.userStore.isLoggedIn) {
+    //   return Promise.resolve(routerStore.goTo("signIn"));
+    // }
 
     this.questionsUiStore.subject = toState.params.subject;
     await this.questionsUiStore.setFirstQuestionSet();

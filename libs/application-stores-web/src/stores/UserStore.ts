@@ -70,7 +70,7 @@ export class UserStore {
 
   private async initialize() {
     const session = await sessionStorage.getItem("session");
-    if (!session) {
+    if (!session || session === "undefined") {
       this.reset();
       return;
     }

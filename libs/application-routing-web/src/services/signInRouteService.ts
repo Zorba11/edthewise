@@ -19,9 +19,14 @@ export class SignInRouteService {
       this.userStore.logout();
     }
 
-    if (this.userStore.isLoggedIn) {
-      return Promise.resolve(routerStore.goTo("home"));
-    }
+    /**
+     * TODO: Uncomment this when goinf live
+     * make sure userStore is injected correctly too
+     */
+
+    // if (this.userStore.isLoggedIn) {
+    //   return Promise.resolve(routerStore.goTo("home"));
+    // }
 
     return Promise.resolve();
   };
