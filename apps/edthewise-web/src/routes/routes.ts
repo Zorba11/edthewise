@@ -8,12 +8,15 @@ import {
   LearnExamStarterRouteService,
   LearnHomeRouteService,
   LearnListRouteService,
+  MainHomeRouteService,
 } from "@edthewise/application-routing-web";
 import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { browserHistory, createRouterState, HistoryAdapter, Route, RouterStore } from "mobx-state-router";
 
 const notFound = createRouterState("notFound");
+
+const mainHomeRouteService = container.get<MainHomeRouteService>(TOKENS.MainHomeRouteServiceToken);
 
 const competeExamCardRouteService = container.get<CompeteExamCardRouteService>(TOKENS.CompeteExamCardRouteServiceToken);
 const competeExamResultRouteService = container.get<CompeteExamResultRouteService>(
@@ -41,6 +44,8 @@ export const routes: Route[] = [
   {
     name: "home",
     pattern: "/",
+    onEnter: mainHomeRouteService.onEnterMainHome,
+    beforeEnter: mainHomeRouteService.beforeEnterMainHome,
   },
   {
     name: "learnHome",

@@ -1,3 +1,4 @@
+export * from "./services/mainHomeRouteService";
 export * from "./services/competeHomeRouteService";
 export * from "./services/competeListRouteService";
 export * from "./services/learnListRouteService";

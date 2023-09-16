@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouterStore } from "mobx-state-router";
 import { CardComponent, ICardComponentProps, AvatarDropDownMenu } from "@edthewise/shared-ui-components";
 import homeEdPic from "../../assets/ed-2.png";
 import { Box, Container } from "@mui/material";
+import { UserStore } from "@edthewise/application-stores-web";
+import { TOKENS } from "@edthewise/common-tokens-web";
+import { container } from "@edthewise/common-inversify";
 
 export const HomePage = (props: any) => {
   const routerStore = useRouterStore();
+  const userStore = container.get<UserStore>(TOKENS.UserStoreToken);
 
-  const [userEmail, setUserEmail] = React.useState<string>("");
+  useEffect(() => {
+    if (userStore.isLoggedIn) {
+      routerStore.goTo("home");
+    } else {
+      routerStore.goTo("signIn");
+    }
+  });
 
   const BUTTON_CARD_HEIGHT = "15rem";
   const BUTTON_CARD_WIDTH = "23rem";

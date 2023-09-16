@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -13,10 +13,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import logoText from "../../assets/ed-signup-av.png";
 import edSignUp from "../../assets/ed-signup.png";
-import { userStore } from "@edthewise/application-stores-web";
-import { RouterStore, useRouterStore } from "mobx-state-router";
-import { account, SIGN_IN_ERROR_MESSAGE } from "@edthewise/foundation-appwrite";
+import { useRouterStore } from "mobx-state-router";
+import { SIGN_IN_ERROR_MESSAGE } from "@edthewise/foundation-appwrite";
 import { Alert } from "@mui/material";
+import { TOKENS } from "@edthewise/common-tokens-web";
+import { UserStore } from "@edthewise/application-stores-web";
+import { container } from "@edthewise/common-inversify";
 
 function Copyright(props: any) {
   return (
@@ -38,6 +40,8 @@ export const SignIn = () => {
   const routerStore = useRouterStore();
   const [error, setError] = useState("");
 
+  const userStore = container.get<UserStore>(TOKENS.UserStoreToken);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -47,15 +51,19 @@ export const SignIn = () => {
 
     try {
       if (!email || !password) return;
-      const user = await account.createEmailSession(email, password);
+      await userStore.createEmailSession(email, password);
 
-      if (user) {
+      if (userStore.isLoggedIn) {
         routerStore.goTo("home");
       }
     } catch (err: any) {
       setError(SIGN_IN_ERROR_MESSAGE);
     }
   };
+
+  useEffect(() => {
+    userStore.isLoggedIn ? routerStore.goTo("home") : routerStore.goTo("signIn");
+  });
 
   return (
     <ThemeProvider theme={defaultTheme}>

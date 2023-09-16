@@ -25,6 +25,9 @@ export const CompeteExamCard = () => {
     event.preventDefault();
     console.log("onSubmitHandler");
     questionsStore.setNextQuestion();
+    // routerStore.goTo("competeExamResult", {
+    //   params: { id: "1" },
+    // });
   };
 
   const examCardProps: IExamCardProps = {

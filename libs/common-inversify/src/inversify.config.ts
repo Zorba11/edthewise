@@ -8,10 +8,17 @@ import {
   LearnExamStarterRouteService,
   LearnHomeRouteService,
   LearnListRouteService,
+  MainHomeRouteService,
 } from "@edthewise/application-routing-web";
-import { CompeteListStore, CompeteListStoreToken, ExamsStore, QuestionsStore } from "@edthewise/application-stores-web";
+import {
+  CompeteListStore,
+  CompeteListStoreToken,
+  ExamsStore,
+  QuestionsStore,
+  UserStore,
+} from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { CompeteListService, ExamsService, QuestionsService } from "@edthewise/foundation-appwrite";
+import { CompeteListService, ExamsService, QuestionsService, UserService } from "@edthewise/foundation-appwrite";
 import { Container } from "inversify";
 
 const container = new Container();
@@ -19,6 +26,7 @@ const container = new Container();
 /**
  * bind routeservices to the IOC container
  */
+container.bind<MainHomeRouteService>(TOKENS.MainHomeRouteServiceToken).to(MainHomeRouteService);
 container.bind<CompeteExamCardRouteService>(TOKENS.CompeteExamCardRouteServiceToken).to(CompeteExamCardRouteService);
 container
   .bind<CompeteExamResultRouteService>(TOKENS.CompeteExamResultRouteServiceToken)
@@ -34,6 +42,7 @@ container.bind<LearnListRouteService>(TOKENS.LearnListRouteServiceToken).to(Lear
 /**
  * Store Bindings to IOC container
  */
+container.bind<UserStore>(TOKENS.UserStoreToken).to(UserStore).inSingletonScope();
 container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).inSingletonScope();
 container.bind<CompeteListStore>(CompeteListStoreToken).to(CompeteListStore).inSingletonScope();
 container.bind<ExamsStore>(TOKENS.ExamStoreToken).to(ExamsStore).inSingletonScope();
@@ -41,6 +50,7 @@ container.bind<ExamsStore>(TOKENS.ExamStoreToken).to(ExamsStore).inSingletonScop
 /**
  * Service Bindings to IOC container
  */
+container.bind<UserService>(TOKENS.UserServiceToken).to(UserService).inSingletonScope();
 container.bind<QuestionsService>(TOKENS.QuestionsServiceToken).to(QuestionsService).inSingletonScope();
 container.bind<CompeteListService>(TOKENS.CompeteListServiceToken).to(CompeteListService).inSingletonScope();
 container.bind<ExamsService>(TOKENS.ExamsServiceToken).to(ExamsService).inSingletonScope();

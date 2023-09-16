@@ -10,7 +10,7 @@ interface IExamRightPaneProps {
   withEd?: boolean;
 }
 
-const ExamRightPane = ({ withTimer = true, totalQNumber = 32, withEd = true }: IExamRightPaneProps) => {
+const ExamRightPane = ({ withTimer = true, totalQNumber = 32, withEd = false }: IExamRightPaneProps) => {
   return (
     <Box
       sx={{
