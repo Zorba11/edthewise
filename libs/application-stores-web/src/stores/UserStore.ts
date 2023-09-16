@@ -21,7 +21,7 @@ export class UserStore {
 
   createEmailSession = async (email: string, password: string) => {
     const session = await this.userService.createEmailSession(email, password);
-    await sessionStorage.setItem("session", session);
+    await sessionStorage.setItem("session", JSON.stringify(session));
 
     if (session) {
       this.setLoggedIn(true);
@@ -78,7 +78,6 @@ export class UserStore {
     const sessionObject = JSON.parse(session);
     if (!this.isSessionValid(sessionObject)) {
       this.reset();
-      return;
     }
 
     const { email, userId } = sessionObject;

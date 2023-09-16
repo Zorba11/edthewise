@@ -2,6 +2,7 @@ export const TOKENS = {
   /**
    * Route Services tokens
    */
+  SignInRouteServiceToken: Symbol.for("SignInRouteServiceToken"),
   MainHomeRouteServiceToken: Symbol.for("MainHomeRouteServiceToken"),
   CompeteExamCardRouteServiceToken: Symbol.for("CompeteExamCardRouteServiceToken"),
   CompeteExamResultRouteServiceToken: Symbol.for("CompeteExamResultRouteServiceToken"),

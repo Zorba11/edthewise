@@ -9,6 +9,7 @@ import {
   LearnHomeRouteService,
   LearnListRouteService,
   MainHomeRouteService,
+  SignInRouteService,
 } from "@edthewise/application-routing-web";
 import {
   CompeteListStore,
@@ -26,6 +27,7 @@ const container = new Container();
 /**
  * bind routeservices to the IOC container
  */
+container.bind<SignInRouteService>(TOKENS.SignInRouteServiceToken).to(SignInRouteService);
 container.bind<MainHomeRouteService>(TOKENS.MainHomeRouteServiceToken).to(MainHomeRouteService);
 container.bind<CompeteExamCardRouteService>(TOKENS.CompeteExamCardRouteServiceToken).to(CompeteExamCardRouteService);
 container
@@ -42,7 +44,8 @@ container.bind<LearnListRouteService>(TOKENS.LearnListRouteServiceToken).to(Lear
 /**
  * Store Bindings to IOC container
  */
-container.bind<UserStore>(TOKENS.UserStoreToken).to(UserStore).inSingletonScope();
+// container.bind<UserStore>(TOKENS.UserStoreToken).toSelf().inSingletonScope();
+container.bind<UserStore>(UserStore).toSelf().inSingletonScope();
 container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).inSingletonScope();
 container.bind<CompeteListStore>(CompeteListStoreToken).to(CompeteListStore).inSingletonScope();
 container.bind<ExamsStore>(TOKENS.ExamStoreToken).to(ExamsStore).inSingletonScope();

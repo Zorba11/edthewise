@@ -9,6 +9,7 @@ import {
   LearnHomeRouteService,
   LearnListRouteService,
   MainHomeRouteService,
+  SignInRouteService,
 } from "@edthewise/application-routing-web";
 import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
@@ -17,7 +18,7 @@ import { browserHistory, createRouterState, HistoryAdapter, Route, RouterStore }
 const notFound = createRouterState("notFound");
 
 const mainHomeRouteService = container.get<MainHomeRouteService>(TOKENS.MainHomeRouteServiceToken);
-
+const signInRouteService = container.get<SignInRouteService>(TOKENS.SignInRouteServiceToken);
 const competeExamCardRouteService = container.get<CompeteExamCardRouteService>(TOKENS.CompeteExamCardRouteServiceToken);
 const competeExamResultRouteService = container.get<CompeteExamResultRouteService>(
   TOKENS.CompeteExamResultRouteServiceToken,
@@ -40,12 +41,15 @@ export const routes: Route[] = [
   {
     name: "signIn",
     pattern: "/sign-in",
+    onEnter: signInRouteService.onEnterSignIn,
+    beforeEnter: signInRouteService.beforeEnterSignIn,
   },
   {
     name: "home",
     pattern: "/",
     onEnter: mainHomeRouteService.onEnterMainHome,
     beforeEnter: mainHomeRouteService.beforeEnterMainHome,
+    beforeExit: mainHomeRouteService.beforeExitMainHome,
   },
   {
     name: "learnHome",

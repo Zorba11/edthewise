@@ -1,6 +1,6 @@
 import { RouterState, RouterStore } from "mobx-state-router";
 import { inject, injectable } from "inversify";
-import { ExamsStore } from "@edthewise/application-stores-web";
+import { ExamsStore, UserStore } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import "reflect-metadata";
 
@@ -8,7 +8,7 @@ import "reflect-metadata";
 export class CompeteHomeRouteService {
   private examStore: ExamsStore;
 
-  constructor(@inject(TOKENS.ExamStoreToken) examStore: ExamsStore) {
+  constructor(@inject(TOKENS.ExamStoreToken) examStore: ExamsStore, private userStore: UserStore) {
     this.examStore = examStore;
   }
 
@@ -17,6 +17,10 @@ export class CompeteHomeRouteService {
   };
 
   beforeEnterCompeteHome = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    if (!this.userStore.isLoggedIn) {
+      return Promise.resolve(routerStore.goTo("signIn"));
+    }
+
     await this.examStore.setSubjectTitles();
 
     return Promise.resolve();

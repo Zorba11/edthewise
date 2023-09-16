@@ -40,7 +40,7 @@ export const SignIn = () => {
   const routerStore = useRouterStore();
   const [error, setError] = useState("");
 
-  const userStore = container.get<UserStore>(TOKENS.UserStoreToken);
+  const userStore = container.get(UserStore);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

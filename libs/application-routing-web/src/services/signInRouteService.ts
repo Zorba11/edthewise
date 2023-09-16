@@ -6,7 +6,7 @@ import "reflect-metadata";
 
 @injectable()
 export class SignInRouteService {
-  constructor(@inject(TOKENS.UserStoreToken) private userStore: UserStore) {}
+  constructor(private userStore: UserStore) {}
 
   onEnterSignIn = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
@@ -19,6 +19,14 @@ export class SignInRouteService {
       this.userStore.logout();
     }
 
+    if (this.userStore.isLoggedIn) {
+      return Promise.resolve(routerStore.goTo("home"));
+    }
+
+    return Promise.resolve();
+  };
+
+  beforeExitSignIn = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
   };
 }

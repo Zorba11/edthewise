@@ -1,4 +1,5 @@
-import { CompeteListStore, CompeteListStoreToken } from "@edthewise/application-stores-web";
+import { CompeteListStore, CompeteListStoreToken, UserStore } from "@edthewise/application-stores-web";
+import { TOKENS } from "@edthewise/common-tokens-web";
 import { inject, injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
 import "reflect-metadata";
@@ -7,7 +8,7 @@ import "reflect-metadata";
 export class CompeteListRouteService {
   private competeListStore: CompeteListStore;
 
-  constructor(@inject(CompeteListStoreToken) competeListStore: CompeteListStore) {
+  constructor(@inject(CompeteListStoreToken) competeListStore: CompeteListStore, private userStore: UserStore) {
     this.competeListStore = competeListStore;
   }
 
@@ -16,6 +17,10 @@ export class CompeteListRouteService {
   };
 
   beforeEnterCompeteList = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    if (!this.userStore.isLoggedIn) {
+      return Promise.resolve(routerStore.goTo("signIn"));
+    }
+
     const subjectTitle = toState.queryParams.subject;
 
     await this.competeListStore.setCurrentSubjectTitleAndStats(subjectTitle);
