@@ -30,6 +30,7 @@
       "@edthewise/common-admin-inversify": ["libs/common-admin-inversify/src/index.ts"],
       "@edthewise/common-admin-token": ["libs/common-admin-token/src/index.ts"],
       "@edthewise/common-base-inversify": ["common-base-inversify/src/index.ts"],
+      "@edthewise/common-component-data": ["libs/common-component-data/src/index.ts"],
       "@edthewise/common-inversify": ["libs/common-inversify/src/index.ts"],
       "@edthewise/common-tokens-web": ["libs/common-tokens-web/src/index.ts"],
       "@edthewise/foundation-appwrite": ["libs/foundation-appwrite/src/index.ts"],

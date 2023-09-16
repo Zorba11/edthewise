@@ -61,10 +61,6 @@ export const SignIn = () => {
     }
   };
 
-  useEffect(() => {
-    userStore.isLoggedIn ? routerStore.goTo("home") : routerStore.goTo("signIn");
-  });
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid

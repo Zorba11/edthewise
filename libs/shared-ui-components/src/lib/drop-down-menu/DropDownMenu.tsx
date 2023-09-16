@@ -2,10 +2,7 @@ import * as React from "react";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Avatar, Box, Typography, alpha, styled } from "@mui/material";
-import { container } from "@edthewise/common-inversify";
-import { UserStore } from "@edthewise/application-stores-web";
-import { TOKENS } from "@edthewise/common-tokens-web";
-import { useRouterStore } from "mobx-state-router";
+import { RouterStore } from "mobx-state-router";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -57,8 +54,12 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-export const AvatarDropDownMenu = () => {
-  const routerStore = useRouterStore();
+interface DropDownMenuProps {
+  menuItems: { title: string; onClick: (routerStore: RouterStore, e: any) => void }[];
+  routerStore: RouterStore;
+}
+
+export const AvatarDropDownMenu: React.FC<DropDownMenuProps> = ({ routerStore, menuItems }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -67,34 +68,6 @@ export const AvatarDropDownMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const userStore = container.get<UserStore>(TOKENS.UserStoreToken);
-
-  const handleLogout = (e: any) => {
-    e?.preventDefault();
-    userStore.logout();
-    handleClose();
-    routerStore.goTo("signIn");
-  };
-
-  const menuItems = [
-    {
-      title: "Profile",
-      onclick: () => ({}),
-    },
-    {
-      title: "Dashboard",
-      onclick: () => ({}),
-    },
-    {
-      title: "Blog",
-      onclick: () => ({}),
-    },
-    {
-      title: "Log out",
-      onClick: handleLogout,
-    },
-  ];
 
   return (
     <Box>
@@ -132,10 +105,10 @@ export const AvatarDropDownMenu = () => {
           padding: 0,
         }}
       >
-        {menuItems.map((item, index) => (
+        {menuItems?.map((item, index) => (
           <MenuItem
             key={index}
-            onClick={item.onClick}
+            onClick={(e) => item.onClick.apply(null, [routerStore, e])}
             sx={{
               position: "relative",
               "&::before": {

@@ -1,8 +1,15 @@
 import { HeadLogo } from "@edthewise/application-assets-web";
 import { Box } from "@mui/material";
 import AvatarDropDownMenu from "../drop-down-menu/DropDownMenu";
+import { userSiderMenuItems } from "@edthewise/common-component-data";
+import { useRouterStore } from "mobx-state-router";
 
-export const HeaderWithLogo = () => {
+interface IHeaderWithLogoProps {
+  menuItems?: typeof userSiderMenuItems;
+}
+
+export const HeaderWithLogo: React.FC<IHeaderWithLogoProps> = ({ menuItems }) => {
+  const routerStore = useRouterStore();
   return (
     <Box
       sx={{
@@ -23,7 +30,7 @@ export const HeaderWithLogo = () => {
           marginRight: "0.2rem",
         }}
       >
-        <AvatarDropDownMenu />
+        <AvatarDropDownMenu routerStore={routerStore} menuItems={userSiderMenuItems} />
       </Box>
     </Box>
   );

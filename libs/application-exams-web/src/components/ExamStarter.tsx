@@ -2,6 +2,7 @@ import { AvatarDropDownMenu } from "@edthewise/shared-ui-components";
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import edExamStartPic from "../assets/ed-white.png";
 import { useRouterStore } from "mobx-state-router";
+import { userSiderMenuItems } from "@edthewise/common-component-data";
 
 export const ExamStarter = () => {
   const routerStore = useRouterStore();
@@ -25,7 +26,7 @@ export const ExamStarter = () => {
           top: "2rem",
         }}
       >
-        <AvatarDropDownMenu />
+        <AvatarDropDownMenu routerStore={routerStore} menuItems={userSiderMenuItems} />
       </Box>
       <Container
         sx={{
