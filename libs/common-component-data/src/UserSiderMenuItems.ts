@@ -7,6 +7,9 @@ interface IUserSiderMenuItem {
 
 const handleLogout = (routerStore: RouterStore, e: any) => {
   e?.preventDefault();
+  /**
+   * avoid calling this during development
+   */
   routerStore.goTo("signIn", { logout: true });
 };
 

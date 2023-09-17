@@ -1,5 +1,5 @@
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { UserService } from "@edthewise/foundation-appwrite";
+import { UserService, signUp } from "@edthewise/foundation-appwrite";
 import { inject, injectable } from "inversify";
 import { action, computed, makeAutoObservable, observable } from "mobx";
 import "reflect-metadata";
@@ -19,9 +19,8 @@ export class UserStore {
     this.initialize();
   }
 
-  createEmailSession = async (email: string, password: string) => {
-    const session = await this.userService.createEmailSession(email, password);
-    await sessionStorage.setItem("session", JSON.stringify(session));
+  createEmailSession = async (email: string, password: string, useSession?: boolean) => {
+    const session = await this.userService.createEmailSession(email, password, useSession);
 
     if (session) {
       this.setLoggedIn(true);
@@ -99,4 +98,22 @@ export class UserStore {
   private isSessionValid(sessionObject: any) {
     return sessionObject?.providerAccessTokenExpiry && sessionObject?.providerAccessTokenExpiry > Date.now();
   }
+
+  createUserDocument = async (userId: string, fullName: string, email: string) => {
+    const userDocument = await this.userService.createUserDocument(userId, fullName, email);
+    return userDocument;
+  };
+
+  signUp = async (email: string, password: string, fullName: string) => {
+    const user = await signUp(email, password, fullName);
+    if (user) {
+      await this.createUserDocument(user.$id, user.name, user.email);
+
+      /**
+       * TODO: Uncomment this when goinf live
+       */
+      // this.createEmailSession(email, password, false);
+    }
+    return user;
+  };
 }

@@ -3,6 +3,8 @@ export const ExamsCollectionId = "64e6d0cee78fda7b687f";
 
 export const SubjectsDocId = "64e6d139eaa0a77621ca";
 
+export const USERS_COLLECTION_ID = "6505d51adf2c79915ce5";
+
 /**
  * Financial manaqement - ACCA
  */

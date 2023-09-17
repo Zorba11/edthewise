@@ -12,14 +12,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import edSignUp from "../../assets/ed-signup-2.png";
 import { useRouterStore } from "mobx-state-router";
 import {
-  account,
   SIGN_UP_ERROR_MESSAGE,
-  signUp,
   USER_ALREADY_EXISTS,
   USER_ALREADY_EXISTS_MESSAGE,
 } from "@edthewise/foundation-appwrite";
 import { Alert } from "@mui/material";
-import { Account } from "appwrite";
+import { useContainer } from "@redtea/react-inversify";
+import { UserStore } from "@edthewise/application-stores-web";
 
 function Copyright(props: any) {
   return (
@@ -39,7 +38,10 @@ const defaultTheme = createTheme();
 
 export const SignUp = () => {
   const routerStore = useRouterStore();
-  const [user, setUser] = useState({});
+  const container = useContainer();
+
+  const userStore = container.get(UserStore);
+
   const [error, setError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -57,9 +59,12 @@ export const SignUp = () => {
 
     try {
       const fullName = `${firstName}-${lastName}`;
-      const user = await signUp(email, password, fullName);
-      setUser(user);
-      routerStore.goTo("signIn");
+      await userStore.signUp(email, password, fullName);
+
+      // if (userStore.isLoggedIn) {
+      //   routerStore.goTo("home");
+      // }
+      routerStore.goTo("home");
     } catch (error: any) {
       if (error.response && error.response.type === USER_ALREADY_EXISTS) {
         setError(USER_ALREADY_EXISTS_MESSAGE);

@@ -55,6 +55,8 @@ export const SignIn = () => {
 
       if (userStore.isLoggedIn) {
         routerStore.goTo("home");
+      } else {
+        setError(SIGN_IN_ERROR_MESSAGE);
       }
     } catch (err: any) {
       setError(SIGN_IN_ERROR_MESSAGE);
