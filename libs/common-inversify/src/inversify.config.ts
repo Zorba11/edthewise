@@ -14,7 +14,7 @@ import {
 import {
   CompeteListStore,
   CompeteListStoreToken,
-  ExamsStore,
+  CompeteExamsStore,
   QuestionsStore,
   UserStore,
 } from "@edthewise/application-stores-web";
@@ -48,7 +48,7 @@ container.bind<LearnListRouteService>(TOKENS.LearnListRouteServiceToken).to(Lear
 container.bind<UserStore>(UserStore).toSelf().inSingletonScope();
 container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).inSingletonScope();
 container.bind<CompeteListStore>(CompeteListStoreToken).to(CompeteListStore).inSingletonScope();
-container.bind<ExamsStore>(TOKENS.ExamStoreToken).to(ExamsStore).inSingletonScope();
+container.bind<CompeteExamsStore>(TOKENS.ExamStoreToken).to(CompeteExamsStore).inSingletonScope();
 
 /**
  * Service Bindings to IOC container

@@ -1,4 +1,4 @@
-import { QuestionsStore, UserStore } from "@edthewise/application-stores-web";
+import { CompeteExamsStore, QuestionsStore, UserStore } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { inject, injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
@@ -7,7 +7,11 @@ import { RouterState, RouterStore } from "mobx-state-router";
 export class CompeteExamCardRouteService {
   private questionsUiStore: QuestionsStore;
 
-  constructor(@inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore, private userStore: UserStore) {
+  constructor(
+    @inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore,
+    private userStore: UserStore,
+    @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
+  ) {
     this.questionsUiStore = questionsUiStore;
   }
 
@@ -27,6 +31,16 @@ export class CompeteExamCardRouteService {
 
     this.questionsUiStore.subject = toState.params.subject;
     await this.questionsUiStore.setFirstQuestionSet();
+
+    this.examStore.setExamName(toState.params?.subject);
+
+    if (!this.userStore?.userId) {
+      await this.userStore.initialize();
+    }
+
+    // TODO: THIS IS A TEMPORARY FIX, complete the whole exam generation
+    // and running/submission logic
+    this.examStore.createNewExam(this.userStore?.userId);
 
     return Promise.resolve();
   };

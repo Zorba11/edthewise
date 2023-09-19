@@ -24,10 +24,10 @@ export const CompeteExamCard = () => {
   const onSubmitHandler = (event: any): void => {
     event.preventDefault();
     console.log("onSubmitHandler");
-    questionsStore.setNextQuestion();
-    // routerStore.goTo("competeExamResult", {
-    //   params: { id: "1" },
-    // });
+    // questionsStore.setNextQuestion();
+    routerStore.goTo("competeExamResult", {
+      params: { id: "1" },
+    });
   };
 
   const examCardProps: IExamCardProps = {

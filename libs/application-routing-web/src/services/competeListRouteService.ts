@@ -28,6 +28,8 @@ export class CompeteListRouteService {
 
     const subjectTitle = toState.queryParams.subject;
 
+    // Using subjectTitle get the current Global Exam name and add it to exam store
+
     await this.competeListStore.setCurrentSubjectTitleAndStats(subjectTitle);
 
     return Promise.resolve();

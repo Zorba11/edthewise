@@ -1,14 +1,14 @@
 import { RouterState, RouterStore } from "mobx-state-router";
 import { inject, injectable } from "inversify";
-import { ExamsStore, UserStore } from "@edthewise/application-stores-web";
+import { CompeteExamsStore, UserStore } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import "reflect-metadata";
 
 @injectable()
 export class CompeteHomeRouteService {
-  private examStore: ExamsStore;
+  private examStore: CompeteExamsStore;
 
-  constructor(@inject(TOKENS.ExamStoreToken) examStore: ExamsStore, private userStore: UserStore) {
+  constructor(@inject(TOKENS.ExamStoreToken) examStore: CompeteExamsStore, private userStore: UserStore) {
     this.examStore = examStore;
   }
 

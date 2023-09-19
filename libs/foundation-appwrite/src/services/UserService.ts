@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 import { account, client, database } from "../appwrite-config/config";
 import "reflect-metadata";
 import { ExamsDbId, USERS_COLLECTION_ID } from "../db/collections";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 
 @injectable()
 export class UserService {
@@ -10,11 +10,12 @@ export class UserService {
     try {
       let session: any;
       if (useSession) {
-        session = await sessionStorage.getItem("session");
+        // session = await sessionStorage.getItem("session");
+        session = await localStorage.getItem("ed-session");
         if (session && session !== "undefined") {
           const sessionObj = JSON.parse(session);
           client.setJWT(sessionObj?.providerAccessToken);
-          return session;
+          return sessionObj;
         }
       }
 
@@ -28,7 +29,8 @@ export class UserService {
 
   private async createAppwriteSession(session: any, email: string, password: string) {
     session = await account.createEmailSession(email, password);
-    await sessionStorage.setItem("session", JSON.stringify(session));
+    // await sessionStorage.setItem("session", JSON.stringify(session));
+    await localStorage.setItem("ed-session", JSON.stringify(session));
     return session;
   }
 
@@ -42,6 +44,16 @@ export class UserService {
       });
 
       return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getUserDetails(userId: string) {
+    try {
+      const response = await database.listDocuments(ExamsDbId, USERS_COLLECTION_ID, [Query.equal("id", userId)]);
+
+      return response.documents[0];
     } catch (error) {
       console.log(error);
     }

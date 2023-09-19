@@ -5,6 +5,10 @@ export const SubjectsDocId = "64e6d139eaa0a77621ca";
 
 export const USERS_COLLECTION_ID = "6505d51adf2c79915ce5";
 
+export const COMPETE_EXAMS_COLLECTION_ID = "6505d612088341530f70";
+
+export const ACCA_FM_COMP_JAN_2024 = "111";
+
 /**
  * Financial manaqement - ACCA
  */

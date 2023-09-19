@@ -17,8 +17,9 @@ export class CompeteListStore {
     this.competeListService = competeListService;
   }
 
-  async setCurrentSubjectTitleAndStats(subjectTitles: string) {
-    this.currentSubjectTitle = subjectTitles;
+  async setCurrentSubjectTitleAndStats(subjectTitle: string) {
+    this.currentSubjectTitle = subjectTitle;
+
     await this.getCurrentExamStats();
   }
 

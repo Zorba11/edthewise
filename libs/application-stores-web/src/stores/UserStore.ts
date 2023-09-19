@@ -13,6 +13,8 @@ export class UserStore {
   @observable
   private session!: any | null;
 
+  private userDocId!: string;
+
   constructor(@inject(TOKENS.UserServiceToken) private userService: UserService) {
     makeAutoObservable(this);
 
@@ -24,9 +26,17 @@ export class UserStore {
 
     if (session) {
       this.setLoggedIn(true);
-      this.setEmail(email);
       this.setUserId(session?.userId);
       this.setSession(session);
+
+      // fetch user details
+      const user = await this.userService.getUserDetails(this.userId);
+
+      if (user) {
+        this.setName(user?.username);
+        this.setEmail(user?.email);
+        this.userDocId = user.$id;
+      }
     }
 
     return session;
@@ -67,8 +77,8 @@ export class UserStore {
     this.email = email;
   };
 
-  private async initialize() {
-    const session = await sessionStorage.getItem("session");
+  async initialize() {
+    const session = await localStorage.getItem("ed-session");
     if (!session || session === "undefined") {
       this.reset();
       return;

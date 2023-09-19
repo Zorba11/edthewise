@@ -4,7 +4,7 @@ import { useRouterStore } from "mobx-state-router";
 import { ExamsList } from "@edthewise/application-exams-web";
 import { useContainer } from "@redtea/react-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { ExamsStore } from "@edthewise/application-stores-web";
+import { CompeteExamsStore } from "@edthewise/application-stores-web";
 import "reflect-metadata";
 
 interface TabPanelProps {
@@ -17,7 +17,7 @@ export const CompeteHome = () => {
   const routerStore = useRouterStore();
   const container = useContainer();
 
-  const examStore = container.get<ExamsStore>(TOKENS.ExamStoreToken);
+  const examStore = container.get<CompeteExamsStore>(TOKENS.ExamStoreToken);
 
   const title = examStore.aCCAsubjectTitles[0];
 

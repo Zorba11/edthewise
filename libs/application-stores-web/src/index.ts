@@ -1,5 +1,5 @@
 export * from "./stores/UserStore";
-export * from "./stores/ExamStore";
+export * from "./stores/CompeteExamStore";
 
 // ui stores
 export * from "./uistores/CompeteListStore";
