@@ -104,6 +104,14 @@ export const routes: Route[] = [
     pattern: "/compete-exam-result/:id",
     onEnter: competeExamResultRouteService.onEnterCompeteExamResult,
   },
+  {
+    name: "userProfile",
+    pattern: "/user-profile",
+  },
+  {
+    name: "dashboard",
+    pattern: "/dashboard",
+  },
 ];
 
 export function initRouter() {

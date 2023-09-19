@@ -15,17 +15,17 @@ const handleLogout = (routerStore: RouterStore, e: any) => {
 
 const handleProfileClick = (routerStore: RouterStore, e: any) => {
   e?.preventDefault();
-  // routerStore.goTo("signIn", { logout: true });
+  routerStore.goTo("userProfile");
 };
 
-const handleBlogClick = (routerStore: RouterStore, e: any) => {
-  e?.preventDefault();
-  // routerStore.goTo("signIn", { logout: true });
-};
+// const handleBlogClick = (routerStore: RouterStore, e: any) => {
+//   e?.preventDefault();
+//   // routerStore.goTo("signIn", { logout: true });
+// };
 
 const handleDashboardClick = (routerStore: RouterStore, e: any) => {
   e?.preventDefault();
-  // routerStore.goTo("signIn", { logout: true });
+  routerStore.goTo("dashboard");
 };
 
 export const userSiderMenuItems: IUserSiderMenuItem[] = [
@@ -37,10 +37,10 @@ export const userSiderMenuItems: IUserSiderMenuItem[] = [
     title: "Dashboard",
     onClick: handleDashboardClick,
   },
-  {
-    title: "Blog",
-    onClick: handleBlogClick,
-  },
+  // {
+  //   title: "Blog",
+  //   onClick: handleBlogClick,
+  // },
   {
     title: "Log out",
     onClick: handleLogout,

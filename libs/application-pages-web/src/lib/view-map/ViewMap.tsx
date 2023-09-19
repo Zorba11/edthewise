@@ -24,4 +24,6 @@ export const viewMap = {
   learnExamCard: <LearnExamCard />,
   learnExamResult: <LearnExamResult />,
   competeExamResult: <CompeteExamResult />,
+  userProfile: <div>userProfile</div>,
+  dashboard: <div>dashboard</div>,
 };
