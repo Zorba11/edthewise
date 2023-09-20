@@ -7,6 +7,7 @@ import { RouterState, RouterStore } from "mobx-state-router";
 export class CompeteExamCardRouteService {
   private questionsUiStore: QuestionsStore;
 
+  // verify if this userStore is singleton
   constructor(
     @inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore,
     private userStore: UserStore,
@@ -38,8 +39,12 @@ export class CompeteExamCardRouteService {
       await this.userStore.initialize();
     }
 
-    // TODO: THIS IS A TEMPORARY FIX, complete the whole exam generation
-    // and running/submission logic
+    /**
+     * TODO: THIS IS A TEMPORARY FIX, complete the whole exam generation
+     * and running/submission logic.
+     * Also, create an email session manually and hard code it for
+     * development purposes.
+     * */
     this.examStore.createNewExam(this.userStore?.userId);
 
     return Promise.resolve();

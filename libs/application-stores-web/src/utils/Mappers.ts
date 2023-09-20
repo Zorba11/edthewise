@@ -6,9 +6,9 @@ interface QuestionOption {
 }
 
 export class Mappers {
-  static mapQuestionToCard = (question: any): IExamCardData => {
+  static mapQuestionToCard = (question: any, index: number): IExamCardData => {
     const questionData = {
-      qNumber: question.QId,
+      qNumber: index + 1,
       qp1: question.QP1,
       qTableData1: [] as QuestionOption[],
       qTableData2: [] as QuestionOption[],
@@ -31,7 +31,7 @@ export class Mappers {
     const qAnswer = this.parseJsonData(question.ANSWER);
     questionData.qAnswer = qAnswer;
 
-    return { questionData };
+    return questionData;
   };
 
   private static parseJsonData(data: string): any {

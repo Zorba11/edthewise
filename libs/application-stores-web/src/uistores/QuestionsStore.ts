@@ -10,7 +10,7 @@ import { action, computed, observable } from "mobx";
 export class QuestionsStore {
   private currQNumber: string;
   @observable
-  private _currentQuestion: IExamCardData;
+  currentQuestion!: IExamCardData;
   private _subject: string;
   private _questions: IExamCardData[];
   private _currentQuestionIndex: number;
@@ -18,7 +18,6 @@ export class QuestionsStore {
   constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
     this.currQNumber = "0";
     this.questionsService = questionsService;
-    this._currentQuestion = {} as IExamCardData;
     this._subject = "";
     this._questions = [];
     this._currentQuestionIndex = 0;
@@ -33,11 +32,6 @@ export class QuestionsStore {
     return this._subject;
   }
 
-  @computed
-  get currentQuestion(): IExamCardData {
-    return this._currentQuestion;
-  }
-
   get currentQuestionNumber(): string {
     return this.currQNumber;
   }
@@ -46,12 +40,12 @@ export class QuestionsStore {
   async setFirstQuestionSet() {
     try {
       const questions = await this.questionsService.getQuestions();
-      questions.documents.map((question: any) => {
-        this._questions.push(Mappers.mapQuestionToCard(question));
+      questions.documents.map((question: any, index: number) => {
+        this._questions.push(Mappers.mapQuestionToCard(question, index));
       });
 
       if (this._questions.length) {
-        this._currentQuestion = this._questions[this._currentQuestionIndex];
+        this.currentQuestion = this._questions[this._currentQuestionIndex];
       }
     } catch (error) {
       console.log(error);
@@ -59,11 +53,11 @@ export class QuestionsStore {
   }
 
   @action
-  async setNextQuestion() {
+  setNextQuestion() {
     try {
       if (this._questions) {
         this._currentQuestionIndex++;
-        this._currentQuestion = this._questions[this._currentQuestionIndex];
+        this.currentQuestion = this._questions[this._currentQuestionIndex];
       }
     } catch (error) {
       console.log(error);

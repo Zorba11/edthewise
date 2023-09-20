@@ -1,6 +1,6 @@
 import { IExamCardData } from "./IExamCardData";
 
-export interface IExamCardProps extends IExamCardData {
+export interface IExamCardProps {
   onFinishHandler: (event: any) => void;
   withTimer: boolean;
   withNavigation: boolean;
@@ -8,4 +8,5 @@ export interface IExamCardProps extends IExamCardData {
   onSubmitHandler?: (event: any) => void;
   withEd?: boolean;
   sqQuestions?: any[];
+  questionData: IExamCardData;
 }

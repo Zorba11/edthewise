@@ -5,7 +5,6 @@ import { CompeteExamStarterDetails } from "../../components/CompeteExamStarterDe
 import { ExamTitleAndRules } from "../../components/ExamTitleAndRules";
 import { CompeteListStore, CompeteListStoreToken } from "@edthewise/application-stores-web";
 import { container } from "@edthewise/common-inversify";
-import { IExamStats } from "libs/application-stores-web/src/models/IExamStats";
 
 export const CompeteList = () => {
   const routerStore = useRouterStore();
@@ -23,7 +22,7 @@ export const CompeteList = () => {
   };
 
   const subjectTitle = competeListStore.currentSubjectTitle;
-  const examStats: IExamStats = competeListStore.currentExamStats;
+  const examStats: any = competeListStore?.currentExamStats;
 
   const rules = `🏆 Compete, Shine, and Win Big with EdTheWise! 🏆
 

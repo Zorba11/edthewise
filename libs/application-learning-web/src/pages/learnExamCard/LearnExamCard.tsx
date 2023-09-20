@@ -30,7 +30,7 @@ export const LearnExamCard = () => {
   const examCardProps: IExamCardProps = {
     onFinishHandler: onFinishHandler,
     withTimer: false,
-    questionData: questionsStore.currentQuestion.questionData,
+    questionData: questionsStore.currentQuestion,
     withNavigation: true,
     disableSubmit: false,
     onSubmitHandler: onSubmitHandler,

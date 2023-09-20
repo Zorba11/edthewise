@@ -7,8 +7,9 @@ import { SubmitButton } from "../questions/SubmitButton";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { QuestionNavigation } from "../QuestionNavigation";
 import { IExamCardProps } from "../../pages/IExamCardProps";
+import { observer } from "mobx-react";
 
-export const Type2ExamCard = (props: IExamCardProps) => {
+export const Type2ExamCard = observer((props: IExamCardProps) => {
   const qNumber = props.questionData.qNumber;
   const qp1desc = props.questionData.qp1;
   const totalQNumber = 32;
@@ -145,4 +146,4 @@ export const Type2ExamCard = (props: IExamCardProps) => {
       )}
     </Box>
   );
-};
+});

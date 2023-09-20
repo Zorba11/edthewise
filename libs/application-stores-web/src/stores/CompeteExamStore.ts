@@ -12,6 +12,8 @@ export class CompeteExamsStore {
   private currentExamName!: string;
   private examId!: string;
 
+  exam!: any;
+
   constructor(@inject(TOKENS.ExamsServiceToken) examsService: ExamsService) {
     this.aCCAsubjectTitles = ["Hello"];
     this.examsService = examsService;
@@ -26,7 +28,7 @@ export class CompeteExamsStore {
   }
 
   async createNewExam(userId: string): Promise<void> {
-    await this.examsService.createMCQExam(this.examId, userId, this.subjectName);
+    this.exam = await this.examsService.createMCQExam(this.examId, userId, this.subjectName);
   }
 
   async setExamName(subjectName: string): Promise<void> {
