@@ -4,7 +4,7 @@ import { QuestionsService } from "@edthewise/foundation-appwrite";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { Mappers } from "../utils/Mappers";
-import { action, computed, observable } from "mobx";
+import { action, computed, makeAutoObservable, observable } from "mobx";
 
 @injectable()
 export class QuestionsStore {
@@ -16,11 +16,13 @@ export class QuestionsStore {
   private _currentQuestionIndex: number;
 
   constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
+    this.currentQuestion = {};
     this.currQNumber = "0";
     this.questionsService = questionsService;
     this._subject = "";
     this._questions = [];
     this._currentQuestionIndex = 0;
+    makeAutoObservable(this.currentQuestion);
   }
 
   set subject(subject: string) {

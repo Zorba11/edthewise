@@ -11,6 +11,11 @@ export class UserService {
       let session: any;
       if (useSession) {
         // session = await sessionStorage.getItem("session");
+
+        /**
+         * TODO: This logic is wrong - as we should detect the session and compare the email
+         * but this is fine for now in development. Think more about it before production.
+         */
         session = await localStorage.getItem("ed-session");
         if (session && session !== "undefined") {
           const sessionObj = JSON.parse(session);

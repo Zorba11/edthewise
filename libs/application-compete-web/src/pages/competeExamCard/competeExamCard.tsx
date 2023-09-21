@@ -9,7 +9,6 @@ import { useState } from "react";
 export const CompeteExamCard = observer(() => {
   const routerStore = useRouterStore();
   const questionsStore = container.get<QuestionsStore>(TOKENS.QuestionsStoreToken);
-  const [key, setKey] = useState(0);
 
   const goToCompeteExamResult = (event: any) => {
     event.preventDefault();
@@ -27,7 +26,6 @@ export const CompeteExamCard = observer(() => {
     event.preventDefault();
     console.log("onSubmitHandler");
     questionsStore.setNextQuestion();
-    setKey(key + 1);
     // routerStore.goTo("competeExamResult", {
     //   params: { id: "1" },
     // });
@@ -43,5 +41,5 @@ export const CompeteExamCard = observer(() => {
     withEd: false,
   };
 
-  return <ExamCard {...examCardProps} key={key} />;
+  return <ExamCard {...examCardProps} />;
 });
