@@ -8,9 +8,17 @@ interface IExamRightPaneProps {
   withTimer: boolean;
   totalQNumber: number;
   withEd?: boolean;
+  goToNextQuestion: (event: any) => void;
+  goToPrevQuestion: (event: any) => void;
 }
 
-const ExamRightPane = ({ withTimer = true, totalQNumber = 32, withEd = false }: IExamRightPaneProps) => {
+const ExamRightPane = ({
+  withTimer = true,
+  totalQNumber = 32,
+  withEd = false,
+  goToNextQuestion,
+  goToPrevQuestion,
+}: IExamRightPaneProps) => {
   return (
     <Box
       sx={{
@@ -36,8 +44,8 @@ const ExamRightPane = ({ withTimer = true, totalQNumber = 32, withEd = false }: 
           marginTop: "3rem",
         }}
       >
-        <LeftArrow />
-        <RightArrow />
+        <LeftArrow onClick={goToPrevQuestion} />
+        <RightArrow onClick={goToNextQuestion} />
       </Box>
     </Box>
   );

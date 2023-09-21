@@ -3,24 +3,11 @@ import QP1 from "../questions/QP1";
 import { QTable } from "../questions/QTable";
 import { Options } from "../questions/Options";
 import { SubmitButton } from "../questions/SubmitButton";
-import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
-import { QuestionNavigation } from "../QuestionNavigation";
-import { IExamCardProps } from "../../pages/IExamCardProps";
 import { QP } from "../questions/QP";
-import { IOption } from "./IQOptions";
-import ExamRightPane from "./ExamRightPane";
+import { IExamCardData } from "../../pages/IExamCardData";
 
 interface IType5ExamCardProps {
-  questionData: {
-    qNumber: number;
-    qp1: string;
-    qp2?: string;
-    qp3?: string;
-    qOptions?: IOption[];
-    qAnswer?: IOption[];
-    qTableData1?: { label: string; value: string }[];
-    qTableData2?: { label: string; value: string }[];
-  };
+  questionData: IExamCardData;
   disableSubmit?: boolean;
   onSubmitHandler?: (event?: any) => void;
   onFinishHandler: (event: any) => void;

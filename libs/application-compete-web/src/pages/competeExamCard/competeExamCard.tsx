@@ -4,14 +4,12 @@ import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { observer } from "mobx-react";
 import { useRouterStore } from "mobx-state-router";
-import { useState } from "react";
 
 export const CompeteExamCard = observer(() => {
   const routerStore = useRouterStore();
   const questionsStore = container.get<QuestionsStore>(TOKENS.QuestionsStoreToken);
 
-  const goToCompeteExamResult = (event: any) => {
-    event.preventDefault();
+  const goToCompeteExamResult = () => {
     routerStore.goTo("competeExamResult", {
       params: { id: "1" },
     });
@@ -26,9 +24,27 @@ export const CompeteExamCard = observer(() => {
     event.preventDefault();
     console.log("onSubmitHandler");
     questionsStore.setNextQuestion();
-    // routerStore.goTo("competeExamResult", {
-    //   params: { id: "1" },
-    // });
+
+    // TODO: Remove this in production
+    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
+      goToCompeteExamResult();
+    }
+  };
+
+  const goToNextQuestion = (event: any) => {
+    event.preventDefault();
+    // TODO: Remove this in production
+    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
+      return;
+    }
+    questionsStore.setNextQuestion();
+  };
+
+  const goToPreviousQuestion = (event: any) => {
+    event.preventDefault();
+    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber !== 1) {
+      questionsStore.setPreviousQuestion();
+    }
   };
 
   const examCardProps: IExamCardProps = {
@@ -39,6 +55,8 @@ export const CompeteExamCard = observer(() => {
     disableSubmit: false,
     onSubmitHandler: onSubmitHandler,
     withEd: false,
+    goToNextQuestion: goToNextQuestion,
+    goToPrevQuestion: goToPreviousQuestion,
   };
 
   return <ExamCard {...examCardProps} />;

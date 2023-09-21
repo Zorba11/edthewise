@@ -2,9 +2,13 @@ import { Box } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-export const LeftArrow = () => {
+interface IArrowProps {
+  onClick: (event: any) => void;
+}
+
+export const LeftArrow = ({ onClick }: IArrowProps) => {
   return (
-    <Box>
+    <Box onClick={onClick}>
       <ArrowBackIcon
         sx={{
           "&:hover": {
@@ -18,9 +22,9 @@ export const LeftArrow = () => {
   );
 };
 
-export const RightArrow = () => {
+export const RightArrow = ({ onClick }: IArrowProps) => {
   return (
-    <Box>
+    <Box onClick={onClick}>
       <ArrowForwardIcon
         sx={{
           "&:hover": {

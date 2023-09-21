@@ -48,7 +48,13 @@ export const SQExamCard = (props: any) => {
       case "qp1,qtable1,qp2,qp3,op":
         // revert back after SQ Implementation
         return (
-          <ExamCardContainer withNavigation={true} withTimer={cardProps.withTimer} totalQNumber={totalQNumber}>
+          <ExamCardContainer
+            goToPrevQuestion={props.goToPrevQuestion}
+            goToNextQuestion={props.goToNextQuestion}
+            withNavigation={true}
+            withTimer={cardProps.withTimer}
+            totalQNumber={totalQNumber}
+          >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
         );
@@ -56,17 +62,35 @@ export const SQExamCard = (props: any) => {
         return <Type2ExamCard {...newProps} />;
       case "qp1,qp2,op":
         return (
-          <ExamCardContainer withNavigation={true} withTimer={true} totalQNumber={totalQNumber}>
+          <ExamCardContainer
+            goToPrevQuestion={props.goToPrevQuestion}
+            goToNextQuestion={props.goToNextQuestion}
+            withNavigation={true}
+            withTimer={true}
+            totalQNumber={totalQNumber}
+          >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
         );
       case "qp1,qtable1,op":
-        <ExamCardContainer withNavigation={true} withTimer={true} totalQNumber={totalQNumber}>
+        <ExamCardContainer
+          goToPrevQuestion={props.goToPrevQuestion}
+          goToNextQuestion={props.goToNextQuestion}
+          withNavigation={true}
+          withTimer={true}
+          totalQNumber={totalQNumber}
+        >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;
         break;
       case "qp1,qtable1,qp2,qtable2,qp3,op":
-        <ExamCardContainer withNavigation={true} withTimer={true} totalQNumber={totalQNumber}>
+        <ExamCardContainer
+          goToPrevQuestion={props.goToPrevQuestion}
+          goToNextQuestion={props.goToNextQuestion}
+          withNavigation={true}
+          withTimer={true}
+          totalQNumber={totalQNumber}
+        >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;
         break;

@@ -139,8 +139,8 @@ export const Type2ExamCard = observer((props: IExamCardProps) => {
               marginTop: "3rem",
             }}
           >
-            <LeftArrow />
-            <RightArrow />
+            <LeftArrow onClick={props.goToPrevQuestion} />
+            <RightArrow onClick={props.goToNextQuestion} />
           </Box>
         </Box>
       )}

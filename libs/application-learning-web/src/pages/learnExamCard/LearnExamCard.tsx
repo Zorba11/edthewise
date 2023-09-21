@@ -1,7 +1,6 @@
 import { ExamCard, IExamCardProps } from "@edthewise/application-exams-web";
 import { QuestionsStore } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { withFadeIn } from "@edthewise/shared-ui-components";
 import { Box } from "@mui/material";
 import { useService } from "@redtea/react-inversify";
 import { useRouterStore } from "mobx-state-router";
@@ -27,14 +26,30 @@ export const LearnExamCard = () => {
     console.log("onSubmitHandler");
   };
 
+  const goToNextQuestion = (event: any) => {
+    event.preventDefault();
+    questionsStore.setNextQuestion();
+    // TODO: Remove this in production
+    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
+      return;
+    }
+  };
+
+  const goToPreviousQuestion = (event: any) => {
+    event.preventDefault();
+    questionsStore.setPreviousQuestion();
+  };
+
   const examCardProps: IExamCardProps = {
     onFinishHandler: onFinishHandler,
-    withTimer: false,
+    withTimer: true,
     questionData: questionsStore.currentQuestion,
     withNavigation: true,
     disableSubmit: false,
     onSubmitHandler: onSubmitHandler,
-    withEd: true,
+    withEd: false,
+    goToNextQuestion: goToNextQuestion,
+    goToPrevQuestion: goToPreviousQuestion,
   };
 
   return (

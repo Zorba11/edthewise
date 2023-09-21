@@ -22,7 +22,7 @@ export class QuestionsStore {
     this._subject = "";
     this._questions = [];
     this._currentQuestionIndex = 0;
-    makeAutoObservable(this.currentQuestion);
+    makeAutoObservable(this);
   }
 
   set subject(subject: string) {
@@ -59,6 +59,18 @@ export class QuestionsStore {
     try {
       if (this._questions) {
         this._currentQuestionIndex++;
+        this.currentQuestion = this._questions[this._currentQuestionIndex];
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  @action
+  setPreviousQuestion() {
+    try {
+      if (this._questions) {
+        this._currentQuestionIndex--;
         this.currentQuestion = this._questions[this._currentQuestionIndex];
       }
     } catch (error) {

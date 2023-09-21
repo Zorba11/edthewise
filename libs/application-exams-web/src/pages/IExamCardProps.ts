@@ -9,4 +9,6 @@ export interface IExamCardProps {
   withEd?: boolean;
   sqQuestions?: any[];
   questionData: IExamCardData;
+  goToNextQuestion: (event: any) => void;
+  goToPrevQuestion: (event: any) => void;
 }

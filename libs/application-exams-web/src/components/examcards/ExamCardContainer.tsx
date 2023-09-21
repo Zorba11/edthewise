@@ -8,9 +8,19 @@ interface IExamCardContainerProps {
   totalQNumber: number;
   children: ReactNode;
   withEd?: boolean;
+  goToNextQuestion: (event: any) => void;
+  goToPrevQuestion: (event: any) => void;
 }
 
-const ExamCardContainer = ({ withEd, withNavigation, withTimer, totalQNumber, children }: IExamCardContainerProps) => {
+const ExamCardContainer = ({
+  withEd,
+  withNavigation,
+  withTimer,
+  totalQNumber,
+  children,
+  goToNextQuestion,
+  goToPrevQuestion,
+}: IExamCardContainerProps) => {
   return (
     <Box
       sx={{
@@ -19,7 +29,15 @@ const ExamCardContainer = ({ withEd, withNavigation, withTimer, totalQNumber, ch
     >
       {children}
       {/* Question Navigation Box */}
-      {withNavigation && <ExamRightPane withEd={withEd} withTimer={withTimer} totalQNumber={totalQNumber} />}
+      {withNavigation && (
+        <ExamRightPane
+          goToNextQuestion={goToNextQuestion}
+          goToPrevQuestion={goToPrevQuestion}
+          withEd={withEd}
+          withTimer={withTimer}
+          totalQNumber={totalQNumber}
+        />
+      )}
     </Box>
   );
 };
