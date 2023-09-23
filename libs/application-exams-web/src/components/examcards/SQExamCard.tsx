@@ -53,9 +53,9 @@ export const SQExamCard = (props: any) => {
             goToNextQuestion={props.goToNextQuestion}
             withNavigation={true}
             withTimer={cardProps.withTimer}
-            totalQNumber={totalQNumber}
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
           >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
@@ -69,9 +69,9 @@ export const SQExamCard = (props: any) => {
             goToNextQuestion={props.goToNextQuestion}
             withNavigation={true}
             withTimer={true}
-            totalQNumber={totalQNumber}
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
           >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
@@ -82,9 +82,9 @@ export const SQExamCard = (props: any) => {
           goToNextQuestion={props.goToNextQuestion}
           withNavigation={true}
           withTimer={true}
-          totalQNumber={totalQNumber}
           submittedQuestions={props.submittedQuestions}
           onQNumClick={props.onQNumClick}
+          totalQuestions={props.totalQuestions}
         >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;
@@ -95,9 +95,9 @@ export const SQExamCard = (props: any) => {
           goToNextQuestion={props.goToNextQuestion}
           withNavigation={true}
           withTimer={true}
-          totalQNumber={totalQNumber}
           submittedQuestions={props.submittedQuestions}
           onQNumClick={props.onQNumClick}
+          totalQuestions={props.totalQuestions}
         >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;

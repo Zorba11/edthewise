@@ -17,7 +17,7 @@ interface IExamRightPaneProps {
 
 const ExamRightPane = ({
   withTimer = true,
-  totalQNumber = 32,
+  totalQNumber,
   withEd = false,
   goToNextQuestion,
   goToPrevQuestion,

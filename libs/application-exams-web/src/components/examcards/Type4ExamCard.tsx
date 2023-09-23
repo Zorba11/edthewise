@@ -102,44 +102,6 @@ export const Type4ExamCard = (props: IExamCardProps) => {
           </Grid>
         </Box>
       </Paper>
-
-      {/* Timer, Navigation Board, Left & Right Arrows */}
-      {/* Timer */}
-      {props.withTimer && (
-        <Box
-          sx={{
-            position: "relative",
-            left: "14rem",
-            top: "5rem",
-          }}
-        >
-          <Timer />
-        </Box>
-      )}
-
-      {/* Question Navigation Box */}
-      {props.withNavigation && (
-        <Box
-          sx={{
-            position: props.withTimer ? "relative" : "fixed",
-            right: props.withTimer ? "8rem" : "2rem",
-            top: props.withTimer ? "10rem" : "5rem",
-          }}
-        >
-          <QuestionNavigation onQNumClick={props.onQNumClick} totalQNumber={totalQNumber} />
-          {/* Left & Right Arrows */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "3rem",
-            }}
-          >
-            <LeftArrow onClick={props.goToPrevQuestion} />
-            <RightArrow onClick={props.goToNextQuestion} />
-          </Box>
-        </Box>
-      )}
     </Box>
   );
 };

@@ -13,8 +13,6 @@ export const ExamCard = (props: IExamCardProps) => {
 
   // if (sqType) qComponentOrder = "SQ";
 
-  const totalQNumber = 32;
-
   const renderQCard = (qComponentOrder: string) => {
     switch (qComponentOrder?.toLowerCase()) {
       case "qp1,qtable1,qp2,qp3,op":
@@ -25,10 +23,10 @@ export const ExamCard = (props: IExamCardProps) => {
             goToNextQuestion={props.goToNextQuestion}
             withNavigation={true}
             withTimer={props.withTimer}
-            totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
           >
             <Type5ExamCard
               onSubmitHandler={props.onSubmitHandler}
@@ -47,10 +45,10 @@ export const ExamCard = (props: IExamCardProps) => {
             goToNextQuestion={props.goToNextQuestion}
             withNavigation={true}
             withTimer={props.withTimer}
-            totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
           >
             <Type5ExamCard
               onSubmitHandler={props.onSubmitHandler}
@@ -69,42 +67,44 @@ export const ExamCard = (props: IExamCardProps) => {
             goToPrevQuestion={props.goToPrevQuestion}
             withNavigation={true}
             withTimer={true}
-            totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
           >
             <Type5ExamCard {...props} />
           </ExamCardContainer>
         );
       case "qp1,qtable1,op":
-        <ExamCardContainer
-          goToNextQuestion={props.goToNextQuestion}
-          goToPrevQuestion={props.goToPrevQuestion}
-          withNavigation={true}
-          withTimer={true}
-          totalQNumber={totalQNumber}
-          currentQNumber={props.questionData.qNumber}
-          submittedQuestions={props.submittedQuestions}
-          onQNumClick={props.onQNumClick}
-        >
-          <Type4ExamCard {...props} />
-        </ExamCardContainer>;
-        break;
+        return (
+          <ExamCardContainer
+            goToPrevQuestion={props.goToPrevQuestion}
+            goToNextQuestion={props.goToNextQuestion}
+            withNavigation={true}
+            withTimer={props.withTimer}
+            currentQNumber={props.questionData.qNumber}
+            submittedQuestions={props.submittedQuestions}
+            onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
+          >
+            <Type4ExamCard {...props} />
+          </ExamCardContainer>
+        );
       case "qp1,qtable1,qp2,qtable2,qp3,op":
-        <ExamCardContainer
-          goToNextQuestion={props.goToNextQuestion}
-          goToPrevQuestion={props.goToPrevQuestion}
-          withNavigation={true}
-          withTimer={true}
-          totalQNumber={totalQNumber}
-          currentQNumber={props.questionData.qNumber}
-          submittedQuestions={props.submittedQuestions}
-          onQNumClick={props.onQNumClick}
-        >
-          <Type4ExamCard {...props} />
-        </ExamCardContainer>;
-        break;
+        return (
+          <ExamCardContainer
+            goToNextQuestion={props.goToNextQuestion}
+            goToPrevQuestion={props.goToPrevQuestion}
+            withNavigation={true}
+            withTimer={true}
+            currentQNumber={props.questionData.qNumber}
+            submittedQuestions={props.submittedQuestions}
+            onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
+          >
+            <Type4ExamCard {...props} />
+          </ExamCardContainer>
+        );
       case "sq":
         return (
           <ExamCardContainer
@@ -113,10 +113,10 @@ export const ExamCard = (props: IExamCardProps) => {
             withEd={true}
             withNavigation={true}
             withTimer={props?.withTimer}
-            totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
+            totalQuestions={props.totalQuestions}
           >
             <SQExamCard {...props?.questionData} />
           </ExamCardContainer>

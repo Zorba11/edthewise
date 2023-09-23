@@ -13,4 +13,5 @@ export interface IExamCardProps {
   goToPrevQuestion: (event: any) => void;
   submittedQuestions: Set<number>;
   onQNumClick: (event: any, qNumber: number) => void;
+  totalQuestions: number;
 }

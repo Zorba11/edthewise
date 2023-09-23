@@ -40,7 +40,7 @@ export const CompeteExamCard = observer(() => {
   const goToNextQuestion = (event: any) => {
     event.preventDefault();
     // TODO: Remove this in production
-    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber > 3) {
+    if (questionsStore.currentQuestion.qNumber === questionsStore.totalQuestions) {
       return;
     }
     questionsStore.setNextQuestion();
@@ -51,6 +51,11 @@ export const CompeteExamCard = observer(() => {
     if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber !== 1) {
       questionsStore.setPreviousQuestion();
     }
+  };
+
+  const goToQuestion = (event: any, qNumber: number) => {
+    event.preventDefault();
+    onQNumberClick(event, qNumber);
   };
 
   const examCardProps: IExamCardProps = {
@@ -65,14 +70,22 @@ export const CompeteExamCard = observer(() => {
     goToPrevQuestion: goToPreviousQuestion,
     submittedQuestions: questionsStore.submittedQuestions,
     onQNumClick: onQNumberClick,
+    totalQuestions: questionsStore.totalQuestions,
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      const qNumber = questionsStore?.currentQuestion?.qNumber ?? 1;
+      const totalQuestions = questionsStore.totalQuestions;
+
       if (event.key === "ArrowLeft") {
         goToPreviousQuestion(event);
       } else if (event.key === "ArrowRight") {
         goToNextQuestion(event);
+      } else if (event.key === "ArrowDown" && qNumber + 10 <= totalQuestions) {
+        goToQuestion(event, qNumber + 10);
+      } else if (event.key === "ArrowUp" && qNumber - 10 >= 1) {
+        goToQuestion(event, qNumber - 10);
       }
     };
 

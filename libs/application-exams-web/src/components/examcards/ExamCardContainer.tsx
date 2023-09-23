@@ -5,7 +5,6 @@ import ExamRightPane from "./ExamRightPane";
 interface IExamCardContainerProps {
   withNavigation: boolean;
   withTimer: boolean;
-  totalQNumber: number;
   children: ReactNode;
   withEd?: boolean;
   goToNextQuestion: (event: any) => void;
@@ -13,19 +12,20 @@ interface IExamCardContainerProps {
   currentQNumber?: number;
   submittedQuestions: Set<number>;
   onQNumClick: (event: any, questionNumber: number) => void;
+  totalQuestions: number;
 }
 
 const ExamCardContainer = ({
   withEd,
   withNavigation,
   withTimer,
-  totalQNumber,
   children,
   goToNextQuestion,
   goToPrevQuestion,
   currentQNumber,
   submittedQuestions,
   onQNumClick,
+  totalQuestions,
 }: IExamCardContainerProps) => {
   return (
     <Box
@@ -41,7 +41,7 @@ const ExamCardContainer = ({
           goToPrevQuestion={goToPrevQuestion}
           withEd={withEd}
           withTimer={withTimer}
-          totalQNumber={totalQNumber}
+          totalQNumber={totalQuestions}
           currentQNumber={currentQNumber}
           submittedQuestions={submittedQuestions}
           onQNumClick={onQNumClick}

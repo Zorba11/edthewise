@@ -42,6 +42,10 @@ export class QuestionsStore {
   @action
   async setFirstQuestionSet() {
     try {
+      if (this._questions.length) {
+        return;
+      }
+
       const questions = await this.questionsService.getQuestions();
       questions.documents.map((question: any, index: number) => {
         this._questions.push(Mappers.mapQuestionToCard(question, index));
@@ -53,6 +57,11 @@ export class QuestionsStore {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  @computed
+  get totalQuestions(): number {
+    return this._questions.length;
   }
 
   @action
