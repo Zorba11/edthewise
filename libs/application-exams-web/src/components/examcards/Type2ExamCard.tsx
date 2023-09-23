@@ -33,8 +33,8 @@ export const Type2ExamCard = observer((props: IExamCardProps) => {
           marginLeft: "7rem",
           marginTop: "3rem",
           width: "52rem",
-          minHeight: "55rem",
-          maxHeight: "50rem",
+          minHeight: "40vh",
+          maxHeight: "70vh",
           padding: "2rem",
           borderRadius: "1rem",
           height: "auto",
@@ -78,7 +78,7 @@ export const Type2ExamCard = observer((props: IExamCardProps) => {
                   display: "flex",
                   justifyContent: "space-between",
                   position: "relative",
-                  left: "2rem",
+                  top: "1vh",
                 }}
               >
                 <Typography
@@ -101,6 +101,7 @@ export const Type2ExamCard = observer((props: IExamCardProps) => {
                 marginTop: "5rem",
                 position: "relative",
                 bottom: "1rem",
+                top: "1vh",
               }}
             >
               <SubmitButton disable={disableSubmit} onSubmitHandler={onSubmitHandler} />

@@ -38,7 +38,24 @@ export const ExamCard = (props: IExamCardProps) => {
           </ExamCardContainer>
         );
       case "qp1,op":
-        return <Type2ExamCard {...props} />;
+        return (
+          <ExamCardContainer
+            goToPrevQuestion={props.goToPrevQuestion}
+            goToNextQuestion={props.goToNextQuestion}
+            withNavigation={true}
+            withTimer={props.withTimer}
+            totalQNumber={totalQNumber}
+          >
+            <Type5ExamCard
+              onSubmitHandler={props.onSubmitHandler}
+              onFinishHandler={() => ({})}
+              withTimer={props.withTimer}
+              withNavigation={true}
+              questionData={props.questionData}
+              disableSubmit={false}
+            />
+          </ExamCardContainer>
+        );
       case "qp1,qp2,op":
         return (
           <ExamCardContainer

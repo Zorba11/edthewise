@@ -34,7 +34,7 @@ export const CompeteExamCard = observer(() => {
   const goToNextQuestion = (event: any) => {
     event.preventDefault();
     // TODO: Remove this in production
-    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
+    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber > 3) {
       return;
     }
     questionsStore.setNextQuestion();
