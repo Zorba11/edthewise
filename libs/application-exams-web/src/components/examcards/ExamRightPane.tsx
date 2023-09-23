@@ -12,6 +12,7 @@ interface IExamRightPaneProps {
   goToPrevQuestion: (event: any) => void;
   currentQNumber?: number;
   submittedQuestions?: Set<number>;
+  onQNumClick: (event: any, qNumber: number) => void;
 }
 
 const ExamRightPane = ({
@@ -22,6 +23,7 @@ const ExamRightPane = ({
   goToPrevQuestion,
   currentQNumber,
   submittedQuestions,
+  onQNumClick,
 }: IExamRightPaneProps) => {
   return (
     <Box
@@ -42,6 +44,7 @@ const ExamRightPane = ({
         submittedQuestions={submittedQuestions}
         currentQNumber={currentQNumber}
         totalQNumber={totalQNumber}
+        onQNumClick={onQNumClick}
       />
       {/* Left & Right Arrows */}
       <Box

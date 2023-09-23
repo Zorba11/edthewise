@@ -28,6 +28,7 @@ export const ExamCard = (props: IExamCardProps) => {
             totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
+            onQNumClick={props.onQNumClick}
           >
             <Type5ExamCard
               onSubmitHandler={props.onSubmitHandler}
@@ -49,6 +50,7 @@ export const ExamCard = (props: IExamCardProps) => {
             totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
+            onQNumClick={props.onQNumClick}
           >
             <Type5ExamCard
               onSubmitHandler={props.onSubmitHandler}
@@ -70,6 +72,7 @@ export const ExamCard = (props: IExamCardProps) => {
             totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
+            onQNumClick={props.onQNumClick}
           >
             <Type5ExamCard {...props} />
           </ExamCardContainer>
@@ -83,6 +86,7 @@ export const ExamCard = (props: IExamCardProps) => {
           totalQNumber={totalQNumber}
           currentQNumber={props.questionData.qNumber}
           submittedQuestions={props.submittedQuestions}
+          onQNumClick={props.onQNumClick}
         >
           <Type4ExamCard {...props} />
         </ExamCardContainer>;
@@ -96,6 +100,7 @@ export const ExamCard = (props: IExamCardProps) => {
           totalQNumber={totalQNumber}
           currentQNumber={props.questionData.qNumber}
           submittedQuestions={props.submittedQuestions}
+          onQNumClick={props.onQNumClick}
         >
           <Type4ExamCard {...props} />
         </ExamCardContainer>;
@@ -111,6 +116,7 @@ export const ExamCard = (props: IExamCardProps) => {
             totalQNumber={totalQNumber}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}
+            onQNumClick={props.onQNumClick}
           >
             <SQExamCard {...props?.questionData} />
           </ExamCardContainer>

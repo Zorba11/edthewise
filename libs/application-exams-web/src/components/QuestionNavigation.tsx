@@ -5,12 +5,14 @@ interface IQuestionNavigationProps {
   totalQNumber: number;
   currentQNumber?: number;
   submittedQuestions?: Set<number>;
+  onQNumClick: (event: any, qNumber: number) => void;
 }
 
 export const QuestionNavigation = ({
   totalQNumber,
   currentQNumber = 1,
   submittedQuestions,
+  onQNumClick,
 }: IQuestionNavigationProps) => {
   const questionNumbers = Array.from({ length: totalQNumber }, (_, i) => i + 1); // create an array of question numbers from 1 to totalQNumber
 
@@ -64,7 +66,7 @@ export const QuestionNavigation = ({
             }}
             whileHover={{ backgroundColor: "#4B82C3", scale: 0.95 }} // define the hover animation using the whileHover prop
             whileTap={{ backgroundColor: "#FDCD46" }} // define the tap animation using the whileTap prop
-            onClick={() => console.log(`Clicked question number ${questionNumber}`)} // add an onClick handler
+            onClick={(e) => onQNumClick(e, questionNumber)} // add an onClick handler
           >
             <Typography variant="subtitle1" component="a">
               {questionNumber}

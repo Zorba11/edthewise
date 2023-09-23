@@ -12,6 +12,7 @@ interface IExamCardContainerProps {
   goToPrevQuestion: (event: any) => void;
   currentQNumber?: number;
   submittedQuestions: Set<number>;
+  onQNumClick: (event: any, questionNumber: number) => void;
 }
 
 const ExamCardContainer = ({
@@ -24,6 +25,7 @@ const ExamCardContainer = ({
   goToPrevQuestion,
   currentQNumber,
   submittedQuestions,
+  onQNumClick,
 }: IExamCardContainerProps) => {
   return (
     <Box
@@ -42,6 +44,7 @@ const ExamCardContainer = ({
           totalQNumber={totalQNumber}
           currentQNumber={currentQNumber}
           submittedQuestions={submittedQuestions}
+          onQNumClick={onQNumClick}
         />
       )}
     </Box>

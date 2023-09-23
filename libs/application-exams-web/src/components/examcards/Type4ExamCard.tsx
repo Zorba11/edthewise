@@ -126,7 +126,7 @@ export const Type4ExamCard = (props: IExamCardProps) => {
             top: props.withTimer ? "10rem" : "5rem",
           }}
         >
-          <QuestionNavigation totalQNumber={totalQNumber} />
+          <QuestionNavigation onQNumClick={props.onQNumClick} totalQNumber={totalQNumber} />
           {/* Left & Right Arrows */}
           <Box
             sx={{

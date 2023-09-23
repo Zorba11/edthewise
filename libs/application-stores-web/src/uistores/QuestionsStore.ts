@@ -79,6 +79,17 @@ export class QuestionsStore {
     }
   }
 
+  @action
+  setQuestionByNum(qNumber: number) {
+    try {
+      const index = qNumber - 1;
+      this._currentQuestionIndex = index;
+      this.currentQuestion = this._questions[index];
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   @computed
   get submittedQuestions(): Set<number> {
     return this._submittedQuestions;

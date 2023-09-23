@@ -51,6 +51,7 @@ export const LearnExamCard = () => {
     goToNextQuestion: goToNextQuestion,
     goToPrevQuestion: goToPreviousQuestion,
     submittedQuestions: questionsStore.submittedQuestions,
+    onQNumClick: (event: any, questionNumber: number) => {},
   };
 
   return (

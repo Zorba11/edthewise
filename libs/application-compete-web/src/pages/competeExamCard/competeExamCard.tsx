@@ -21,6 +21,11 @@ export const CompeteExamCard = observer(() => {
     console.log("onFinishHandler");
   };
 
+  const onQNumberClick = (event: any, questionNumber: number) => {
+    event?.preventDefault();
+    questionsStore.setQuestionByNum(questionNumber);
+  };
+
   const onSubmitHandler = (event: any): void => {
     event.preventDefault();
     console.log("onSubmitHandler");
@@ -59,6 +64,7 @@ export const CompeteExamCard = observer(() => {
     goToNextQuestion: goToNextQuestion,
     goToPrevQuestion: goToPreviousQuestion,
     submittedQuestions: questionsStore.submittedQuestions,
+    onQNumClick: onQNumberClick,
   };
 
   useEffect(() => {
