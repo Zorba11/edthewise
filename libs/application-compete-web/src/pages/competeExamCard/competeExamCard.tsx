@@ -31,10 +31,9 @@ export const CompeteExamCard = observer(() => {
     console.log("onSubmitHandler");
     questionsStore.submitAnswer("abcd");
 
-    // TODO: Remove this in production
-    // if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
-    //   goToCompeteExamResult();
-    // }
+    if (questionsStore.shouldSubmitExam) {
+      goToCompeteExamResult();
+    }
   };
 
   const goToNextQuestion = (event: any) => {

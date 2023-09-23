@@ -1,7 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { ImageBox } from "../image-box/ImageBox";
 import qimagePlaceholder from "../assets/qImagePlaceholder.png";
-import { motion } from "framer-motion";
 
 export const AnswerSummaryBox = () => (
   <Paper

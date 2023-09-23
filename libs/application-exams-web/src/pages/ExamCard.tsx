@@ -1,5 +1,4 @@
 import { SQExamCard } from "../components/examcards/SQExamCard";
-import { Type2ExamCard } from "../components/examcards/Type2ExamCard";
 import { Type4ExamCard } from "../components/examcards/Type4ExamCard";
 import { Type5ExamCard } from "../components/examcards/Type5ExamCard";
 
@@ -110,8 +109,8 @@ export const ExamCard = (props: IExamCardProps) => {
           <ExamCardContainer
             goToNextQuestion={props.goToNextQuestion}
             goToPrevQuestion={props.goToPrevQuestion}
-            withEd={true}
-            withNavigation={true}
+            withEd={props.withEd}
+            withNavigation={props.withNavigation}
             withTimer={props?.withTimer}
             currentQNumber={props.questionData.qNumber}
             submittedQuestions={props.submittedQuestions}

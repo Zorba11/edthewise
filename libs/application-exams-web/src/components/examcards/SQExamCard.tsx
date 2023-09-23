@@ -25,8 +25,6 @@ export const SQExamCard = (props: any) => {
 
   const scenarioContent = getScenarioContent({ type, sqTitle, sqDesc1, sqDesc2, sqDesc3 });
 
-  const totalQNumber = 32;
-
   const qPreviewStore = container.get<AdminSQPreviewStore>(ADMIN_TOKENS.AdminSQPreviewStoreToken);
   const mcqPreviewStore = container.get<AdminMCQPreviewStore>(ADMIN_TOKENS.AdminmcQPreviewStoreToken);
 
