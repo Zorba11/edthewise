@@ -26,6 +26,8 @@ export const ExamCard = (props: IExamCardProps) => {
             withNavigation={true}
             withTimer={props.withTimer}
             totalQNumber={totalQNumber}
+            currentQNumber={props.questionData.qNumber}
+            submittedQuestions={props.submittedQuestions}
           >
             <Type5ExamCard
               onSubmitHandler={props.onSubmitHandler}
@@ -45,6 +47,8 @@ export const ExamCard = (props: IExamCardProps) => {
             withNavigation={true}
             withTimer={props.withTimer}
             totalQNumber={totalQNumber}
+            currentQNumber={props.questionData.qNumber}
+            submittedQuestions={props.submittedQuestions}
           >
             <Type5ExamCard
               onSubmitHandler={props.onSubmitHandler}
@@ -64,6 +68,8 @@ export const ExamCard = (props: IExamCardProps) => {
             withNavigation={true}
             withTimer={true}
             totalQNumber={totalQNumber}
+            currentQNumber={props.questionData.qNumber}
+            submittedQuestions={props.submittedQuestions}
           >
             <Type5ExamCard {...props} />
           </ExamCardContainer>
@@ -75,6 +81,8 @@ export const ExamCard = (props: IExamCardProps) => {
           withNavigation={true}
           withTimer={true}
           totalQNumber={totalQNumber}
+          currentQNumber={props.questionData.qNumber}
+          submittedQuestions={props.submittedQuestions}
         >
           <Type4ExamCard {...props} />
         </ExamCardContainer>;
@@ -86,6 +94,8 @@ export const ExamCard = (props: IExamCardProps) => {
           withNavigation={true}
           withTimer={true}
           totalQNumber={totalQNumber}
+          currentQNumber={props.questionData.qNumber}
+          submittedQuestions={props.submittedQuestions}
         >
           <Type4ExamCard {...props} />
         </ExamCardContainer>;
@@ -99,6 +109,8 @@ export const ExamCard = (props: IExamCardProps) => {
             withNavigation={true}
             withTimer={props?.withTimer}
             totalQNumber={totalQNumber}
+            currentQNumber={props.questionData.qNumber}
+            submittedQuestions={props.submittedQuestions}
           >
             <SQExamCard {...props?.questionData} />
           </ExamCardContainer>

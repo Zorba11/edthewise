@@ -10,6 +10,8 @@ interface IExamRightPaneProps {
   withEd?: boolean;
   goToNextQuestion: (event: any) => void;
   goToPrevQuestion: (event: any) => void;
+  currentQNumber?: number;
+  submittedQuestions?: Set<number>;
 }
 
 const ExamRightPane = ({
@@ -18,6 +20,8 @@ const ExamRightPane = ({
   withEd = false,
   goToNextQuestion,
   goToPrevQuestion,
+  currentQNumber,
+  submittedQuestions,
 }: IExamRightPaneProps) => {
   return (
     <Box
@@ -34,7 +38,11 @@ const ExamRightPane = ({
       {withEd && <EdCompeteCard />}
       {/* Timer */}
       {withTimer && <Timer />}
-      <QuestionNavigation totalQNumber={totalQNumber} />
+      <QuestionNavigation
+        submittedQuestions={submittedQuestions}
+        currentQNumber={currentQNumber}
+        totalQNumber={totalQNumber}
+      />
       {/* Left & Right Arrows */}
       <Box
         sx={{

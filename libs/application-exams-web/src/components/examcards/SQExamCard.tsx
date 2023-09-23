@@ -54,6 +54,7 @@ export const SQExamCard = (props: any) => {
             withNavigation={true}
             withTimer={cardProps.withTimer}
             totalQNumber={totalQNumber}
+            submittedQuestions={props.submittedQuestions}
           >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
@@ -68,6 +69,7 @@ export const SQExamCard = (props: any) => {
             withNavigation={true}
             withTimer={true}
             totalQNumber={totalQNumber}
+            submittedQuestions={props.submittedQuestions}
           >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
@@ -79,6 +81,7 @@ export const SQExamCard = (props: any) => {
           withNavigation={true}
           withTimer={true}
           totalQNumber={totalQNumber}
+          submittedQuestions={props.submittedQuestions}
         >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;
@@ -90,6 +93,7 @@ export const SQExamCard = (props: any) => {
           withNavigation={true}
           withTimer={true}
           totalQNumber={totalQNumber}
+          submittedQuestions={props.submittedQuestions}
         >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;

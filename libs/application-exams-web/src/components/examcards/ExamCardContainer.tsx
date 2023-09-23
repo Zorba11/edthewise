@@ -10,6 +10,8 @@ interface IExamCardContainerProps {
   withEd?: boolean;
   goToNextQuestion: (event: any) => void;
   goToPrevQuestion: (event: any) => void;
+  currentQNumber?: number;
+  submittedQuestions: Set<number>;
 }
 
 const ExamCardContainer = ({
@@ -20,6 +22,8 @@ const ExamCardContainer = ({
   children,
   goToNextQuestion,
   goToPrevQuestion,
+  currentQNumber,
+  submittedQuestions,
 }: IExamCardContainerProps) => {
   return (
     <Box
@@ -36,6 +40,8 @@ const ExamCardContainer = ({
           withEd={withEd}
           withTimer={withTimer}
           totalQNumber={totalQNumber}
+          currentQNumber={currentQNumber}
+          submittedQuestions={submittedQuestions}
         />
       )}
     </Box>

@@ -24,12 +24,12 @@ export const CompeteExamCard = observer(() => {
   const onSubmitHandler = (event: any): void => {
     event.preventDefault();
     console.log("onSubmitHandler");
-    questionsStore.setNextQuestion();
+    questionsStore.submitAnswer("abcd");
 
     // TODO: Remove this in production
-    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
-      goToCompeteExamResult();
-    }
+    // if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
+    //   goToCompeteExamResult();
+    // }
   };
 
   const goToNextQuestion = (event: any) => {
@@ -58,6 +58,7 @@ export const CompeteExamCard = observer(() => {
     withEd: false,
     goToNextQuestion: goToNextQuestion,
     goToPrevQuestion: goToPreviousQuestion,
+    submittedQuestions: questionsStore.submittedQuestions,
   };
 
   useEffect(() => {

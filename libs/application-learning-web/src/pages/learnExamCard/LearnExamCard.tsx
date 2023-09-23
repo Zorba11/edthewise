@@ -50,6 +50,7 @@ export const LearnExamCard = () => {
     withEd: false,
     goToNextQuestion: goToNextQuestion,
     goToPrevQuestion: goToPreviousQuestion,
+    submittedQuestions: questionsStore.submittedQuestions,
   };
 
   return (

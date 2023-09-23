@@ -14,6 +14,7 @@ export class QuestionsStore {
   private _subject: string;
   private _questions: IExamCardData[];
   private _currentQuestionIndex: number;
+  private _submittedQuestions: Set<number> = new Set();
 
   constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
     this.currentQuestion = {};
@@ -64,6 +65,23 @@ export class QuestionsStore {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  @action
+  submitAnswer(answer: string) {
+    try {
+      this.currentQuestion.qAnswer = [{ label: answer, value: answer }];
+      this.currentQuestion.hasSubmitted = true;
+      this._submittedQuestions.add(this._currentQuestionIndex + 1);
+      this.setNextQuestion();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  @computed
+  get submittedQuestions(): Set<number> {
+    return this._submittedQuestions;
   }
 
   @action

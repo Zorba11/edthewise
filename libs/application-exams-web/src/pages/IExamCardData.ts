@@ -8,4 +8,5 @@ export interface IExamCardData {
   qTableData2?: { label: string; value: string }[];
   qComponentOrder?: string;
   qAnswer?: { label: string; value: string }[];
+  hasSubmitted?: boolean;
 }

@@ -1,10 +1,17 @@
 import { Box, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 
 interface IQuestionNavigationProps {
   totalQNumber: number;
+  currentQNumber?: number;
+  submittedQuestions?: Set<number>;
 }
 
-export const QuestionNavigation = ({ totalQNumber }: IQuestionNavigationProps) => {
+export const QuestionNavigation = ({
+  totalQNumber,
+  currentQNumber = 1,
+  submittedQuestions,
+}: IQuestionNavigationProps) => {
   const questionNumbers = Array.from({ length: totalQNumber }, (_, i) => i + 1); // create an array of question numbers from 1 to totalQNumber
 
   return (
@@ -30,34 +37,53 @@ export const QuestionNavigation = ({ totalQNumber }: IQuestionNavigationProps) =
       >
         {/* question number circle */}
         {questionNumbers.map((questionNumber) => (
-          <Box
+          <motion.div
             key={questionNumber}
-            sx={{
+            animate={{
+              backgroundColor: getBgColor(currentQNumber, questionNumber, submittedQuestions),
+              scale: currentQNumber === questionNumber ? 1.2 : 1, // animate the scale of the motion.div component
+            }}
+            transition={{ duration: 0.4, ease: "easeInOut" }} // define the animation duration and easing
+            style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               width: "2.6rem",
               height: "2.6rem",
               borderRadius: "50%",
-              backgroundColor: "#FFFFFF",
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.30)",
               cursor: "pointer",
               transition: "background-color 0.3s ease-in-out, transform 0.2s ease-in-out",
-              "&:hover": {
-                backgroundColor: "#4B82C3",
-                transform: "scale(0.95)",
-              },
-              "&:active": {
-                backgroundColor: "#FDCD46", // Change the background color on hover
-              },
+              // "&:hover": {
+              //   backgroundColor: "#4B82C3",
+              //   transform: "scale(0.95)",
+              // },
+              // "&:active": {
+              //   backgroundColor: "#FDCD46", // Change the background color on hover
+              // },
             }}
+            whileHover={{ backgroundColor: "#4B82C3", scale: 0.95 }} // define the hover animation using the whileHover prop
+            whileTap={{ backgroundColor: "#FDCD46" }} // define the tap animation using the whileTap prop
+            onClick={() => console.log(`Clicked question number ${questionNumber}`)} // add an onClick handler
           >
             <Typography variant="subtitle1" component="a">
               {questionNumber}
             </Typography>
-          </Box>
+          </motion.div>
         ))}
       </Box>
     </Box>
   );
 };
+
+function getBgColor(currentQNumber: number, questionNumber: number, submittedQuestions: Set<number> = new Set()) {
+  return currentQNumber === questionNumber
+    ? "#4B82C3"
+    : hasSubmittedQuestion(questionNumber, submittedQuestions)
+    ? "#8FB9AB"
+    : "#FFFFFF";
+}
+
+function hasSubmittedQuestion(questionNumber: number, submittedQuestions: Set<number>): boolean {
+  return submittedQuestions.has(questionNumber);
+}
