@@ -1,10 +1,23 @@
-import { IExamCardData } from "@edthewise/application-exams-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { QuestionsService } from "@edthewise/foundation-appwrite";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { Mappers } from "../utils/Mappers";
 import { action, computed, makeAutoObservable, observable } from "mobx";
+
+interface IExamCardData {
+  qNumber?: number;
+  qp1?: string;
+  qTableData1?: { label: string; value: string }[];
+  qp2?: string;
+  qp3?: string;
+  qOptions?: { label: string; value: string }[];
+  qTableData2?: { label: string; value: string }[];
+  qComponentOrder?: string;
+  qAnswer?: { label: string; value: string }[];
+  hasSubmitted?: boolean;
+  qid?: string;
+}
 
 @injectable()
 export class QuestionsStore {
@@ -15,6 +28,8 @@ export class QuestionsStore {
   private _questions: IExamCardData[];
   private _currentQuestionIndex: number;
   private _submittedQuestions: Set<number> = new Set();
+
+  private _userAnswers: Map<string, string> = new Map();
 
   constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
     this.currentQuestion = {};
@@ -47,7 +62,7 @@ export class QuestionsStore {
       }
 
       const questions = await this.questionsService.getQuestions();
-      questions.documents.map((question: any, index: number) => {
+      questions?.map((question: any, index: number) => {
         this._questions.push(Mappers.mapQuestionToCard(question, index));
       });
 
@@ -118,6 +133,16 @@ export class QuestionsStore {
         this._currentQuestionIndex--;
         this.currentQuestion = this._questions[this._currentQuestionIndex];
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  @action
+  setSelectedOption(option: any) {
+    try {
+      if (!option || !this.currentQuestion.qid) return;
+      this._userAnswers.set(this.currentQuestion?.qid, option.value);
     } catch (error) {
       console.log(error);
     }

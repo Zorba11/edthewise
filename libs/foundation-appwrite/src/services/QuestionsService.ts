@@ -17,7 +17,7 @@ export class QuestionsService {
   getQuestions = async (): Promise<any> => {
     try {
       const questions = await database.listDocuments(ExamsDbId, this.collectionIds[0]);
-      return questions;
+      return questions.documents;
     } catch (err) {
       console.log(err);
     }

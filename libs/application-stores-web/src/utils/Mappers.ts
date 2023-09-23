@@ -1,4 +1,16 @@
-import { IExamCardData } from "@edthewise/application-exams-web";
+interface IExamCardData {
+  qNumber?: number;
+  qp1?: string;
+  qTableData1?: { label: string; value: string }[];
+  qp2?: string;
+  qp3?: string;
+  qOptions?: { label: string; value: string }[];
+  qTableData2?: { label: string; value: string }[];
+  qComponentOrder?: string;
+  qAnswer?: { label: string; value: string }[];
+  hasSubmitted?: boolean;
+  qid?: string;
+}
 
 interface QuestionOption {
   label: string;
@@ -17,6 +29,7 @@ export class Mappers {
       qOptions: [] as QuestionOption[],
       qComponentOrder: question.QComponent_Order,
       qAnswer: [] as QuestionOption[],
+      qid: question.QId,
     };
 
     const qOptions = this.parseJsonData(question.QOPTIONS);

@@ -30,22 +30,25 @@ export class CompeteExamCardRouteService {
     //   return Promise.resolve(routerStore.goTo("signIn"));
     // }
 
-    this.questionsUiStore.subject = toState.params.subject;
-    await this.questionsUiStore.setFirstQuestionSet();
+    if (!this.examStore.notImplemented) {
+      this.questionsUiStore.subject = toState.params.subject;
+      await this.questionsUiStore.setFirstQuestionSet();
 
-    this.examStore.setExamName(toState.params?.subject);
+      if (!this.userStore?.userId) {
+        await this.userStore.initialize();
+      }
 
-    if (!this.userStore?.userId) {
-      await this.userStore.initialize();
+      /**
+       * TODO: THIS IS A TEMPORARY FIX, complete the whole exam generation
+       * and running/submission logic.
+       * Also, create an email session manually and hard code it for
+       * development purposes.
+       * */
+      this.examStore.createNewExam(this.userStore?.userId);
+    } else {
+      this.examStore.setNotImplemented(false);
+      return routerStore.goTo("notFound");
     }
-
-    /**
-     * TODO: THIS IS A TEMPORARY FIX, complete the whole exam generation
-     * and running/submission logic.
-     * Also, create an email session manually and hard code it for
-     * development purposes.
-     * */
-    this.examStore.createNewExam(this.userStore?.userId);
 
     return Promise.resolve();
   };

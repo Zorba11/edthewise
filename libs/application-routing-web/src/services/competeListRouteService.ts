@@ -1,4 +1,9 @@
-import { CompeteListStore, CompeteListStoreToken, UserStore } from "@edthewise/application-stores-web";
+import {
+  CompeteExamsStore,
+  CompeteListStore,
+  CompeteListStoreToken,
+  UserStore,
+} from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { inject, injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
@@ -8,7 +13,11 @@ import "reflect-metadata";
 export class CompeteListRouteService {
   private competeListStore: CompeteListStore;
 
-  constructor(@inject(CompeteListStoreToken) competeListStore: CompeteListStore, private userStore: UserStore) {
+  constructor(
+    @inject(CompeteListStoreToken) competeListStore: CompeteListStore,
+    private userStore: UserStore,
+    @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
+  ) {
     this.competeListStore = competeListStore;
   }
 
@@ -26,7 +35,14 @@ export class CompeteListRouteService {
     //   return Promise.resolve(routerStore.goTo("signIn"));
     // }
 
+    await this.examStore.setExamName(toState.queryParams?.subject);
+
     const subjectTitle = toState.queryParams.subject;
+
+    if (this.examStore.notImplemented) {
+      this.examStore.setNotImplemented(false);
+      return routerStore.goTo("notFound");
+    }
 
     // Using subjectTitle get the current Global Exam name and add it to exam store
 

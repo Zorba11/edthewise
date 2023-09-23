@@ -2,8 +2,8 @@ import { injectable } from "inversify";
 import { AccaSubjectList, PscSubjectList } from "../model-db/ACAACollection";
 import "reflect-metadata";
 import { database } from "../appwrite-config/config";
-import { COMPETE_EXAMS_COLLECTION_ID, ExamsDbId } from "../db/collections";
-import { ID, Models } from "appwrite";
+import { COMPETE_EXAMS_COLLECTION_ID, ExamsDbId, GLOBAL_EXAMS_ID } from "../db/collections";
+import { ID, Models, Query } from "appwrite";
 import { CatchingPokemonSharp } from "@mui/icons-material";
 
 // Use inversify JS to make this injectable
@@ -73,6 +73,21 @@ export class ExamsService {
       });
     } catch (err) {
       console.error("error clearing exams: ", err);
+    }
+  }
+
+  async getExamName(subjectCode: string): Promise<string> {
+    try {
+      const examNameDocs = await database.listDocuments(ExamsDbId, GLOBAL_EXAMS_ID, [
+        Query.equal("subjectCode", subjectCode),
+        Query.equal("isActive", true),
+      ]);
+      const examName = examNameDocs.documents[0].examName;
+
+      return examName;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error getting exam name");
     }
   }
 }

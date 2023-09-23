@@ -57,8 +57,6 @@ export const Type5ExamCard = ({
   const formattedQp2 = replaceHashWithComma(qp2);
   const formattedQp3 = replaceHashWithComma(qp3);
 
-  const totalQNumber = 32;
-
   return (
     <Box
       sx={{
@@ -185,12 +183,6 @@ export const Type5ExamCard = ({
           </Grid>
         </Box>
       </Paper>
-
-      {/* Timer, Navigation Board, Left & Right Arrows */}
-      {/* Timer */}
-      {/* {withTimer && (
-
-      )} */}
     </Box>
   );
 };

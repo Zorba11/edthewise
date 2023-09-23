@@ -9,6 +9,8 @@ export const COMPETE_EXAMS_COLLECTION_ID = "6505d612088341530f70";
 
 export const ACCA_FM_COMP_JAN_2024 = "111";
 
+export const GLOBAL_EXAMS_ID = "6507315dac0addf71a22";
+
 /**
  * Financial manaqement - ACCA
  */

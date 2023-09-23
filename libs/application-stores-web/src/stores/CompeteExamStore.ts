@@ -1,12 +1,15 @@
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { ACCA_FM_COMP_JAN_2024, ExamsService } from "@edthewise/foundation-appwrite";
 import { inject, injectable } from "inversify";
+import { action, observable } from "mobx";
 import "reflect-metadata";
 
 @injectable()
 export class CompeteExamsStore {
   aCCAsubjectTitles!: string[];
   pSCsubjectTitles!: string[];
+  @observable notImplemented!: boolean;
+
   private examsService: ExamsService;
   private subjectName!: string;
   private currentExamName!: string;
@@ -32,13 +35,23 @@ export class CompeteExamsStore {
   }
 
   async setExamName(subjectName: string): Promise<void> {
-    // const examName = await this.examsService.getExamName(subjectName);
-
-    this.currentExamName = "January 2024";
-
     this.subjectName = subjectName;
 
+    const subjectCode = this.getSubjectCode(subjectName);
+
+    if (!subjectCode) {
+      this.setNotImplemented(true);
+      return;
+    }
+
+    this.currentExamName = await this.examsService.getExamName(subjectCode);
+
     this.examId = this.getExamId(subjectName);
+  }
+
+  @action
+  setNotImplemented(notImplemented: boolean) {
+    this.notImplemented = notImplemented;
   }
 
   private getExamId(subjectName: string): string {
@@ -48,5 +61,18 @@ export class CompeteExamsStore {
       default:
         return "";
     }
+  }
+
+  private getSubjectCode(subjectName: string): string {
+    switch (subjectName) {
+      case "Financial Management (FM)":
+        return "ACCA-FM";
+      default:
+        return "";
+    }
+  }
+
+  submitExam() {
+    // this.examsService.submitExam(this.examId, this.exam);
   }
 }
