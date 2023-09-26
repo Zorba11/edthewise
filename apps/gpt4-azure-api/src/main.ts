@@ -24,9 +24,6 @@ const openai = new OpenAI({
 //   });
 // }
 
-
-
-
 // Express server
 
 const app = express();
@@ -35,24 +32,29 @@ app.use(cors());
 
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 
-app.post("/api", async (req, res) => {
-
+app.get("/api", async (req, res) => {
   // const { message }  = `What is described in this image ? https://upload.wikimedia.org/wikipedia/commons/8/87/MVVMPattern.png`;
-  const message = `Act as the best image interpretor in the world. Generate an image showing the correct answer option from the give image? https://elixori.com/wp-content/uploads/2023/08/q1.png`;
-
+  const message = `Act as the best image interpretor in the world. what is in the image? https://elixori.com/wp-content/uploads/2023/08/q1.png`;
 
   // const completion: ChatCompletion = await openai.chat.completions.create({
   //   messages: [{ role: 'user', content: `${message}` }],
   //   model: 'gpt-4-0613',
   // });
 
-  const completion: ImageResponse = await openai.images.generate({
-    prompt: `${message}`,
-  })
+  // const completion: ImageResponse = await openai.images.generate({
+  //   prompt: `${message}`,
+  // });
 
-  res.json({
-    completion: completion
-  })
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: "user", content: "Say this is a test" }],
+    model: "gpt-3.5-turbo",
+  });
+
+  const respo = res.json({
+    completion: completion.choices,
+  });
+
+  console.log(respo);
 });
 
 const port = process.env.PORT || 3333;
