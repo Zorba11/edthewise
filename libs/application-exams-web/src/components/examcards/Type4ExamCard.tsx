@@ -75,6 +75,7 @@ export const Type4ExamCard = (props: IExamCardProps) => {
                   width: "45rem",
                   display: "flex",
                   justifyContent: "space-between",
+                  visibility: props.showAnswer ? "visible" : "hidden",
                 }}
               >
                 <Typography

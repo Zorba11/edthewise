@@ -4,6 +4,7 @@ import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { Mappers } from "../utils/Mappers";
 import { action, computed, makeAutoObservable, observable } from "mobx";
+import { CompeteExamsStore } from "../stores/CompeteExamStore";
 
 interface IExamCardData {
   qNumber?: number;
@@ -16,7 +17,12 @@ interface IExamCardData {
   qComponentOrder?: string;
   qAnswer?: { label: string; value: string }[];
   hasSubmitted?: boolean;
-  qid?: string;
+  qid: string;
+}
+
+interface IUserAnswer {
+  label: string;
+  value: string;
 }
 
 @injectable()
@@ -29,10 +35,15 @@ export class QuestionsStore {
   private _currentQuestionIndex: number;
   private _submittedQuestions: Set<number> = new Set();
 
-  private _userAnswers: Map<string, string> = new Map();
+  private _userAnswers: Map<string, IUserAnswer> = new Map();
 
-  constructor(@inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService) {
-    this.currentQuestion = {};
+  @observable
+  showOptionNotSelectedError = false;
+
+  constructor(
+    @inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService,
+    @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
+  ) {
     this.currQNumber = "0";
     this.questionsService = questionsService;
     this._subject = "";
@@ -92,17 +103,26 @@ export class QuestionsStore {
   }
 
   @action
-  submitAnswer(answer: string) {
+  submitAnswer() {
     try {
-      this.currentQuestion.qAnswer = [{ label: answer, value: answer }];
+      if (this.hasNotSelectedAnswer()) {
+        this.setShowOptionNotSelectedError(true);
+        return;
+      }
+
       this.currentQuestion.hasSubmitted = true;
       this._submittedQuestions.add(this._currentQuestionIndex + 1);
       if (!this.shouldSubmitExam) {
         this.setNextQuestion();
+        this.setShowOptionNotSelectedError(false);
       }
     } catch (error) {
       console.log(error);
     }
+  }
+
+  private hasNotSelectedAnswer() {
+    return !this._userAnswers.get(this?.currentQuestion?.qid);
   }
 
   @action
@@ -142,7 +162,20 @@ export class QuestionsStore {
   setSelectedOption(option: any) {
     try {
       if (!option || !this.currentQuestion.qid) return;
-      this._userAnswers.set(this.currentQuestion?.qid, option.value);
+      this._userAnswers.set(this.currentQuestion?.qid, option);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  @action
+  setShowOptionNotSelectedError(show: boolean) {
+    this.showOptionNotSelectedError = show;
+  }
+
+  submitExam() {
+    try {
+      this.examStore.submitExam(this._questions, this._userAnswers);
     } catch (error) {
       console.log(error);
     }

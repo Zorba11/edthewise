@@ -14,4 +14,6 @@ export interface IExamCardProps {
   submittedQuestions: Set<number>;
   onQNumClick: (event: any, qNumber: number) => void;
   totalQuestions: number;
+  showAnswer: boolean;
+  showErr: boolean;
 }

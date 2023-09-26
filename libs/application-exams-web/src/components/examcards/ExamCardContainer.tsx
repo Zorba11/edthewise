@@ -31,6 +31,8 @@ const ExamCardContainer = ({
     <Box
       sx={{
         display: "flex",
+        flexDirection: "row",
+        gap: "5rem",
       }}
     >
       {children}

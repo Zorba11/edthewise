@@ -53,6 +53,8 @@ export const LearnExamCard = () => {
     submittedQuestions: questionsStore.submittedQuestions,
     onQNumClick: (event: any, questionNumber: number) => {},
     totalQuestions: questionsStore.totalQuestions,
+    showAnswer: false,
+    showErr: false, // needs to change
   };
 
   return (

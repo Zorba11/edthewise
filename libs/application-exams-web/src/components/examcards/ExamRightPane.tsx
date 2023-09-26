@@ -29,7 +29,7 @@ const ExamRightPane = ({
     <Box
       sx={{
         position: "fixed",
-        right: withEd ? "8rem" : "10rem",
+        right: withEd ? "8rem" : "4rem",
         top: withEd ? "7%" : "28%",
         display: "flex",
         flexDirection: "column",

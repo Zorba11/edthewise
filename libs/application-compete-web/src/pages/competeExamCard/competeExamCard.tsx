@@ -29,9 +29,10 @@ export const CompeteExamCard = observer(() => {
   const onSubmitHandler = (event: any): void => {
     event.preventDefault();
     console.log("onSubmitHandler");
-    questionsStore.submitAnswer("abcd");
+    questionsStore.submitAnswer();
 
     if (questionsStore.shouldSubmitExam) {
+      questionsStore.submitExam();
       goToCompeteExamResult();
     }
   };
@@ -70,6 +71,8 @@ export const CompeteExamCard = observer(() => {
     submittedQuestions: questionsStore.submittedQuestions,
     onQNumClick: onQNumberClick,
     totalQuestions: questionsStore.totalQuestions,
+    showAnswer: false,
+    showErr: questionsStore.showOptionNotSelectedError,
   };
 
   useEffect(() => {

@@ -9,7 +9,7 @@ interface IExamCardData {
   qComponentOrder?: string;
   qAnswer?: { label: string; value: string }[];
   hasSubmitted?: boolean;
-  qid?: string;
+  qid: string;
 }
 
 interface QuestionOption {

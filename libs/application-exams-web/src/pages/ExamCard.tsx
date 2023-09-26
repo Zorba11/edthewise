@@ -34,6 +34,8 @@ export const ExamCard = (props: IExamCardProps) => {
               withNavigation={true}
               questionData={props.questionData}
               disableSubmit={false}
+              showAnswer={props.showAnswer}
+              showErr={props.showErr}
             />
           </ExamCardContainer>
         );
@@ -56,6 +58,8 @@ export const ExamCard = (props: IExamCardProps) => {
               withNavigation={true}
               questionData={props.questionData}
               disableSubmit={false}
+              showAnswer={props.showAnswer}
+              showErr={props.showErr}
             />
           </ExamCardContainer>
         );

@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Alert, Box, Grid, Paper, Typography } from "@mui/material";
 import QP1 from "../questions/QP1";
 import { QTable } from "../questions/QTable";
 import { Options } from "../questions/Options";
@@ -13,6 +13,8 @@ interface IType5ExamCardProps {
   onFinishHandler: (event: any) => void;
   withTimer: boolean;
   withNavigation: boolean;
+  showAnswer: boolean;
+  showErr: boolean;
 }
 
 export const Type5ExamCard = ({
@@ -20,6 +22,8 @@ export const Type5ExamCard = ({
   disableSubmit = false,
   onSubmitHandler = () => ({}),
   onFinishHandler = () => ({}),
+  showAnswer = false,
+  showErr = false,
 }: IType5ExamCardProps) => {
   const {
     qNumber = 1,
@@ -63,15 +67,15 @@ export const Type5ExamCard = ({
         display: "flex",
         width: "70vw",
         position: "relative",
-        top: "3rem",
-        left: "2rem",
+        top: "2rem",
+        // left: "2rem",
         minHeight: "fit-content",
       }}
     >
       <Paper
         sx={{
-          marginLeft: "7rem",
-          marginTop: "3rem",
+          marginLeft: "4rem",
+          marginTop: "2rem",
           width: "52rem",
           padding: "2rem",
           borderRadius: "1rem",
@@ -145,6 +149,14 @@ export const Type5ExamCard = ({
               xs={12}
             >
               <Options options={qOptions} />
+              <Alert
+                sx={{
+                  visibility: showErr ? "visible" : "hidden",
+                }}
+                severity="error"
+              >
+                Choose your Answer to Submit !
+              </Alert>
             </Grid>
             <Grid item xs={12}>
               {/* Answer Segment */}
@@ -154,6 +166,7 @@ export const Type5ExamCard = ({
                   width: "45rem",
                   display: "flex",
                   justifyContent: "space-between",
+                  visibility: showAnswer ? "visible" : "hidden",
                 }}
               >
                 <Typography
