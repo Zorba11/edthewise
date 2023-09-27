@@ -18,9 +18,9 @@ interface IExamCardData {
   qOptions?: { label: string; value: string }[];
   qTableData2?: { label: string; value: string }[];
   qComponentOrder?: string;
-  qAnswer?: { label: string; value: string }[];
+  qAnswer: { label: string; value: string }[];
   hasSubmitted?: boolean;
-  qid?: string;
+  qid: string;
 }
 
 interface IExamSummary {
@@ -40,9 +40,10 @@ export class CompeteExamsStore {
   private currentExamName!: string;
   private examId!: string;
   private score!: number;
-  private startTime!: Date;
-  private endTime!: Date;
+  private startTime!: number;
+  private endTime!: number;
   userId!: string;
+  private totalQuestions!: number;
 
   exam!: any;
 
@@ -61,7 +62,13 @@ export class CompeteExamsStore {
 
   async createNewExam(userId: string): Promise<void> {
     this.userId = userId;
-    this.exam = await this.examsService.createMCQExam(this.examId, userId, this.subjectName);
+    this.startTime = Date.now();
+    this.exam = await this.examsService.createMCQExam(
+      this.examId,
+      userId,
+      this.subjectName,
+      JSON.stringify(this.startTime),
+    );
   }
 
   async setExamName(subjectName: string): Promise<void> {
@@ -104,20 +111,46 @@ export class CompeteExamsStore {
 
   submitExam(questions: IExamCardData[], userAnswers: Map<string, IUserAnswer>) {
     this.score = this.calculateScore(questions, userAnswers);
-    this.endTime = new Date();
+    this.endTime = Date.now();
+    this.totalQuestions = questions.length;
+
+    this.examsService.submitExam(
+      this.examId,
+      this.userId,
+      this.score,
+      JSON.stringify(this.startTime),
+      JSON.stringify(this.endTime),
+    );
   }
 
   private calculateScore(questions: IExamCardData[], userAnswers: Map<string, IUserAnswer>): number {
     let score = 0;
     questions.forEach((question) => {
-      if (
-        userAnswers.get(question.qid!)?.value === question.qAnswer![0].value &&
-        userAnswers.get(question.qid!)?.label === question.qAnswer![0].label
-      ) {
+      const userAnswerOption = userAnswers.get(question.qid)?.label;
+      const correctAnswerOption = question.qAnswer[0].label;
+
+      if (userAnswerOption === correctAnswerOption) {
         score++;
       }
     });
 
     return score;
+  }
+
+  getScore(): number {
+    return this.score;
+  }
+
+  getDuration(): string {
+    const duration = this.endTime - this.startTime;
+    const minutes = Math.floor(duration / 60000);
+    const seconds = Math.floor((duration % 60000) / 1000);
+    const milliseconds = duration % 1000;
+
+    return `${minutes}m ${seconds}s ${milliseconds}ms`;
+  }
+
+  getTotalQuestions(): number {
+    return this.totalQuestions;
   }
 }

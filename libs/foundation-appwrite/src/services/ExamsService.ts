@@ -17,6 +17,7 @@ export interface ISubjectList {
 @injectable()
 export class ExamsService {
   exam!: Models.Document;
+  examDocId!: string;
 
   getSubjectTitles = async (): Promise<ISubjectList | undefined> => {
     try {
@@ -34,7 +35,12 @@ export class ExamsService {
     }
   };
 
-  async createMCQExam(examId: string, userId: string, subjectName: string): Promise<Models.Document> {
+  async createMCQExam(
+    examId: string,
+    userId: string,
+    subjectName: string,
+    startTime: string,
+  ): Promise<Models.Document> {
     try {
       if (!userId) {
         userId = "26e5894c-fb98-4bef-94aa-9b5259d38bd3";
@@ -48,11 +54,12 @@ export class ExamsService {
         userId: userId,
         subjectName: subjectName,
         type: "MCQ",
-        startTime: JSON.stringify(Date.now()),
+        startTime: startTime,
         userAnswers: "[]",
         score: "",
       });
 
+      this.examDocId = this.exam.$id;
       console.log("Exam created: ", this.exam);
       return this.exam;
     } catch (error) {
@@ -88,6 +95,22 @@ export class ExamsService {
     } catch (error) {
       console.error(error);
       throw new Error("Error getting exam name");
+    }
+  }
+
+  async submitExam(examId: string, userId: string, score: number, startTime: string, endTime: string): Promise<void> {
+    try {
+      const exam = await database.updateDocument(ExamsDbId, COMPETE_EXAMS_COLLECTION_ID, this.examDocId, {
+        userId: userId,
+        score: JSON.stringify(score),
+        startTime: startTime,
+        endTime: endTime,
+      });
+
+      console.log("Exam submitted: ", exam);
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error submitting exam");
     }
   }
 }

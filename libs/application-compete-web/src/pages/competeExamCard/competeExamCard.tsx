@@ -28,7 +28,7 @@ export const CompeteExamCard = observer(() => {
 
   const onSubmitHandler = (event: any): void => {
     event.preventDefault();
-    console.log("onSubmitHandler");
+
     questionsStore.submitAnswer();
 
     if (questionsStore.shouldSubmitExam) {
