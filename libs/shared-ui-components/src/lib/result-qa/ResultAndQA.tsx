@@ -22,6 +22,14 @@ export const ResultAndQA: React.FC<ResultAndQAProps> = ({ QAs }) => {
 
   const duration = examStore.getDuration();
 
+  const questions = examStore.getQuestions();
+
+  const userAnswers = examStore.getUserAnswers();
+
+  const getUserAnswer = (id: string) => {
+    return userAnswers.get(questions[0].qid) ? userAnswers.get(questions[0].qid) : { label: "", value: "" };
+  };
+
   return (
     <Container
       sx={{
@@ -34,9 +42,19 @@ export const ResultAndQA: React.FC<ResultAndQAProps> = ({ QAs }) => {
       <Box>
         <ResultBox score={score} totalQuestions={totalQuestions} duration={duration} message={resultMessage} />
         {/* Answer Summary */}
-        {QAs.map((qa, index) => (
-          <AnswerSummaryBox />
-        ))}
+        {/* {questions.map((question: any) => (
+          <AnswerSummaryBox questionData={question} userAnswer={getUserAnswer(question?.qid)} />
+        ))} */}
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "5vw",
+          }}
+        >
+          <AnswerSummaryBox questionData={questions[0]} userAnswer={getUserAnswer(questions[0].qid)} />
+        </Box>
       </Box>
     </Container>
   );

@@ -44,6 +44,8 @@ export class CompeteExamsStore {
   private endTime!: number;
   userId!: string;
   private totalQuestions!: number;
+  private questions!: IExamCardData[];
+  private userAnswers!: Map<string, IUserAnswer>;
 
   exam!: any;
 
@@ -110,6 +112,7 @@ export class CompeteExamsStore {
   }
 
   submitExam(questions: IExamCardData[], userAnswers: Map<string, IUserAnswer>) {
+    this.questions = questions;
     this.score = this.calculateScore(questions, userAnswers);
     this.endTime = Date.now();
     this.totalQuestions = questions.length;
@@ -124,6 +127,7 @@ export class CompeteExamsStore {
   }
 
   private calculateScore(questions: IExamCardData[], userAnswers: Map<string, IUserAnswer>): number {
+    this.userAnswers = userAnswers;
     let score = 0;
     questions.forEach((question) => {
       const userAnswerOption = userAnswers.get(question.qid)?.label;
@@ -152,5 +156,13 @@ export class CompeteExamsStore {
 
   getTotalQuestions(): number {
     return this.totalQuestions;
+  }
+
+  getQuestions(): IExamCardData[] {
+    return this.questions.length ? this.questions : [];
+  }
+
+  getUserAnswers(): Map<string, IUserAnswer> {
+    return this.userAnswers ? this.userAnswers : new Map<string, IUserAnswer>();
   }
 }

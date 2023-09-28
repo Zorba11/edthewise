@@ -31,10 +31,17 @@ export const CompeteExamCard = observer(() => {
 
     questionsStore.submitAnswer();
 
-    if (questionsStore.shouldSubmitExam) {
+    // TODO: Remove this in production
+    if (questionsStore.currentQuestion.qNumber === 3) {
       questionsStore.submitExam();
       goToCompeteExamResult();
     }
+
+    // TODO: uncomment in production
+    // if (questionsStore.shouldSubmitExam) {
+    //   questionsStore.submitExam();
+    //   goToCompeteExamResult();
+    // }
   };
 
   const goToNextQuestion = (event: any) => {
