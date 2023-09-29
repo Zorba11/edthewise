@@ -26,3 +26,8 @@ ReactDOM.render(
 document.addEventListener("selectstart", (event) => {
   event.preventDefault();
 });
+
+// disable right click
+document.addEventListener("contextmenu", (event) => {
+  event.preventDefault();
+});
