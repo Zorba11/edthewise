@@ -21,3 +21,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root"),
 );
+
+// disable text selection
+document.addEventListener("selectstart", (event) => {
+  event.preventDefault();
+});
