@@ -29,16 +29,16 @@ export const AnswerSummaryBox = ({ questionData, userAnswer }: IAnswerSummaryBox
   const { qNumber = 1, qp1 = "", qp2 = "", qp3 = "", qAnswer = [], qTableData1 = [], qTableData2 = [] } = questionData;
 
   const formattedQTableData1 =
-    qTableData1[0]?.label !== "na" || ""
-      ? qTableData1?.map((item) => ({
+    questionData?.qTableData1?.[0]?.label !== "na" || ""
+      ? questionData?.qTableData1?.map((item) => ({
           label: item?.label,
           value: replaceHashWithComma(item?.value),
         }))
       : [];
 
   const formattedQTableData2 =
-    qTableData2[0]?.label !== ""
-      ? qTableData2?.map((item) => ({
+    questionData?.qTableData2?.[0]?.label !== ""
+      ? questionData?.qTableData2?.map((item) => ({
           label: item?.label,
           value: replaceHashWithComma(item?.value),
         }))
@@ -102,13 +102,13 @@ export const AnswerSummaryBox = ({ questionData, userAnswer }: IAnswerSummaryBox
             gap: "1rem",
           }}
         >
-          {qp2 && formattedQTableData2.length && qp3 ? (
+          {qp2 && formattedQTableData2?.length && qp3 ? (
             <>
               <QP questionDesc={formattedQp2} />
               <QTable data={formattedQTableData2} />
               <QP questionDesc={formattedQp3} bold={true} />
             </>
-          ) : qp2 && formattedQTableData2.length ? (
+          ) : qp2 && formattedQTableData2?.length ? (
             <>
               <QP questionDesc={formattedQp2} />
               <QTable data={formattedQTableData2} />

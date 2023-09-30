@@ -42,11 +42,12 @@ export const ResultAndQA: React.FC<ResultAndQAProps> = ({ QAs }) => {
       <Box>
         <ResultBox score={score} totalQuestions={totalQuestions} duration={duration} message={resultMessage} />
         {/* Answer Summary */}
-        {/* {questions.map((question: any) => (
-          <AnswerSummaryBox questionData={question} userAnswer={getUserAnswer(question?.qid)} />
-        ))} */}
+        {questions.map(
+          (question: any) =>
+            question.qAnswer && <AnswerSummaryBox questionData={question} userAnswer={getUserAnswer(question?.qid)} />,
+        )}
 
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -54,7 +55,7 @@ export const ResultAndQA: React.FC<ResultAndQAProps> = ({ QAs }) => {
           }}
         >
           <AnswerSummaryBox questionData={questions[0]} userAnswer={getUserAnswer(questions[0].qid)} />
-        </Box>
+        </Box> */}
       </Box>
     </Container>
   );
