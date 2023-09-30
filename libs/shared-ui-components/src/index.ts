@@ -1,16 +1,17 @@
 // Components
-export * from './lib/drop-down-menu/DropDownMenu';
-export * from './lib/card-component/card-component';
-export * from './lib/timer-component/Timer';
-export * from './lib/navigation-arrows/NavigationsArrows';
-export * from './lib/result-qa/ResultAndQA';
-export * from './lib/header/HeaderLogoDropdown';
-export * from './lib/image-box/ImageBox';
+export * from "./lib/drop-down-menu/DropDownMenu";
+export * from "./lib/card-component/card-component";
+export * from "./lib/timer-component/Timer";
+export * from "./lib/navigation-arrows/NavigationsArrows";
+export * from "./lib/result-qa/ResultAndQA";
+export * from "./lib/header/HeaderLogoDropdown";
+export * from "./lib/image-box/ImageBox";
 export * from "./lib/result-card/ResultCard";
+export * from "./lib/coming-soon/ComingSoon";
 
 // transitions
-export * from './lib/transitions/FadeIn';
+export * from "./lib/transitions/FadeIn";
 
 // Interfaces
-export * from './lib/card-component/interfaces/ICardComponentProps';
-export * from './lib/card-component/interfaces/ITab';
+export * from "./lib/card-component/interfaces/ICardComponentProps";
+export * from "./lib/card-component/interfaces/ITab";

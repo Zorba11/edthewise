@@ -1,5 +1,5 @@
 import { ExamsList } from "@edthewise/application-exams-web";
-import { ICardComponentProps, withFadeIn } from "@edthewise/shared-ui-components";
+import { ComingSoon, ICardComponentProps, withFadeIn } from "@edthewise/shared-ui-components";
 import { useRouterStore } from "mobx-state-router";
 
 export const LearnHome = () => {
@@ -124,5 +124,7 @@ export const LearnHome = () => {
     },
   ];
 
-  return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={mediCalTopics} />);
+  // return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={mediCalTopics} />);
+
+  return withFadeIn(<ComingSoon />);
 };

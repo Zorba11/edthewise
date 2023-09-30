@@ -14,6 +14,7 @@ export class UserStore {
   private session!: any | null;
 
   private userDocId!: string;
+  private countryName!: string;
 
   constructor(@inject(TOKENS.UserServiceToken) private userService: UserService) {
     makeAutoObservable(this);
@@ -78,22 +79,30 @@ export class UserStore {
   };
 
   async initialize() {
-    const session = await localStorage.getItem("ed-session");
-    if (!session || session === "undefined") {
-      this.reset();
-      return;
-    }
+    try {
+      const session = await localStorage.getItem("ed-session");
+      if (!session || session === "undefined") {
+        this.reset();
+        return;
+      }
 
-    const sessionObject = JSON.parse(session);
-    if (!this.isSessionValid(sessionObject)) {
-      this.reset();
-    }
+      const sessionObject = JSON.parse(session);
+      if (!this.isSessionValid(sessionObject)) {
+        this.reset();
+      }
 
-    const { email, userId } = sessionObject;
-    this.setLoggedIn(true);
-    this.setEmail(email);
-    this.setUserId(userId);
-    this.setSession(sessionObject);
+      this.countryName = sessionObject.countryName;
+      const { email, userId } = sessionObject;
+      this.setLoggedIn(true);
+      this.setEmail(email);
+      this.setUserId(userId);
+      this.setSession(sessionObject);
+
+      const user = await this.userService.getUserDetails(this.userId);
+      this.name = user?.username;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @action

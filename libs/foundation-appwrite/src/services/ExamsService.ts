@@ -2,9 +2,13 @@ import { injectable } from "inversify";
 import { AccaSubjectList, PscSubjectList } from "../model-db/ACAACollection";
 import "reflect-metadata";
 import { database } from "../appwrite-config/config";
-import { COMPETE_EXAMS_COLLECTION_ID, ExamsDbId, GLOBAL_EXAMS_ID } from "../db/collections";
+import {
+  ACCA_FM_COMP_JAN_2024_COLL_ID,
+  COMPETE_EXAMS_COLLECTION_ID,
+  ExamsDbId,
+  GLOBAL_EXAMS_COLL_ID,
+} from "../db/collections";
 import { ID, Models, Query } from "appwrite";
-import { CatchingPokemonSharp } from "@mui/icons-material";
 
 // Use inversify JS to make this injectable
 // and inject into QuestionsUiStore
@@ -18,6 +22,7 @@ export interface ISubjectList {
 export class ExamsService {
   exam!: Models.Document;
   examDocId!: string;
+  private examGlobalId!: string;
 
   getSubjectTitles = async (): Promise<ISubjectList | undefined> => {
     try {
@@ -85,11 +90,13 @@ export class ExamsService {
 
   async getExamName(subjectCode: string): Promise<string> {
     try {
-      const examNameDocs = await database.listDocuments(ExamsDbId, GLOBAL_EXAMS_ID, [
+      const examNameDocs = await database.listDocuments(ExamsDbId, GLOBAL_EXAMS_COLL_ID, [
         Query.equal("subjectCode", subjectCode),
         Query.equal("isActive", true),
       ]);
       const examName = examNameDocs.documents[0].examName;
+
+      this.examGlobalId = examNameDocs.documents[0].globalId;
 
       return examName;
     } catch (error) {
@@ -111,6 +118,33 @@ export class ExamsService {
     } catch (error) {
       console.error(error);
       throw new Error("Error submitting exam");
+    }
+  }
+
+  async submitToLeaderBoard(
+    examId: string,
+    userId: string,
+    userName: string,
+    score: number,
+    duration: number,
+    location = "India",
+    prize = "1000", // TODO: we need a server or service to query the db and calculate the prize money
+  ): Promise<void> {
+    try {
+      const userInLeaderBoard = await database.createDocument(ExamsDbId, ACCA_FM_COMP_JAN_2024_COLL_ID, ID.unique(), {
+        globalId: this.examGlobalId,
+        userId: userId,
+        name: userName,
+        marks: JSON.stringify(score),
+        location: location,
+        prize: prize,
+        duration: duration,
+      });
+
+      console.log("Submitted to leaderboard: ", userInLeaderBoard);
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error submitting to leaderboard");
     }
   }
 }

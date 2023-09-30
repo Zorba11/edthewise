@@ -5,10 +5,10 @@ export const Timer = () => {
   const [timeLeft, setTimeLeft] = useState(30 * 60 * 1000); // 30 minutes in milliseconds
 
   useEffect(() => {
-    // const intervalId = setInterval(() => {
-    //   setTimeLeft((prevTimeLeft) => prevTimeLeft - 10); // decrement by 10 milliseconds
-    // }, 10);
-    // return () => clearInterval(intervalId);
+    const intervalId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => prevTimeLeft - 10); // decrement by 10 milliseconds
+    }, 10);
+    return () => clearInterval(intervalId);
   }, []);
 
   const minutes = Math.floor(timeLeft / 60000);

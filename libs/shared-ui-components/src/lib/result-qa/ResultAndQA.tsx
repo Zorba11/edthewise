@@ -18,9 +18,9 @@ export const ResultAndQA: React.FC<ResultAndQAProps> = ({ QAs }) => {
 
   const score = examStore.getScore();
 
-  const totalQuestions = examStore.getTotalQuestions();
+  const totalQuestions = examStore.getTotalQuestions;
 
-  const duration = examStore.getDuration();
+  const duration = examStore.getDurationString();
 
   const questions = examStore.getQuestions();
 

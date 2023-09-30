@@ -44,7 +44,7 @@ export class CompeteExamCardRouteService {
        * Also, create an email session manually and hard code it for
        * development purposes.
        * */
-      this.examStore.createNewExam(this.userStore?.userId);
+      this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
     } else {
       this.examStore.setNotImplemented(false);
       return routerStore.goTo("notFound");

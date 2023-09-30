@@ -46,6 +46,7 @@ export class CompeteExamsStore {
   private totalQuestions!: number;
   private questions!: IExamCardData[];
   private userAnswers!: Map<string, IUserAnswer>;
+  private userName!: string;
 
   exam!: any;
 
@@ -62,8 +63,9 @@ export class CompeteExamsStore {
     this.pSCsubjectTitles = subjectTitles.PSC;
   }
 
-  async createNewExam(userId: string): Promise<void> {
+  async createNewExam(userId: string, userName: string): Promise<void> {
     this.userId = userId;
+    this.userName = userName;
     this.startTime = Date.now();
     this.exam = await this.examsService.createMCQExam(
       this.examId,
@@ -111,18 +113,26 @@ export class CompeteExamsStore {
     }
   }
 
-  submitExam(questions: IExamCardData[], userAnswers: Map<string, IUserAnswer>) {
+  async submitExam(questions: IExamCardData[], userAnswers: Map<string, IUserAnswer>) {
     this.questions = questions;
     this.score = this.calculateScore(questions, userAnswers);
     this.endTime = Date.now();
     this.totalQuestions = questions.length;
 
-    this.examsService.submitExam(
+    await this.examsService.submitExam(
       this.examId,
       this.userId,
       this.score,
       JSON.stringify(this.startTime),
       JSON.stringify(this.endTime),
+    );
+
+    await this.examsService.submitToLeaderBoard(
+      this.examId,
+      this.userId,
+      this.userName,
+      this.score,
+      this.getDuration(),
     );
   }
 
@@ -145,7 +155,7 @@ export class CompeteExamsStore {
     return this.score;
   }
 
-  getDuration(): string {
+  getDurationString(): string {
     const duration = this.endTime - this.startTime;
     const minutes = Math.floor(duration / 60000);
     const seconds = Math.floor((duration % 60000) / 1000);
@@ -154,7 +164,11 @@ export class CompeteExamsStore {
     return `${minutes}m ${seconds}s ${milliseconds}ms`;
   }
 
-  getTotalQuestions(): number {
+  getDuration(): number {
+    return this.endTime - this.startTime;
+  }
+
+  get getTotalQuestions(): number {
     return this.totalQuestions;
   }
 
