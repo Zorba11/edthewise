@@ -1,9 +1,9 @@
 import { Alert, Box, Grid, IconButton, Paper, Typography } from "@mui/material";
-import { QP } from "libs/application-exams-web/src/components/questions/QP";
-import QP1 from "libs/application-exams-web/src/components/questions/QP1";
-import { QTable } from "libs/application-exams-web/src/components/questions/QTable";
 import FlagIcon from "@mui/icons-material/Flag";
 import { useState } from "react";
+import { QP } from "../questions/QP";
+import { QTable } from "../questions/QTable";
+import QP1 from "../questions/QP1";
 
 interface IAnswerSummaryBox {
   questionData: {

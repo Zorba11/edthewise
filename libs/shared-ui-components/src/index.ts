@@ -8,6 +8,9 @@ export * from "./lib/header/HeaderLogoDropdown";
 export * from "./lib/image-box/ImageBox";
 export * from "./lib/result-card/ResultCard";
 export * from "./lib/coming-soon/ComingSoon";
+export * from "./lib/questions/QP";
+export * from "./lib/questions/QP1";
+export * from "./lib/questions/QTable";
 
 // transitions
 export * from "./lib/transitions/FadeIn";

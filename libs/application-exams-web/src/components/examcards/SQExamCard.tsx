@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { Type5ExamCard } from "./Type5ExamCard";
-import { QP } from "../questions/QP";
+import { QP } from "../../../../shared-ui-components/src/lib/questions/QP";
 import { SQTitle } from "../questions/SQTitle";
 import ScenarioBox from "../questions/ScenarioBox";
 import ExamCardContainer from "./ExamCardContainer";

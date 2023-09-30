@@ -1,4 +1,4 @@
-import { QP } from "./QP";
+import { QP } from "../../../../shared-ui-components/src/lib/questions/QP";
 
 export interface ISQTitleProps {
   desc: string;

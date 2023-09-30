@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import QP1 from "../questions/QP1";
-import { QTable } from "../questions/QTable";
-import { QP } from "../questions/QP";
+import QP1 from "../../../../shared-ui-components/src/lib/questions/QP1";
+import { QTable } from "../../../../shared-ui-components/src/lib/questions/QTable";
+import { QP } from "../../../../shared-ui-components/src/lib/questions/QP";
 import { Options } from "../questions/Options";
 import { SubmitButton } from "../questions/SubmitButton";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";

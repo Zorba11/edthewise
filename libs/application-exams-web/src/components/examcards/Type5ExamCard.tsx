@@ -1,9 +1,9 @@
 import { Alert, Box, Grid, Paper, Typography } from "@mui/material";
-import QP1 from "../questions/QP1";
-import { QTable } from "../questions/QTable";
+import QP1 from "../../../../shared-ui-components/src/lib/questions/QP1";
+import { QTable } from "../../../../shared-ui-components/src/lib/questions/QTable";
 import { Options } from "../questions/Options";
 import { SubmitButton } from "../questions/SubmitButton";
-import { QP } from "../questions/QP";
+import { QP } from "../../../../shared-ui-components/src/lib/questions/QP";
 import { IExamCardData } from "../../pages/IExamCardData";
 
 interface IType5ExamCardProps {
