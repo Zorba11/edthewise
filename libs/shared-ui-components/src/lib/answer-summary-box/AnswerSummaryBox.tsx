@@ -1,7 +1,9 @@
-import { Alert, Box, Grid, Paper, Typography } from "@mui/material";
+import { Alert, Box, Grid, IconButton, Paper, Typography } from "@mui/material";
 import { QP } from "libs/application-exams-web/src/components/questions/QP";
 import QP1 from "libs/application-exams-web/src/components/questions/QP1";
 import { QTable } from "libs/application-exams-web/src/components/questions/QTable";
+import FlagIcon from "@mui/icons-material/Flag";
+import { useState } from "react";
 
 interface IAnswerSummaryBox {
   questionData: {
@@ -26,6 +28,9 @@ interface IUserAnswer {
 }
 
 export const AnswerSummaryBox = ({ questionData, userAnswer }: IAnswerSummaryBox) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
   const { qNumber = 1, qp1 = "", qp2 = "", qp3 = "", qAnswer = [], qTableData1 = [], qTableData2 = [] } = questionData;
 
   const formattedQTableData1 =
@@ -61,7 +66,7 @@ export const AnswerSummaryBox = ({ questionData, userAnswer }: IAnswerSummaryBox
         display: "flex",
         width: "70vw",
         position: "relative",
-        top: "2rem",
+        top: "1rem",
         // left: "2rem",
         minHeight: "fit-content",
       }}
@@ -83,6 +88,26 @@ export const AnswerSummaryBox = ({ questionData, userAnswer }: IAnswerSummaryBox
             flexDirection: "column",
           }}
         >
+          <IconButton
+            sx={{
+              position: "relative",
+              top: "1.7rem",
+              left: "37vw",
+              width: "3rem",
+              height: "3rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 99,
+            }}
+          >
+            <FlagIcon
+              sx={{
+                color: "#FFC107",
+              }}
+            />
+          </IconButton>
+
           <Box
             sx={{
               display: "flex",

@@ -39,23 +39,17 @@ export const ResultAndQA: React.FC<ResultAndQAProps> = ({ QAs }) => {
       }}
     >
       {/* Marks and duration */}
-      <Box>
+      <Box
+        sx={{
+          paddingBottom: "5rem",
+        }}
+      >
         <ResultBox score={score} totalQuestions={totalQuestions} duration={duration} message={resultMessage} />
         {/* Answer Summary */}
         {questions.map(
           (question: any) =>
             question.qAnswer && <AnswerSummaryBox questionData={question} userAnswer={getUserAnswer(question?.qid)} />,
         )}
-
-        {/* <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginLeft: "5vw",
-          }}
-        >
-          <AnswerSummaryBox questionData={questions[0]} userAnswer={getUserAnswer(questions[0].qid)} />
-        </Box> */}
       </Box>
     </Container>
   );
