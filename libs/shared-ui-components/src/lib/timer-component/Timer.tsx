@@ -13,13 +13,13 @@ export const Timer = () => {
 
   const minutes = Math.floor(timeLeft / 60000);
   const seconds = Math.floor((timeLeft % 60000) / 1000);
-  const milliseconds = timeLeft % 1000;
+  // const milliseconds = timeLeft % 1000;
 
   return (
     <Box>
       <Typography letterSpacing={2} variant="h3" component="h3">
-        {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}.
-        {milliseconds < 100 ? `0${milliseconds}` : milliseconds}
+        {minutes < 10 ? `0${minutes}` : minutes}m : {seconds < 10 ? `0${seconds}` : seconds}s
+        {/* {milliseconds < 100 ? `0${milliseconds}` : milliseconds} */}
       </Typography>
     </Box>
   );

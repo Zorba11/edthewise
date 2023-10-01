@@ -13,6 +13,8 @@ export const GLOBAL_EXAMS_COLL_ID = "6507315dac0addf71a22";
 
 export const ACCA_FM_COMP_JAN_2024_COLL_ID = "65188209a682cbe15eff";
 
+export const FM_LEADERBOARD_JAN_2024 = "65188209a682cbe15eff";
+
 /**
  * Financial manaqement - ACCA
  */

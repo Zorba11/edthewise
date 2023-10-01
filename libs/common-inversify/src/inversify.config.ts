@@ -17,9 +17,16 @@ import {
   CompeteExamsStore,
   QuestionsStore,
   UserStore,
+  LeaderBoardStore,
 } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { CompeteListService, ExamsService, QuestionsService, UserService } from "@edthewise/foundation-appwrite";
+import {
+  CompeteListService,
+  ExamsService,
+  LeaderBoardService,
+  QuestionsService,
+  UserService,
+} from "@edthewise/foundation-appwrite";
 import { Container } from "inversify";
 
 const container = new Container();
@@ -49,6 +56,7 @@ container.bind<UserStore>(UserStore).toSelf().inSingletonScope();
 container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).inSingletonScope();
 container.bind<CompeteListStore>(CompeteListStoreToken).to(CompeteListStore).inSingletonScope();
 container.bind<CompeteExamsStore>(TOKENS.ExamStoreToken).to(CompeteExamsStore).inSingletonScope();
+container.bind<LeaderBoardStore>(TOKENS.LeaderBoardStoreToken).to(LeaderBoardStore).inSingletonScope();
 
 /**
  * Service Bindings to IOC container
@@ -57,5 +65,6 @@ container.bind<UserService>(TOKENS.UserServiceToken).to(UserService).inSingleton
 container.bind<QuestionsService>(TOKENS.QuestionsServiceToken).to(QuestionsService).inSingletonScope();
 container.bind<CompeteListService>(TOKENS.CompeteListServiceToken).to(CompeteListService).inSingletonScope();
 container.bind<ExamsService>(TOKENS.ExamsServiceToken).to(ExamsService).inSingletonScope();
+container.bind<LeaderBoardService>(TOKENS.LeaderBoardServiceToken).to(LeaderBoardService).inSingletonScope();
 
 export { container };

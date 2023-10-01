@@ -7,6 +7,7 @@ export * from "./services/signupService";
 export * from "./services/ExamsService";
 export * from "./services/QuestionsService";
 export * from "./services/CompeteListService";
+export * from "./services/LeaderBoardService";
 
 // interfaces
 export * from "./models/ISignUpRespose";

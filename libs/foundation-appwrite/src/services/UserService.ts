@@ -19,8 +19,10 @@ export class UserService {
         session = await localStorage.getItem("ed-session");
         if (session && session !== "undefined") {
           const sessionObj = JSON.parse(session);
-          client.setJWT(sessionObj?.providerAccessToken);
-          return sessionObj;
+          if (sessionObj?.providerUid === email) {
+            client.setJWT(sessionObj?.providerAccessToken);
+            return sessionObj;
+          }
         }
       }
 

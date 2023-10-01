@@ -121,14 +121,19 @@ export class ExamsService {
     }
   }
 
+  /**
+   *
+   * TODO: This method should be moved to LeaderBoardService
+   */
   async submitToLeaderBoard(
     examId: string,
     userId: string,
     userName: string,
     score: number,
     duration: number,
+    durationString: string,
     location = "India",
-    prize = "1000", // TODO: we need a server or service to query the db and calculate the prize money
+    prize = "1000", // TODO: add a separate service to query the db and calculate the prize money
   ): Promise<void> {
     try {
       const userInLeaderBoard = await database.createDocument(ExamsDbId, ACCA_FM_COMP_JAN_2024_COLL_ID, ID.unique(), {
@@ -137,8 +142,9 @@ export class ExamsService {
         name: userName,
         marks: JSON.stringify(score),
         location: location,
-        prize: prize,
+        prizeMoney: prize,
         duration: duration,
+        durationString: durationString,
       });
 
       console.log("Submitted to leaderboard: ", userInLeaderBoard);

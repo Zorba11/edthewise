@@ -7,6 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { container } from "@edthewise/common-inversify";
+import { LeaderBoardStore } from "@edthewise/application-stores-web";
+import { TOKENS } from "@edthewise/common-tokens-web";
 
 interface Column {
   id: "rank" | "name" | "mark" | "duration" | "state" | "price";
@@ -56,22 +59,30 @@ function createData(rank: number, name: string, mark: number, duration: string, 
   return { rank, name, mark, duration, state, price };
 }
 
-const rows = [
-  createData(1, "Alex Hinds", 96, "30 minutes 336 seconds", "Punjab", 900),
-  createData(2, "John Smith", 85, "25 minutes 512 seconds", "California", 750),
-  createData(3, "Jane Doe", 92, "28 minutes 421 seconds", "New York", 800),
-  createData(4, "David Lee", 78, "32 minutes 123 seconds", "Texas", 650),
-  createData(5, "Emily Chen", 89, "27 minutes 894 seconds", "Florida", 780),
-  createData(6, "Michael Kim", 93, "29 minutes 765 seconds", "Illinois", 820),
-  createData(7, "Sarah Park", 87, "26 minutes 987 seconds", "Virginia", 760),
-  createData(8, "Daniel Lee", 81, "31 minutes 234 seconds", "Georgia", 700),
-  createData(9, "Jessica Kim", 95, "30 minutes 678 seconds", "Arizona", 880),
-  createData(10, "William Chen", 90, "28 minutes 543 seconds", "Ohio", 800),
-];
+// const rows = [
+//   createData(1, "Alex Hinds", 96, "30 minutes 336 seconds", "Punjab", 900),
+//   createData(2, "John Smith", 85, "25 minutes 512 seconds", "California", 750),
+//   createData(3, "Jane Doe", 92, "28 minutes 421 seconds", "New York", 800),
+//   createData(4, "David Lee", 78, "32 minutes 123 seconds", "Texas", 650),
+//   createData(5, "Emily Chen", 89, "27 minutes 894 seconds", "Florida", 780),
+//   createData(6, "Michael Kim", 93, "29 minutes 765 seconds", "Illinois", 820),
+//   createData(7, "Sarah Park", 87, "26 minutes 987 seconds", "Virginia", 760),
+//   createData(8, "Daniel Lee", 81, "31 minutes 234 seconds", "Georgia", 700),
+//   createData(9, "Jessica Kim", 95, "30 minutes 678 seconds", "Arizona", 880),
+//   createData(10, "William Chen", 90, "28 minutes 543 seconds", "Ohio", 800),
+// ];
 
 export const LeaderBoard = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const leaderBoardStore = container.get<LeaderBoardStore>(TOKENS.LeaderBoardStoreToken);
+
+  const leaderBoard = leaderBoardStore.leaderBoard;
+
+  const rows = leaderBoard?.map((row, index) => {
+    return createData(index + 1, row.name, row.marks, row.durationString, row.location, row.prizeMoney);
+  });
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);

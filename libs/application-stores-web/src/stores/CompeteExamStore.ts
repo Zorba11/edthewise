@@ -133,6 +133,7 @@ export class CompeteExamsStore {
       this.userName,
       this.score,
       this.getDuration(),
+      this.getDurationString(),
     );
   }
 

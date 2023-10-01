@@ -1,4 +1,4 @@
-import { CompeteExamsStore, QuestionsStore, UserStore } from "@edthewise/application-stores-web";
+import { CompeteExamsStore, LeaderBoardStore, QuestionsStore, UserStore } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { inject, injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
@@ -9,13 +9,14 @@ export class CompeteExamResultRouteService {
     @inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore,
     private userStore: UserStore,
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
+    @inject(TOKENS.LeaderBoardStoreToken) private leaderBoardStore: LeaderBoardStore,
   ) {}
 
   onEnterCompeteExamResult = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
   };
 
-  beforeEnterCompeteExamResult = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+  beforeEnterCompeteExamResult = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     /**
      * TODO: Uncomment this when goinf live
      * make sure userStore is injected correctly too
@@ -24,6 +25,9 @@ export class CompeteExamResultRouteService {
     // if (!this.userStore.isLoggedIn) {
     //   return Promise.resolve(routerStore.goTo("signIn"));
     // }
+
+    await this.leaderBoardStore.fetchLeaderBoard();
+
     return Promise.resolve();
   };
 }

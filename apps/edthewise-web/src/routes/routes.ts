@@ -103,6 +103,7 @@ export const routes: Route[] = [
     name: "competeExamResult",
     pattern: "/compete-exam-result/:id",
     onEnter: competeExamResultRouteService.onEnterCompeteExamResult,
+    beforeEnter: competeExamResultRouteService.beforeEnterCompeteExamResult,
   },
   {
     name: "userProfile",

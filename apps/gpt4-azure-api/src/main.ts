@@ -13,8 +13,8 @@ import { ChatCompletion } from "openai/resources/chat";
 import { ImageResponse } from "next/server";
 
 const openai = new OpenAI({
-  organization: "org-GhP0IasARrX80CLYmlLsd9JR",
-  apiKey: "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",
+  organization: process.env.NX_ORG,
+  apiKey: process.env.NX_OPENAI_KEY,
 });
 
 // async function main() {
