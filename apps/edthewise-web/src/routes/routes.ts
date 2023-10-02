@@ -3,6 +3,7 @@ import {
   CompeteExamResultRouteService,
   CompeteHomeRouteService,
   CompeteListRouteService,
+  LeaderBoardRouteService,
   LearnExamCardRouteService,
   LearnExamResultRouteService,
   LearnExamStarterRouteService,
@@ -13,6 +14,7 @@ import {
 } from "@edthewise/application-routing-web";
 import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
+import { LeaderBoardService } from "@edthewise/foundation-appwrite";
 import { browserHistory, createRouterState, HistoryAdapter, Route, RouterStore } from "mobx-state-router";
 
 const notFound = createRouterState("notFound");
@@ -32,6 +34,8 @@ const learnExamStarterRouteService = container.get<LearnExamStarterRouteService>
 );
 const learnHomeRouteService = container.get<LearnHomeRouteService>(TOKENS.LearnHomeRouteServiceToken);
 const learnListRouteService = container.get<LearnListRouteService>(TOKENS.LearnListRouteServiceToken);
+
+const leaderBoardRouteService = container.get<LeaderBoardRouteService>(TOKENS.LeaderBoardRouteServiceToken);
 
 export const routes: Route[] = [
   {
@@ -112,6 +116,16 @@ export const routes: Route[] = [
   {
     name: "dashboard",
     pattern: "/dashboard",
+  },
+  {
+    name: "leaderboardsList",
+    pattern: "/leaderboardsList",
+  },
+  {
+    name: "leaderboard",
+    pattern: "/leaderBoard",
+    onEnter: leaderBoardRouteService.onEnterLeaderBoard,
+    beforeEnter: leaderBoardRouteService.beforeEnterLeaderBoard,
   },
 ];
 

@@ -13,6 +13,7 @@ export const TOKENS = {
   LearnExamStarterRouteServiceToken: Symbol.for("LearnExamStarterRouteServiceToken"),
   LearnHomeRouteServiceToken: Symbol.for("LearnHomeRouteServiceToken"),
   LearnListRouteServiceToken: Symbol.for("LearnListRouteServiceToken"),
+  LeaderBoardRouteServiceToken: Symbol.for("LeaderBoardRouteServiceToken"),
   /**
    * Store tokens
    */

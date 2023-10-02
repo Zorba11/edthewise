@@ -3,6 +3,7 @@ import {
   CompeteExamResultRouteService,
   CompeteHomeRouteService,
   CompeteListRouteService,
+  LeaderBoardRouteService,
   LearnExamCardRouteService,
   LearnExamResultRouteService,
   LearnExamStarterRouteService,
@@ -47,7 +48,7 @@ container.bind<LearnExamResultRouteService>(TOKENS.LearnExamResultRouteServiceTo
 container.bind<LearnExamStarterRouteService>(TOKENS.LearnExamStarterRouteServiceToken).to(LearnExamStarterRouteService);
 container.bind<LearnHomeRouteService>(TOKENS.LearnHomeRouteServiceToken).to(LearnHomeRouteService);
 container.bind<LearnListRouteService>(TOKENS.LearnListRouteServiceToken).to(LearnListRouteService);
-
+container.bind<LeaderBoardRouteService>(TOKENS.LeaderBoardRouteServiceToken).to(LeaderBoardRouteService);
 /**
  * Store Bindings to IOC container
  */

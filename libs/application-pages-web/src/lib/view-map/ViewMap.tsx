@@ -9,6 +9,7 @@ import { SignUp, SignIn } from "@edthewise/application-users-web";
 import { CompeteExamCard, CompeteExamResult, CompeteHome, CompeteList } from "@edthewise/application-compete-web";
 import HomePage from "./pages/HomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { LeaderBoardGeneric, LeaderBoardsList } from "@edthewise/application-leaderboards-web";
 
 export const viewMap = {
   home: <HomePage />,
@@ -26,4 +27,6 @@ export const viewMap = {
   competeExamResult: <CompeteExamResult />,
   userProfile: <div>userProfile</div>,
   dashboard: <div>dashboard</div>,
+  leaderboardsList: <LeaderBoardsList />,
+  leaderboard: <LeaderBoardGeneric />,
 };

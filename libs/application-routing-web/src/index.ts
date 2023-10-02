@@ -9,3 +9,4 @@ export * from "./services/competeExamCardRouteService";
 export * from "./services/learnExamCardRouteService";
 export * from "./services/learnExamResultRouteService";
 export * from "./services/competeExamResultRouteService";
+export * from "./services/leaderBoardRouteService";

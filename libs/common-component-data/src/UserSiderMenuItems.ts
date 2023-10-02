@@ -28,10 +28,19 @@ const handleDashboardClick = (routerStore: RouterStore, e: any) => {
   routerStore.goTo("dashboard");
 };
 
+const handleLeaderBoardsClick = (routerStore: RouterStore, e: any) => {
+  e?.preventDefault();
+  routerStore.goTo("leaderboardsList");
+};
+
 export const userSiderMenuItems: IUserSiderMenuItem[] = [
   {
     title: "Profile",
     onClick: handleProfileClick,
+  },
+  {
+    title: "Leaderboards",
+    onClick: handleLeaderBoardsClick,
   },
   {
     title: "Dashboard",
