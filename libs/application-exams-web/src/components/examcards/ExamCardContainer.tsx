@@ -38,16 +38,25 @@ const ExamCardContainer = ({
       {children}
       {/* Question Navigation Box */}
       {withNavigation && (
-        <ExamRightPane
-          goToNextQuestion={goToNextQuestion}
-          goToPrevQuestion={goToPrevQuestion}
-          withEd={withEd}
-          withTimer={withTimer}
-          totalQNumber={totalQuestions}
-          currentQNumber={currentQNumber}
-          submittedQuestions={submittedQuestions}
-          onQNumClick={onQNumClick}
-        />
+        <Box
+          sx={{
+            width: "100%",
+            order: 1, // Move the ExamRightPane component to the bottom on small screens
+            marginTop: "auto", // Push the component to the bottom of the container
+            flexDirection: { xs: "column", md: "row" },
+          }}
+        >
+          <ExamRightPane
+            goToNextQuestion={goToNextQuestion}
+            goToPrevQuestion={goToPrevQuestion}
+            withEd={withEd}
+            withTimer={withTimer}
+            totalQNumber={totalQuestions}
+            currentQNumber={currentQNumber}
+            submittedQuestions={submittedQuestions}
+            onQNumClick={onQNumClick}
+          />
+        </Box>
       )}
     </Box>
   );

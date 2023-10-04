@@ -8,13 +8,14 @@ export const ComingSoon = () => {
       <Box
         sx={{
           gap: "2rem",
-          height: "100vh",
+          height: "80vh",
           width: "100vw",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
           bottom: "6vh",
+          top: "2.5vh",
         }}
       >
         <h1
