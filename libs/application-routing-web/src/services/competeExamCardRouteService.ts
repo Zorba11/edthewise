@@ -52,4 +52,8 @@ export class CompeteExamCardRouteService {
 
     return Promise.resolve();
   };
+
+  onExitCompeteExamCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    return Promise.resolve();
+  };
 }

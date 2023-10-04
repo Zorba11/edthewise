@@ -14,7 +14,6 @@ import {
 } from "@edthewise/application-routing-web";
 import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { LeaderBoardService } from "@edthewise/foundation-appwrite";
 import { browserHistory, createRouterState, HistoryAdapter, Route, RouterStore } from "mobx-state-router";
 
 const notFound = createRouterState("notFound");
@@ -91,6 +90,7 @@ export const routes: Route[] = [
     pattern: "/compete-exam/:id",
     onEnter: competeExamCardRouteService.onEnterCompeteExamCard,
     beforeEnter: competeExamCardRouteService.beforeEnterCompeteCard,
+    onExit: competeExamCardRouteService.onExitCompeteExamCard,
   },
   {
     name: "learnExamCard",
