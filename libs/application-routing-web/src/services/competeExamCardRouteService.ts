@@ -16,7 +16,7 @@ export class CompeteExamCardRouteService {
     this.questionsUiStore = questionsUiStore;
   }
 
-  onEnterCompeteExamCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+  onEnterCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
   };
 
@@ -31,9 +31,6 @@ export class CompeteExamCardRouteService {
     // }
 
     if (!this.examStore.notImplemented) {
-      this.questionsUiStore.subject = toState.params.subject;
-      await this.questionsUiStore.setFirstQuestionSet();
-
       if (!this.userStore?.userId) {
         await this.userStore.initialize();
       }
@@ -45,6 +42,9 @@ export class CompeteExamCardRouteService {
        * development purposes.
        * */
       this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
+
+      this.questionsUiStore.subject = toState.queryParams.subject;
+      await this.questionsUiStore.setFirstQuestionSet();
     } else {
       this.examStore.setNotImplemented(false);
       return routerStore.goTo("notFound");
@@ -53,7 +53,7 @@ export class CompeteExamCardRouteService {
     return Promise.resolve();
   };
 
-  onExitCompeteExamCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+  onExitCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
   };
 }

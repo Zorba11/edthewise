@@ -77,7 +77,7 @@ export const routes: Route[] = [
   },
   {
     name: "competeList",
-    pattern: "/compete-list/?=subject",
+    pattern: "/compete-list",
     onEnter: competeListRouteService.onEnterCompeteList,
     beforeEnter: competeListRouteService.beforeEnterCompeteList,
   },
@@ -87,7 +87,7 @@ export const routes: Route[] = [
   },
   {
     name: "competeExamCard",
-    pattern: "/compete-exam/:id",
+    pattern: "/compete-exam",
     onEnter: competeExamCardRouteService.onEnterCompeteExamCard,
     beforeEnter: competeExamCardRouteService.beforeEnterCompeteCard,
     onExit: competeExamCardRouteService.onExitCompeteExamCard,

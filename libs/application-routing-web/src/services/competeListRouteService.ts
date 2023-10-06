@@ -35,7 +35,7 @@ export class CompeteListRouteService {
     //   return Promise.resolve(routerStore.goTo("signIn"));
     // }
 
-    await this.examStore.setExamName(toState.queryParams?.subject);
+    await this.examStore.setExamNameAndId(toState.queryParams?.subject);
 
     const subjectTitle = toState.queryParams.subject;
 

@@ -54,6 +54,15 @@ export class ExamsService {
       // TODO: Remove this before going live
       await this.clearExams();
 
+      const cachedExamData = localStorage.getItem(`exam-${examId}`);
+      if (cachedExamData && !JSON.parse(cachedExamData).isSubmitted) {
+        const examData = JSON.parse(cachedExamData);
+        this.exam = JSON.parse(examData.exam);
+        this.examDocId = this.exam.$id;
+        console.log("Exam retrieved from cache: ", this.exam);
+        return this.exam;
+      }
+
       this.exam = await database.createDocument(ExamsDbId, COMPETE_EXAMS_COLLECTION_ID, ID.unique(), {
         examId: examId,
         userId: userId,
@@ -66,6 +75,14 @@ export class ExamsService {
 
       this.examDocId = this.exam.$id;
       console.log("Exam created: ", this.exam);
+
+      const examData = {
+        isSubmitted: false,
+        exam: JSON.stringify(this.exam),
+      };
+
+      localStorage.setItem(`exam-${examId}`, JSON.stringify(examData));
+
       return this.exam;
     } catch (error) {
       console.error(error);
@@ -89,14 +106,24 @@ export class ExamsService {
   }
 
   async getExamName(subjectCode: string): Promise<string> {
+    const examName = localStorage.getItem(`${subjectCode}exName`);
+    const examGlobalId = localStorage.getItem(`${subjectCode}Gid`);
+
+    if (examName && examGlobalId) {
+      return examName;
+    }
+
     try {
       const examNameDocs = await database.listDocuments(ExamsDbId, GLOBAL_EXAMS_COLL_ID, [
         Query.equal("subjectCode", subjectCode),
         Query.equal("isActive", true),
       ]);
       const examName = examNameDocs.documents[0].examName;
+      const globalId = examNameDocs.documents[0].globalId;
+      const examGlobalId = subjectCode + globalId;
 
-      this.examGlobalId = examNameDocs.documents[0].globalId;
+      localStorage.setItem(`${subjectCode}Gid`, examGlobalId);
+      localStorage.setItem(`${subjectCode}exName`, examName);
 
       return examName;
     } catch (error) {

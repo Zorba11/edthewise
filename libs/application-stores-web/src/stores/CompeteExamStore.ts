@@ -75,7 +75,7 @@ export class CompeteExamsStore {
     );
   }
 
-  async setExamName(subjectName: string): Promise<void> {
+  async setExamNameAndId(subjectName: string): Promise<void> {
     this.subjectName = subjectName;
 
     const subjectCode = this.getSubjectCode(subjectName);
