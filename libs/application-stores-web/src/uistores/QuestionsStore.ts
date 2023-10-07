@@ -5,6 +5,7 @@ import "reflect-metadata";
 import { Mappers } from "../utils/Mappers";
 import { action, computed, makeAutoObservable, observable } from "mobx";
 import { CompeteExamsStore } from "../stores/CompeteExamStore";
+import { initialize } from "next/dist/server/lib/render-server";
 
 interface IExamCardData {
   qNumber?: number;
@@ -37,6 +38,9 @@ export class QuestionsStore {
 
   private _userAnswers: Map<string, IUserAnswer> = new Map();
 
+  private userId!: string;
+  private examId!: string;
+
   @observable
   showOptionNotSelectedError = false;
 
@@ -50,6 +54,11 @@ export class QuestionsStore {
     this._questions = [];
     this._currentQuestionIndex = 0;
     makeAutoObservable(this);
+  }
+
+  initialize() {
+    this.userId = this.examStore.userId;
+    this.examId = this.examStore.examId;
   }
 
   set subject(subject: string) {
@@ -72,13 +81,30 @@ export class QuestionsStore {
         return;
       }
 
-      const questions = await this.questionsService.getQuestions();
+      const questions = await this.questionsService.getQuestions(this.examId, this.userId);
       questions?.map((question: any, index: number) => {
         this._questions.push(Mappers.mapQuestionToCard(question, index));
       });
 
       if (this._questions.length) {
         this.currentQuestion = this._questions[this._currentQuestionIndex];
+        this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
+        this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  @action
+  async setQuestionFromCache() {
+    try {
+      const currentQuestion = await this.getCurrentQuestionFromLocalStorage(this.examId, this.userId);
+      const currentQuestionIndex = await this.getCurrentQuestionIndexFromLocalStorage(this.examId, this.userId);
+
+      if (currentQuestion && currentQuestionIndex) {
+        this.currentQuestion = currentQuestion;
+        this._currentQuestionIndex = currentQuestionIndex;
       }
     } catch (error) {
       console.log(error);
@@ -96,6 +122,8 @@ export class QuestionsStore {
       if (this._questions) {
         this._currentQuestionIndex++;
         this.currentQuestion = this._questions[this._currentQuestionIndex];
+        this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
+        this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
       }
     } catch (error) {
       console.log(error);
@@ -131,6 +159,9 @@ export class QuestionsStore {
       const index = qNumber - 1;
       this._currentQuestionIndex = index;
       this.currentQuestion = this._questions[index];
+
+      this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
+      this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
     } catch (error) {
       console.log(error);
     }
@@ -152,6 +183,9 @@ export class QuestionsStore {
       if (this._questions) {
         this._currentQuestionIndex--;
         this.currentQuestion = this._questions[this._currentQuestionIndex];
+
+        this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
+        this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
       }
     } catch (error) {
       console.log(error);
@@ -179,5 +213,41 @@ export class QuestionsStore {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  private async getCurrentQuestionFromLocalStorage(examId: string, userId: string): Promise<any> {
+    const cacheKey = `${examId}-${userId}-currentQuestion`;
+    const cachedQuestion = await localStorage.getItem(cacheKey);
+    if (cachedQuestion) {
+      return JSON.parse(cachedQuestion);
+    }
+    return null;
+  }
+
+  private async storeCurrentQuestionInLocalStorage(
+    examId: string,
+    userId: string,
+    currentQuestion: any,
+  ): Promise<void> {
+    const cacheKey = `${examId}-${userId}-currentQuestion`;
+    await localStorage.setItem(cacheKey, JSON.stringify(currentQuestion));
+  }
+
+  private async getCurrentQuestionIndexFromLocalStorage(examId: string, userId: string): Promise<number> {
+    const cacheKey = `${examId}-${userId}-currentQuestionIndex`;
+    const cachedIndex = await localStorage.getItem(cacheKey);
+    if (cachedIndex) {
+      return parseInt(cachedIndex);
+    }
+    return 0;
+  }
+
+  private async storeCurrentQuestionIndexInLocalStorage(
+    examId: string,
+    userId: string,
+    currentQuestionIndex: number,
+  ): Promise<void> {
+    const cacheKey = `${examId}-${userId}-currentQuestionIndex`;
+    await localStorage.setItem(cacheKey, currentQuestionIndex.toString());
   }
 }

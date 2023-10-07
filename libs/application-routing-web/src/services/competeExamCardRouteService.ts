@@ -17,6 +17,7 @@ export class CompeteExamCardRouteService {
   }
 
   onEnterCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    // this.preventRoutingOnBackButton();
     return Promise.resolve();
   };
 
@@ -41,10 +42,20 @@ export class CompeteExamCardRouteService {
        * Also, create an email session manually and hard code it for
        * development purposes.
        * */
-      this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
 
-      this.questionsUiStore.subject = toState.queryParams.subject;
-      await this.questionsUiStore.setFirstQuestionSet();
+      if (!this.examStore.isExamRunning()) {
+        await this.examStore.setExamNameAndId(toState.queryParams.subject);
+        this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
+        this.questionsUiStore.subject = toState.queryParams.subject;
+        this.questionsUiStore.initialize();
+        await this.questionsUiStore.setFirstQuestionSet();
+      } else {
+        await this.examStore.setExamNameAndId(toState.queryParams.subject);
+        this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
+        this.questionsUiStore.subject = toState.queryParams.subject;
+        this.questionsUiStore.initialize();
+        await this.questionsUiStore.setQuestionFromCache();
+      }
     } else {
       this.examStore.setNotImplemented(false);
       return routerStore.goTo("notFound");
@@ -56,4 +67,11 @@ export class CompeteExamCardRouteService {
   onExitCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
   };
+
+  private preventRoutingOnBackButton() {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }
 }

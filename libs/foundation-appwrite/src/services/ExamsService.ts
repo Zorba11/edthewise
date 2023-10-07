@@ -83,11 +83,21 @@ export class ExamsService {
 
       localStorage.setItem(`exam-${examId}`, JSON.stringify(examData));
 
+      localStorage.setItem(`exam-${examId}-isRunning`, "true");
+
       return this.exam;
     } catch (error) {
       console.error(error);
       throw new Error("Error creating exam");
     }
+  }
+
+  getIsExamRunning(examId: string): boolean {
+    const isExamRunning = localStorage.getItem(`exam-${examId}-isRunning`);
+    if (isExamRunning === "true") {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -141,10 +151,24 @@ export class ExamsService {
         endTime: endTime,
       });
 
+      const cachedExamData = localStorage.getItem(`exam-${examId}`);
+
+      this.clearExamCache(cachedExamData, examId);
+
+      localStorage.setItem(`exam-${examId}-isRunning`, "false");
+
       console.log("Exam submitted: ", exam);
     } catch (error) {
       console.error(error);
       throw new Error("Error submitting exam");
+    }
+  }
+
+  private clearExamCache(cachedExamData: string | null, examId: string) {
+    if (cachedExamData) {
+      const examData = JSON.parse(cachedExamData);
+      examData.isSubmitted = true;
+      localStorage.setItem(`exam-${examId}`, "");
     }
   }
 

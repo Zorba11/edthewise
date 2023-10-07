@@ -35,14 +35,14 @@ export class CompeteExamsStore {
   pSCsubjectTitles!: string[];
   @observable notImplemented!: boolean;
 
+  examId!: string;
+  userId!: string;
   private examsService: ExamsService;
   private subjectName!: string;
   private currentExamName!: string;
-  private examId!: string;
   private score!: number;
   private startTime!: number;
   private endTime!: number;
-  userId!: string;
   private totalQuestions!: number;
   private questions!: IExamCardData[];
   private userAnswers!: Map<string, IUserAnswer>;
@@ -74,6 +74,13 @@ export class CompeteExamsStore {
       JSON.stringify(this.startTime),
     );
   }
+
+  // async getExamFromCache(userId: string, userName: string): Promise<void> {
+  //   this.userId = userId;
+  //   this.userName = userName;
+  //   this.startTime = Date.now();
+  //   this.exam = await this.examsService.getExamFromCache(this.examId);
+  // }
 
   async setExamNameAndId(subjectName: string): Promise<void> {
     this.subjectName = subjectName;
@@ -179,5 +186,9 @@ export class CompeteExamsStore {
 
   getUserAnswers(): Map<string, IUserAnswer> {
     return this.userAnswers ? this.userAnswers : new Map<string, IUserAnswer>();
+  }
+
+  isExamRunning(): boolean {
+    return this.examsService.getIsExamRunning(this.examId);
   }
 }
