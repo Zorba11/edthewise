@@ -99,10 +99,14 @@ export class QuestionsStore {
   @action
   async setQuestionFromCache() {
     try {
+      const questions = await this.questionsService.getQuestions(this.examId, this.userId);
+      questions?.map((question: any, index: number) => {
+        this._questions.push(Mappers.mapQuestionToCard(question, index));
+      });
       const currentQuestion = await this.getCurrentQuestionFromLocalStorage(this.examId, this.userId);
       const currentQuestionIndex = await this.getCurrentQuestionIndexFromLocalStorage(this.examId, this.userId);
 
-      if (currentQuestion && currentQuestionIndex) {
+      if (currentQuestion && currentQuestionIndex + 1) {
         this.currentQuestion = currentQuestion;
         this._currentQuestionIndex = currentQuestionIndex;
       }
@@ -117,13 +121,13 @@ export class QuestionsStore {
   }
 
   @action
-  setNextQuestion() {
+  async setNextQuestion() {
     try {
       if (this._questions) {
         this._currentQuestionIndex++;
         this.currentQuestion = this._questions[this._currentQuestionIndex];
-        this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
-        this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
+        await this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
+        await this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
       }
     } catch (error) {
       console.log(error);
@@ -154,14 +158,14 @@ export class QuestionsStore {
   }
 
   @action
-  setQuestionByNum(qNumber: number) {
+  async setQuestionByNum(qNumber: number) {
     try {
       const index = qNumber - 1;
       this._currentQuestionIndex = index;
       this.currentQuestion = this._questions[index];
 
-      this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
-      this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
+      await this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
+      await this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
     } catch (error) {
       console.log(error);
     }
@@ -178,14 +182,14 @@ export class QuestionsStore {
   }
 
   @action
-  setPreviousQuestion() {
+  async setPreviousQuestion() {
     try {
       if (this._questions) {
         this._currentQuestionIndex--;
         this.currentQuestion = this._questions[this._currentQuestionIndex];
 
-        this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
-        this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
+        await this.storeCurrentQuestionInLocalStorage(this.examId, this.userId, this.currentQuestion);
+        await this.storeCurrentQuestionIndexInLocalStorage(this.examId, this.userId, this._currentQuestionIndex);
       }
     } catch (error) {
       console.log(error);
@@ -207,9 +211,9 @@ export class QuestionsStore {
     this.showOptionNotSelectedError = show;
   }
 
-  submitExam() {
+  async submitExam() {
     try {
-      this.examStore.submitExam(this._questions, this._userAnswers);
+      await this.examStore.submitExam(this._questions, this._userAnswers);
     } catch (error) {
       console.log(error);
     }

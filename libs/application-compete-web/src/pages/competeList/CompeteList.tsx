@@ -55,30 +55,46 @@ export const CompeteList = () => {
       }}
     >
       <HeaderWithLogo />
-      {/* exams list container */}
-      <Container>
-        <ExamTitleAndRules title={subjectTitle} rules={rules} />
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            marginTop: "2rem",
-            gap: "0",
-            justifyContent: "center",
-            position: "relative",
-            right: "3rem",
-          }}
-        >
-          <CardComponent cardProps={examListProps} />
-          <CompeteExamStarterDetails
-            studentsAttempted={examStats?.studentsAttempted}
-            yourAttempts={2}
-            topScore={examStats?.topScore}
-            prizeMoney={examStats?.prizeMoney}
-          />
-        </Box>
-      </Container>
+
+      {subjectTitle && examStats ? (
+        renderExamTitleAndStatsComp(subjectTitle, rules, examListProps, examStats)
+      ) : (
+        // TODO: Add a loading spinner or a loading page
+        <div>Loading...</div>
+      )}
     </Box>
   );
 };
+
+function renderExamTitleAndStatsComp(
+  subjectTitle: string,
+  rules: string,
+  examListProps: ICardComponentProps[],
+  examStats: any,
+) {
+  return (
+    <Container>
+      <ExamTitleAndRules title={subjectTitle} rules={rules} />
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          marginTop: "2rem",
+          gap: "0",
+          justifyContent: "center",
+          position: "relative",
+          right: "3rem",
+        }}
+      >
+        <CardComponent cardProps={examListProps} />
+        <CompeteExamStarterDetails
+          studentsAttempted={examStats?.studentsAttempted}
+          yourAttempts={2}
+          topScore={examStats?.topScore}
+          prizeMoney={examStats?.prizeMoney}
+        />
+      </Box>
+    </Container>
+  );
+}

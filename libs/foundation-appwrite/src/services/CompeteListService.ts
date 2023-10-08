@@ -14,6 +14,7 @@ export class CompeteListService {
       return examStats.documents[0];
     } catch (error) {
       console.error(error);
+      throw Error(error ? `${error}` : "Error fetching exam stats");
     }
   }
 }

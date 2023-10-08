@@ -42,20 +42,7 @@ export class CompeteExamCardRouteService {
        * Also, create an email session manually and hard code it for
        * development purposes.
        * */
-
-      if (!this.examStore.isExamRunning()) {
-        await this.examStore.setExamNameAndId(toState.queryParams.subject);
-        this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
-        this.questionsUiStore.subject = toState.queryParams.subject;
-        this.questionsUiStore.initialize();
-        await this.questionsUiStore.setFirstQuestionSet();
-      } else {
-        await this.examStore.setExamNameAndId(toState.queryParams.subject);
-        this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
-        this.questionsUiStore.subject = toState.queryParams.subject;
-        this.questionsUiStore.initialize();
-        await this.questionsUiStore.setQuestionFromCache();
-      }
+      this.handleExamCardRoute(toState);
     } else {
       this.examStore.setNotImplemented(false);
       return routerStore.goTo("notFound");
@@ -67,6 +54,20 @@ export class CompeteExamCardRouteService {
   onExitCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();
   };
+
+  private async handleExamCardRoute(toState: any) {
+    const subject = toState.queryParams.subject;
+    await this.examStore.setExamNameAndId(subject);
+    this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
+    this.questionsUiStore.subject = subject;
+    this.questionsUiStore.initialize();
+
+    if (!this.examStore.isExamRunning()) {
+      await this.questionsUiStore.setFirstQuestionSet();
+    } else {
+      await this.questionsUiStore.setQuestionFromCache();
+    }
+  }
 
   private preventRoutingOnBackButton() {
     window.history.pushState(null, "", window.location.href);

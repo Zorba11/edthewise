@@ -35,19 +35,22 @@ export class CompeteListRouteService {
     //   return Promise.resolve(routerStore.goTo("signIn"));
     // }
 
-    await this.examStore.setExamNameAndId(toState.queryParams?.subject);
+    try {
+      await this.examStore.setExamNameAndId(toState.queryParams?.subject);
 
-    const subjectTitle = toState.queryParams.subject;
+      const subjectTitle = toState.queryParams.subject;
 
-    if (this.examStore.notImplemented) {
-      this.examStore.setNotImplemented(false);
-      return routerStore.goTo("notFound");
+      if (this.examStore.notImplemented) {
+        this.examStore.setNotImplemented(false);
+        return Promise.resolve(routerStore.goTo("notFound"));
+      }
+      // Using subjectTitle get the current Global Exam name and add it to exam store
+
+      await this.competeListStore.setCurrentSubjectTitleAndStats(subjectTitle);
+
+      return Promise.resolve();
+    } catch (error) {
+      console.error(error);
     }
-
-    // Using subjectTitle get the current Global Exam name and add it to exam store
-
-    await this.competeListStore.setCurrentSubjectTitleAndStats(subjectTitle);
-
-    return Promise.resolve();
   };
 }

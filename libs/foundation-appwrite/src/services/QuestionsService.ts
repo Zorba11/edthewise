@@ -17,14 +17,15 @@ export class QuestionsService {
   getQuestions = async (examId: string, userId: string): Promise<any> => {
     try {
       const cacheKey = `${examId}-${userId}-${this.collectionIds[0]}`;
-      const cachedQuestions = localStorage.getItem(cacheKey);
+      const cachedQuestions = await localStorage.getItem(cacheKey);
       if (cachedQuestions) {
         return JSON.parse(cachedQuestions);
       }
 
       const questions = await database.listDocuments(ExamsDbId, this.collectionIds[0]);
       const questionsData = questions.documents;
-      localStorage.setItem(cacheKey, JSON.stringify(questionsData));
+
+      await localStorage.setItem(cacheKey, JSON.stringify(questionsData));
 
       return questionsData;
     } catch (err) {

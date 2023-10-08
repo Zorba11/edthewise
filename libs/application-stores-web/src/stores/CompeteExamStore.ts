@@ -39,7 +39,7 @@ export class CompeteExamsStore {
   userId!: string;
   private examsService: ExamsService;
   private subjectName!: string;
-  private currentExamName!: string;
+  private currentExamName!: string | undefined;
   private score!: number;
   private startTime!: number;
   private endTime!: number;
@@ -63,7 +63,7 @@ export class CompeteExamsStore {
     this.pSCsubjectTitles = subjectTitles.PSC;
   }
 
-  async createNewExam(userId: string, userName: string): Promise<void> {
+  async createNewExam(userId: string, userName: string): Promise<void | undefined> {
     this.userId = userId;
     this.userName = userName;
     this.startTime = Date.now();
