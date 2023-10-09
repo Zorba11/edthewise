@@ -54,13 +54,17 @@ export class ExamsService {
       // TODO: Remove this before going live
       await this.clearExams();
 
-      const cachedExamData = await localStorage.getItem(`exam-${examId}`);
-      if (cachedExamData && !JSON.parse(cachedExamData).isSubmitted) {
-        const examData = JSON.parse(cachedExamData);
-        this.exam = JSON.parse(examData.exam);
-        this.examDocId = this.exam.$id;
-        console.log("Exam retrieved from cache: ", this.exam);
-        return this.exam;
+      this.examDocId = (await localStorage.getItem(`exam-docId`)) ?? "";
+
+      if (this.examDocId) {
+        const cachedExamData = await localStorage.getItem(`exam-${this.examDocId}`);
+        if (cachedExamData && !JSON.parse(cachedExamData).isSubmitted) {
+          const examData = JSON.parse(cachedExamData);
+          this.exam = JSON.parse(examData.exam);
+          this.examDocId = this.exam.$id;
+          console.log("Exam retrieved from cache: ", this.exam);
+          return this.exam;
+        }
       }
 
       this.exam = await database.createDocument(ExamsDbId, COMPETE_EXAMS_COLLECTION_ID, ID.unique(), {
@@ -74,16 +78,10 @@ export class ExamsService {
       });
 
       this.examDocId = this.exam.$id;
-      console.log("Exam created: ", this.exam);
 
-      const examData = {
-        isSubmitted: false,
-        exam: JSON.stringify(this.exam),
-      };
+      await this.storeExamData();
 
-      await localStorage.setItem(`exam-${examId}`, JSON.stringify(examData));
-
-      await localStorage.setItem(`exam-${examId}-isRunning`, "true");
+      await this.storeExamInitData();
 
       return this.exam;
     } catch (error) {
@@ -92,8 +90,23 @@ export class ExamsService {
     }
   }
 
-  getIsExamRunning(examId: string): boolean {
-    const isExamRunning = localStorage.getItem(`exam-${examId}-isRunning`);
+  private async storeExamData() {
+    await localStorage.setItem(`exam-docId`, JSON.stringify(this.examDocId));
+  }
+
+  private async storeExamInitData() {
+    const examData = {
+      isSubmitted: false,
+      exam: JSON.stringify(this.exam),
+    };
+
+    await localStorage.setItem(`exam-${this.examDocId}`, JSON.stringify(examData));
+
+    await localStorage.setItem(`exam-${this.examDocId}-isRunning`, "true");
+  }
+
+  getIsExamRunning(examDocId: string): boolean {
+    const isExamRunning = localStorage.getItem(`exam-${examDocId}-isRunning`);
     if (isExamRunning === "true") {
       return true;
     }

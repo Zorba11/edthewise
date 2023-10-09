@@ -62,6 +62,7 @@ export class CompeteExamCardRouteService {
     this.questionsUiStore.subject = subject;
     this.questionsUiStore.initialize();
 
+    // TODO: Uncomment this when going live
     if (!this.examStore.isExamRunning()) {
       await this.questionsUiStore.setFirstQuestionSet();
     } else {

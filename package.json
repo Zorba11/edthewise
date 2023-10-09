@@ -28,6 +28,7 @@
     "formik": "^2.4.3",
     "framer-motion": "^10.16.0",
     "inversify": "^6.0.1",
+    "localforage": "^1.10.0",
     "mobx": "^6.10.2",
     "mobx-react": "^9.0.1",
     "mobx-state-router": "^6.0.1",

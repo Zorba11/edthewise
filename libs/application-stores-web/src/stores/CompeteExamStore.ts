@@ -47,6 +47,7 @@ export class CompeteExamsStore {
   private questions!: IExamCardData[];
   private userAnswers!: Map<string, IUserAnswer>;
   private userName!: string;
+  examDocId!: string;
 
   exam!: any;
 
@@ -73,6 +74,7 @@ export class CompeteExamsStore {
       this.subjectName,
       JSON.stringify(this.startTime),
     );
+    this.examDocId = this.exam.$id;
   }
 
   // async getExamFromCache(userId: string, userName: string): Promise<void> {
@@ -189,6 +191,6 @@ export class CompeteExamsStore {
   }
 
   isExamRunning(): boolean {
-    return this.examsService.getIsExamRunning(this.examId);
+    return this.examsService.getIsExamRunning(this.examDocId);
   }
 }

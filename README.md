@@ -1,7 +1,47 @@
+# EdTheWise
+
+We are Following MVVM architecture.
+
+For routing we are using Mobx-State-Router.
+Generally, all data fetching happens at the routeServices (i.e mobx-state-router).
+i.e RouteService => DataUiStore => DataStore => DataService => DataLocalCacheStore
+
+In the above flow, DataUiStore and DataLocalCacheStore are optional based on our needs.
+
 <!-- Boundaries Not Enforced Yet -->
 
-foundation-appwrite => should not depend on any other libraries
+foundation-appwrite => should not depend on any other libraries (except for foundation-local-cache)
 application-pages-web => should not be used in other libraries
+
+foundation-local-cache => shouldn't depend on any other library
+
+# Some design decisions and reasoning:
+
+## Routing using MobX-State-Router
+
+This help us seperate all data fetching
+logic from the components. As we can use the router hooks like beforeEnter, onEnter e.t.c associated with each component
+
+## State management using MobX
+
+Their implementation is very identical to Observer-Subscriber pattern. So, less
+learning curve to start using it.
+
+## Dependency Injection using Inversify JS
+
+Inversify gives us an easy to implement IOC container. Concepts are
+pretty straightforward. For any one struggling, just remember - IOC (Inversion of Control Container) that runs through out the life cycle of our app and it holds all of our singleton stores. So, when you're creating a store and if it needs to be available all through the lifecycle, this store should go into our IOC container and there should be
+unique to token to easily grab the store from the IOC container when needed.
+
+## Appwrite BAAS
+
+For scaling needs and was economical when compared to Firebase
+
+## Browser Caching using LocalStorage, LocalForage and IndexedDB
+
+Localforage gives an easy implementation that helps using IndexedDB just like it's
+localStorage i.e simple GET, SET methods to store and retrieve data.
+Also, it help us from using redundant stringifying and parsings.
 
 # Edthewise
 
