@@ -28,6 +28,7 @@ import {
   QuestionsService,
   UserService,
 } from "@edthewise/foundation-appwrite";
+import { BaseLocalCacheStore } from "@edthewise/foundation-local-cache";
 import { Container } from "inversify";
 
 const container = new Container();
@@ -58,6 +59,7 @@ container.bind<QuestionsStore>(TOKENS.QuestionsStoreToken).to(QuestionsStore).in
 container.bind<CompeteListStore>(CompeteListStoreToken).to(CompeteListStore).inSingletonScope();
 container.bind<CompeteExamsStore>(TOKENS.ExamStoreToken).to(CompeteExamsStore).inSingletonScope();
 container.bind<LeaderBoardStore>(TOKENS.LeaderBoardStoreToken).to(LeaderBoardStore).inSingletonScope();
+container.bind<BaseLocalCacheStore>(TOKENS.BaseLocalCacheStoreToken).to(BaseLocalCacheStore).inSingletonScope();
 
 /**
  * Service Bindings to IOC container

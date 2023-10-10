@@ -21,6 +21,7 @@ export const TOKENS = {
   QuestionsStoreToken: Symbol.for("QuestionsStoreToken"),
   ExamStoreToken: Symbol.for("ExamStoreToken"),
   LeaderBoardStoreToken: Symbol.for("LeaderBoardStoreToken"),
+  BaseLocalCacheStoreToken: Symbol.for("BaseLocalCacheStoreToken"),
   /**
    * Services tokens
    */

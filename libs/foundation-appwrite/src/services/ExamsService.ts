@@ -1,4 +1,4 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { AccaSubjectList, PscSubjectList } from "../model-db/ACAACollection";
 import "reflect-metadata";
 import { database } from "../appwrite-config/config";
@@ -9,10 +9,18 @@ import {
   GLOBAL_EXAMS_COLL_ID,
 } from "../db/collections";
 import { ID, Models, Query } from "appwrite";
+import { TOKENS } from "@edthewise/common-tokens-web";
+import { BaseLocalCacheStore } from "@edthewise/foundation-local-cache";
 
 // Use inversify JS to make this injectable
 // and inject into QuestionsUiStore
 // Add data to the DB accordingly
+
+const EXAM_DOC_ID_CACHE_NAME = "exam-docId";
+
+const EXAM_DOC_ID = "exam-doc-id";
+
+const IS_EXAM_RUNNING = "exam-isRunning";
 
 export interface ISubjectList {
   ACCA: string[];
@@ -23,6 +31,8 @@ export class ExamsService {
   exam!: Models.Document;
   examDocId!: string;
   private examGlobalId!: string;
+
+  constructor(@inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore) {}
 
   getSubjectTitles = async (): Promise<ISubjectList | undefined> => {
     try {
@@ -45,7 +55,7 @@ export class ExamsService {
     userId: string,
     subjectName: string,
     startTime: string,
-  ): Promise<Models.Document> {
+  ): Promise<Models.Document | undefined> {
     try {
       if (!userId) {
         userId = "26e5894c-fb98-4bef-94aa-9b5259d38bd3";
@@ -54,13 +64,14 @@ export class ExamsService {
       // TODO: Remove this before going live
       await this.clearExams();
 
-      this.examDocId = (await localStorage.getItem(`exam-docId`)) ?? "";
+      this.examDocId = (await this.baseLocalCacheStore.getDocument(EXAM_DOC_ID)) ?? "";
 
       if (this.examDocId) {
-        const cachedExamData = await localStorage.getItem(`exam-${this.examDocId}`);
-        if (cachedExamData && !JSON.parse(cachedExamData).isSubmitted) {
-          const examData = JSON.parse(cachedExamData);
-          this.exam = JSON.parse(examData.exam);
+        const cachedExamData = await this.baseLocalCacheStore.getExam(this.examDocId);
+
+        // if (cachedExamData && !JSON.parse(cachedExamData).isSubmitted) {
+        if (cachedExamData) {
+          this.exam = JSON.parse(cachedExamData);
           this.examDocId = this.exam.$id;
           console.log("Exam retrieved from cache: ", this.exam);
           return this.exam;
@@ -85,13 +96,18 @@ export class ExamsService {
 
       return this.exam;
     } catch (error) {
-      console.error(error);
-      throw new Error("Error creating exam");
+      console.error("Error creating exam: ", error);
+      // throw new Error("Error creating exam: ", error);
     }
   }
 
-  private async storeExamData() {
-    await localStorage.setItem(`exam-docId`, JSON.stringify(this.examDocId));
+  private async storeExamData(): Promise<void> {
+    try {
+      await this.baseLocalCacheStore.storeDocument(EXAM_DOC_ID_CACHE_NAME, this.examDocId);
+      await this.baseLocalCacheStore.storeExam(this.examDocId, this.exam);
+    } catch (err) {
+      console.error("", err);
+    }
   }
 
   private async storeExamInitData() {
@@ -100,17 +116,8 @@ export class ExamsService {
       exam: JSON.stringify(this.exam),
     };
 
-    await localStorage.setItem(`exam-${this.examDocId}`, JSON.stringify(examData));
-
-    await localStorage.setItem(`exam-${this.examDocId}-isRunning`, "true");
-  }
-
-  getIsExamRunning(examDocId: string): boolean {
-    const isExamRunning = localStorage.getItem(`exam-${examDocId}-isRunning`);
-    if (isExamRunning === "true") {
-      return true;
-    }
-    return false;
+    const EXAM_DOC_ID_NAME = `exam-docId`;
+    await this.baseLocalCacheStore.storeDocument(EXAM_DOC_ID_NAME, JSON.stringify(examData));
   }
 
   /**
@@ -120,7 +127,7 @@ export class ExamsService {
     try {
       const exams = await database.listDocuments(ExamsDbId, COMPETE_EXAMS_COLLECTION_ID);
 
-      exams.documents.forEach(async (exam) => {
+      exams?.documents?.forEach(async (exam) => {
         await database.deleteDocument(exam.$databaseId, exam.$collectionId, exam.$id);
       });
     } catch (err) {
@@ -130,26 +137,11 @@ export class ExamsService {
 
   async getExamName(subjectCode: string): Promise<string | undefined> {
     try {
-      const examNameInStorage = await localStorage.getItem(`${subjectCode}exName`);
-      const examGlobalIdInCache = await localStorage.getItem(`${subjectCode}Gid`);
-
-      if (examNameInStorage && examGlobalIdInCache) {
-        return examNameInStorage;
-      }
-
       const examNameDocs = await database.listDocuments(ExamsDbId, GLOBAL_EXAMS_COLL_ID, [
         Query.equal("subjectCode", subjectCode),
         Query.equal("isActive", true),
       ]);
       const examName = examNameDocs?.documents[0]?.examName ?? "";
-      const globalId = examNameDocs?.documents[0]?.globalId ?? "";
-
-      if (examName && globalId) {
-        const examGlobalId = subjectCode + globalId;
-
-        await localStorage.setItem(`${subjectCode}Gid`, examGlobalId);
-        await localStorage.setItem(`${subjectCode}exName`, examName);
-      }
 
       return examName;
     } catch (error) {
@@ -166,11 +158,11 @@ export class ExamsService {
         endTime: endTime,
       });
 
-      const cachedExamData = await localStorage.getItem(`exam-${examId}`);
+      const cachedExamData = await this.baseLocalCacheStore.getExam(this.examDocId);
 
       await this.clearExamCache(cachedExamData, examId);
 
-      await localStorage.setItem(`exam-${examId}-isRunning`, "false");
+      await this.baseLocalCacheStore.storeIsExamRunning(false);
 
       console.log("Exam submitted: ", exam);
     } catch (error) {
@@ -181,8 +173,6 @@ export class ExamsService {
 
   private async clearExamCache(cachedExamData: string | null, examId: string) {
     if (cachedExamData) {
-      const examData = await JSON.parse(cachedExamData);
-      examData.isSubmitted = true;
       await localStorage.setItem(`exam-${examId}`, "");
     }
   }

@@ -1,5 +1,6 @@
 import { CompeteExamsStore, QuestionsStore, UserStore } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
+import { BaseLocalCacheStore } from "@edthewise/foundation-local-cache";
 import { inject, injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
 
@@ -12,6 +13,7 @@ export class CompeteExamCardRouteService {
     @inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore,
     private userStore: UserStore,
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
+    @inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore,
   ) {
     this.questionsUiStore = questionsUiStore;
   }
@@ -22,6 +24,10 @@ export class CompeteExamCardRouteService {
   };
 
   beforeEnterCompeteCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    // if (fromState.routeName !== toState.routeName) {
+    //   return;
+    // }
+
     /**
      * TODO: Uncomment this when goinf live
      * make sure userStore is injected correctly too
@@ -42,7 +48,7 @@ export class CompeteExamCardRouteService {
        * Also, create an email session manually and hard code it for
        * development purposes.
        * */
-      this.handleExamCardRoute(toState);
+      await this.handleExamCardRoute(toState);
     } else {
       this.examStore.setNotImplemented(false);
       return routerStore.goTo("notFound");
@@ -52,22 +58,25 @@ export class CompeteExamCardRouteService {
   };
 
   onExitCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
+    await this.baseLocalCacheStore.clearCache();
     return Promise.resolve();
   };
 
   private async handleExamCardRoute(toState: any) {
     const subject = toState.queryParams.subject;
     await this.examStore.setExamNameAndId(subject);
-    this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
+    await this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
     this.questionsUiStore.subject = subject;
     this.questionsUiStore.initialize();
 
     // TODO: Uncomment this when going live
-    if (!this.examStore.isExamRunning()) {
-      await this.questionsUiStore.setFirstQuestionSet();
-    } else {
+    if (await this.examStore.isExamRunning()) {
       await this.questionsUiStore.setQuestionFromCache();
+    } else {
+      await this.questionsUiStore.setFirstQuestionSet();
     }
+
+    this.baseLocalCacheStore.storeIsExamRunning(true);
   }
 
   private preventRoutingOnBackButton() {

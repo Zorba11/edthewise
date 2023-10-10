@@ -1,6 +1,11 @@
 # EdTheWise
 
-We are Following MVVM architecture.
+We are Following the MVVM architecture. Just think (components => store => service)
+
+The libraries are divided into:
+
+1. Application layer - i.e everything UI related
+2. Foundation layer - i.e everything that's close to the network layer i.e network calls.
 
 For routing we are using Mobx-State-Router.
 Generally, all data fetching happens at the routeServices (i.e mobx-state-router).
@@ -42,6 +47,11 @@ For scaling needs and was economical when compared to Firebase
 Localforage gives an easy implementation that helps using IndexedDB just like it's
 localStorage i.e simple GET, SET methods to store and retrieve data.
 Also, it help us from using redundant stringifying and parsings.
+
+## Logging convention
+
+A singleton logger service is not implemented so use `console` loggings can be used, try to keep
+the class name as a prefix for any logs. It improves trackability for all.
 
 # Edthewise
 

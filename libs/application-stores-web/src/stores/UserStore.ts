@@ -4,6 +4,8 @@ import { inject, injectable } from "inversify";
 import { action, computed, makeAutoObservable, observable } from "mobx";
 import "reflect-metadata";
 
+const ED_SESSION_NAME = "ed-session";
+
 @injectable()
 export class UserStore {
   @observable name!: string;
@@ -80,7 +82,7 @@ export class UserStore {
 
   async initialize() {
     try {
-      const session = await localStorage.getItem("ed-session");
+      const session = await localStorage.getItem(ED_SESSION_NAME);
       if (!session || session === "undefined") {
         this.reset();
         return;

@@ -1,8 +1,11 @@
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { ACCA_FM_COMP_JAN_2024, ExamsService } from "@edthewise/foundation-appwrite";
+import { BaseLocalCacheStore } from "@edthewise/foundation-local-cache";
 import { inject, injectable } from "inversify";
-import { action, observable } from "mobx";
+import { action, computed, observable } from "mobx";
 import "reflect-metadata";
+
+const EXAM_DOC_ID = "exam-doc-id";
 
 interface IUserAnswer {
   label: string;
@@ -35,7 +38,7 @@ export class CompeteExamsStore {
   pSCsubjectTitles!: string[];
   @observable notImplemented!: boolean;
 
-  examId!: string;
+  examMonthId!: string;
   userId!: string;
   private examsService: ExamsService;
   private subjectName!: string;
@@ -51,7 +54,10 @@ export class CompeteExamsStore {
 
   exam!: any;
 
-  constructor(@inject(TOKENS.ExamsServiceToken) examsService: ExamsService) {
+  constructor(
+    @inject(TOKENS.ExamsServiceToken) examsService: ExamsService,
+    @inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore,
+  ) {
     this.aCCAsubjectTitles = ["Hello"];
     this.examsService = examsService;
     this.setSubjectTitles();
@@ -65,16 +71,34 @@ export class CompeteExamsStore {
   }
 
   async createNewExam(userId: string, userName: string): Promise<void | undefined> {
-    this.userId = userId;
-    this.userName = userName;
-    this.startTime = Date.now();
-    this.exam = await this.examsService.createMCQExam(
-      this.examId,
-      userId,
-      this.subjectName,
-      JSON.stringify(this.startTime),
-    );
-    this.examDocId = this.exam.$id;
+    this.examDocId = (await this.baseLocalCacheStore.getDocument(EXAM_DOC_ID)) ?? "";
+
+    if (this.examDocId) {
+      const cachedExamData = await this.baseLocalCacheStore.getExam(this.examDocId);
+
+      // if (cachedExamData && !JSON.parse(cachedExamData).isSubmitted) {
+      if (cachedExamData) {
+        this.exam = JSON.parse(cachedExamData);
+        this.examDocId = this.exam.$id;
+        console.log("Exam retrieved from cache: ", this.exam);
+      }
+    } else {
+      this.userId = userId;
+      this.userName = userName;
+      this.startTime = Date.now();
+      this.exam = await this.examsService.createMCQExam(
+        this.examMonthId,
+        userId,
+        this.subjectName,
+        JSON.stringify(this.startTime),
+      );
+      this.examDocId = this.exam?.$id;
+
+      if (this.examDocId) {
+        await this.baseLocalCacheStore.storeExam(this.examDocId, JSON.stringify(this.exam));
+        await this.baseLocalCacheStore.storeDocument(EXAM_DOC_ID, this.examDocId);
+      }
+    }
   }
 
   // async getExamFromCache(userId: string, userName: string): Promise<void> {
@@ -94,9 +118,16 @@ export class CompeteExamsStore {
       return;
     }
 
-    this.currentExamName = await this.examsService.getExamName(subjectCode);
+    if (!this.examMonthId && !this.currentExamName) {
+      this.examMonthId = this.getExamId(subjectName);
+      await this.baseLocalCacheStore.getCurrentExamName();
+    } else {
+      this.currentExamName = await this.examsService.getExamName(subjectCode);
 
-    this.examId = this.getExamId(subjectName);
+      if (this.currentExamName) {
+        await this.baseLocalCacheStore.storeCurrentExamName(this.currentExamName);
+      }
+    }
   }
 
   @action
@@ -129,7 +160,7 @@ export class CompeteExamsStore {
     this.totalQuestions = questions.length;
 
     await this.examsService.submitExam(
-      this.examId,
+      this.examMonthId,
       this.userId,
       this.score,
       JSON.stringify(this.startTime),
@@ -137,7 +168,7 @@ export class CompeteExamsStore {
     );
 
     await this.examsService.submitToLeaderBoard(
-      this.examId,
+      this.examMonthId,
       this.userId,
       this.userName,
       this.score,
@@ -190,7 +221,7 @@ export class CompeteExamsStore {
     return this.userAnswers ? this.userAnswers : new Map<string, IUserAnswer>();
   }
 
-  isExamRunning(): boolean {
-    return this.examsService.getIsExamRunning(this.examDocId);
+  async isExamRunning(): Promise<boolean> {
+    return await this.baseLocalCacheStore.isExamRunning();
   }
 }

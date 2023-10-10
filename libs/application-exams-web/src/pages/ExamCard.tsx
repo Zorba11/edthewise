@@ -18,62 +18,62 @@ export const ExamCard = (props: IExamCardProps) => {
         // revert back after SQ Implementation
         return (
           <ExamCardContainer
-            goToPrevQuestion={props.goToPrevQuestion}
-            goToNextQuestion={props.goToNextQuestion}
+            goToPrevQuestion={props?.goToPrevQuestion}
+            goToNextQuestion={props?.goToNextQuestion}
             withNavigation={true}
-            withTimer={props.withTimer}
-            currentQNumber={props.questionData.qNumber}
-            submittedQuestions={props.submittedQuestions}
-            onQNumClick={props.onQNumClick}
-            totalQuestions={props.totalQuestions}
+            withTimer={props?.withTimer}
+            currentQNumber={props?.questionData?.qNumber}
+            submittedQuestions={props?.submittedQuestions}
+            onQNumClick={props?.onQNumClick}
+            totalQuestions={props?.totalQuestions}
           >
             <Type5ExamCard
-              onSubmitHandler={props.onSubmitHandler}
+              onSubmitHandler={props?.onSubmitHandler}
               onFinishHandler={() => ({})}
-              withTimer={props.withTimer}
+              withTimer={props?.withTimer}
               withNavigation={true}
-              questionData={props.questionData}
+              questionData={props?.questionData}
               disableSubmit={false}
-              showAnswer={props.showAnswer}
-              showErr={props.showErr}
+              showAnswer={props?.showAnswer}
+              showErr={props?.showErr}
             />
           </ExamCardContainer>
         );
       case "qp1,op":
         return (
           <ExamCardContainer
-            goToPrevQuestion={props.goToPrevQuestion}
-            goToNextQuestion={props.goToNextQuestion}
+            goToPrevQuestion={props?.goToPrevQuestion}
+            goToNextQuestion={props?.goToNextQuestion}
             withNavigation={true}
-            withTimer={props.withTimer}
-            currentQNumber={props.questionData.qNumber}
-            submittedQuestions={props.submittedQuestions}
-            onQNumClick={props.onQNumClick}
-            totalQuestions={props.totalQuestions}
+            withTimer={props?.withTimer}
+            currentQNumber={props?.questionData?.qNumber}
+            submittedQuestions={props?.submittedQuestions}
+            onQNumClick={props?.onQNumClick}
+            totalQuestions={props?.totalQuestions}
           >
             <Type5ExamCard
-              onSubmitHandler={props.onSubmitHandler}
+              onSubmitHandler={props?.onSubmitHandler}
               onFinishHandler={() => ({})}
-              withTimer={props.withTimer}
+              withTimer={props?.withTimer}
               withNavigation={true}
-              questionData={props.questionData}
+              questionData={props?.questionData}
               disableSubmit={false}
-              showAnswer={props.showAnswer}
-              showErr={props.showErr}
+              showAnswer={props?.showAnswer}
+              showErr={props?.showErr}
             />
           </ExamCardContainer>
         );
       case "qp1,qp2,op":
         return (
           <ExamCardContainer
-            goToNextQuestion={props.goToNextQuestion}
-            goToPrevQuestion={props.goToPrevQuestion}
+            goToNextQuestion={props?.goToNextQuestion}
+            goToPrevQuestion={props?.goToPrevQuestion}
             withNavigation={true}
             withTimer={true}
-            currentQNumber={props.questionData.qNumber}
-            submittedQuestions={props.submittedQuestions}
-            onQNumClick={props.onQNumClick}
-            totalQuestions={props.totalQuestions}
+            currentQNumber={props?.questionData?.qNumber}
+            submittedQuestions={props?.submittedQuestions}
+            onQNumClick={props?.onQNumClick}
+            totalQuestions={props?.totalQuestions}
           >
             <Type5ExamCard {...props} />
           </ExamCardContainer>
@@ -81,14 +81,14 @@ export const ExamCard = (props: IExamCardProps) => {
       case "qp1,qtable1,op":
         return (
           <ExamCardContainer
-            goToPrevQuestion={props.goToPrevQuestion}
-            goToNextQuestion={props.goToNextQuestion}
+            goToPrevQuestion={props?.goToPrevQuestion}
+            goToNextQuestion={props?.goToNextQuestion}
             withNavigation={true}
-            withTimer={props.withTimer}
-            currentQNumber={props.questionData.qNumber}
-            submittedQuestions={props.submittedQuestions}
-            onQNumClick={props.onQNumClick}
-            totalQuestions={props.totalQuestions}
+            withTimer={props?.withTimer}
+            currentQNumber={props?.questionData?.qNumber}
+            submittedQuestions={props?.submittedQuestions}
+            onQNumClick={props?.onQNumClick}
+            totalQuestions={props?.totalQuestions}
           >
             <Type4ExamCard {...props} />
           </ExamCardContainer>
@@ -96,30 +96,31 @@ export const ExamCard = (props: IExamCardProps) => {
       case "qp1,qtable1,qp2,qtable2,qp3,op":
         return (
           <ExamCardContainer
-            goToNextQuestion={props.goToNextQuestion}
-            goToPrevQuestion={props.goToPrevQuestion}
+            goToNextQuestion={props?.goToNextQuestion}
+            goToPrevQuestion={props?.goToPrevQuestion}
             withNavigation={true}
             withTimer={true}
-            currentQNumber={props.questionData.qNumber}
-            submittedQuestions={props.submittedQuestions}
-            onQNumClick={props.onQNumClick}
-            totalQuestions={props.totalQuestions}
+            currentQNumber={props?.questionData?.qNumber}
+            submittedQuestions={props?.submittedQuestions}
+            onQNumClick={props?.onQNumClick}
+            totalQuestions={props?.totalQuestions}
           >
+            totalQuestions={props?.totalQuestions}
             <Type4ExamCard {...props} />
           </ExamCardContainer>
         );
       case "sq":
         return (
           <ExamCardContainer
-            goToNextQuestion={props.goToNextQuestion}
-            goToPrevQuestion={props.goToPrevQuestion}
-            withEd={props.withEd}
-            withNavigation={props.withNavigation}
+            goToNextQuestion={props?.goToNextQuestion}
+            goToPrevQuestion={props?.goToPrevQuestion}
+            withEd={props?.withEd}
+            withNavigation={props?.withNavigation}
             withTimer={props?.withTimer}
-            currentQNumber={props.questionData.qNumber}
-            submittedQuestions={props.submittedQuestions}
-            onQNumClick={props.onQNumClick}
-            totalQuestions={props.totalQuestions}
+            currentQNumber={props?.questionData?.qNumber}
+            submittedQuestions={props?.submittedQuestions}
+            onQNumClick={props?.onQNumClick}
+            totalQuestions={props?.totalQuestions}
           >
             <SQExamCard {...props?.questionData} />
           </ExamCardContainer>
@@ -128,7 +129,6 @@ export const ExamCard = (props: IExamCardProps) => {
         return <div>Not ABle to render card</div>;
     }
   };
-
   return renderQCard(qComponentOrder);
 };
 
