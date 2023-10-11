@@ -24,14 +24,13 @@ export class CompeteExamCardRouteService {
   };
 
   beforeEnterCompeteCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
-    // if (fromState.routeName !== toState.routeName) {
-    //   return;
-    // }
-
     /**
      * TODO: Uncomment this when goinf live
      * make sure userStore is injected correctly too
      */
+    if (fromState.routeName === toState.routeName) {
+      return Promise.reject();
+    }
 
     // if (!this.userStore.isLoggedIn) {
     //   return Promise.resolve(routerStore.goTo("signIn"));
@@ -59,6 +58,7 @@ export class CompeteExamCardRouteService {
 
   onExitCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     await this.baseLocalCacheStore.clearCache();
+    this.baseLocalCacheStore.storeIsExamRunning(true);
     return Promise.resolve();
   };
 
@@ -69,12 +69,7 @@ export class CompeteExamCardRouteService {
     this.questionsUiStore.subject = subject;
     this.questionsUiStore.initialize();
 
-    // TODO: Uncomment this when going live
-    if (await this.examStore.isExamRunning()) {
-      await this.questionsUiStore.setQuestionFromCache();
-    } else {
-      await this.questionsUiStore.setFirstQuestionSet();
-    }
+    await this.questionsUiStore.setFirstQuestionSet();
 
     this.baseLocalCacheStore.storeIsExamRunning(true);
   }

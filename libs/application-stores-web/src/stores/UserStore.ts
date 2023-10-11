@@ -84,7 +84,10 @@ export class UserStore {
     try {
       const session = await localStorage.getItem(ED_SESSION_NAME);
       if (!session || session === "undefined") {
-        this.reset();
+        // TODO: Uncomment in production
+        // this.reset();
+        // return;
+        await this.createEmailSession("zorbaspixel@gmail.com", "12345678");
         return;
       }
 

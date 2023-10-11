@@ -15,7 +15,8 @@ export const CompeteList = () => {
   const BUTTON_CARD_WIDTH = "23rem";
   const BUTTON_CARD_FONT_SIZE = "3rem";
 
-  const competeExamNavigationClick = () => {
+  const competeExamNavigationClick = (e?: any) => {
+    e?.preventDefault();
     routerStore.goTo("competeExamCard", {
       queryParams: { subject: subjectTitle },
     });

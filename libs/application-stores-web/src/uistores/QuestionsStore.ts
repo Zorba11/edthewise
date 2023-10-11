@@ -85,38 +85,40 @@ export class QuestionsStore {
         return;
       }
 
-      const questions = await this.questionsService.getQuestions(this.examMonthId, this.userId);
-      questions?.map((question: any, index: number) => {
-        this._questions.push(Mappers.mapQuestionToCard(question, index));
-      });
+      const qSetKey = this.examStore.examDocId + this.examMonthId;
 
-      if (this._questions.length) {
+      // Get questions from cache
+      const cachedQuestionSet = await this.baseLocalCacheStore.getDocument(qSetKey);
+
+      if (cachedQuestionSet) {
+        this._questions = JSON.parse(cachedQuestionSet);
         this.currentQuestion = this._questions[this._currentQuestionIndex];
+        await this.storeQuestionAndIndex();
+      } else {
+        // Fetch questions from the server
+        const questions = await this.questionsService.getQuestions(this.examMonthId, this.userId);
 
-        this.storeCurrentQuestionInLocalStorage(this.examMonthId, this.userId, this.currentQuestion);
-        this.storeCurrentQuestionIndexInLocalStorage(this.examMonthId, this.userId, this._currentQuestionIndex);
+        // Map questions to cards and store in _questions array
+        this._questions =
+          questions?.map((question: any, index: number) => {
+            return Mappers.mapQuestionToCard(question, index);
+          }) || [];
+
+        // Store questions in cache
+        await this.baseLocalCacheStore.storeDocument(qSetKey, JSON.stringify(this._questions));
       }
+
+      // Set current question and store in local storage
+      await this.storeQuestionAndIndex();
     } catch (error) {
       console.log(error);
     }
   }
 
-  @action
-  async setQuestionFromCache() {
-    try {
-      const questions = await this.questionsService.getQuestions(this.examMonthId, this.userId);
-      questions?.map((question: any, index: number) => {
-        this._questions.push(Mappers.mapQuestionToCard(question, index));
-      });
-      const currentQuestion = await this.getCurrentQuestionFromLocalStorage(this.examMonthId, this.userId);
-      const currentQuestionIndex = await this.getCurrentQuestionIndexFromLocalStorage(this.examMonthId, this.userId);
-
-      if (currentQuestion && currentQuestionIndex + 1) {
-        this.currentQuestion = currentQuestion;
-        this._currentQuestionIndex = currentQuestionIndex;
-      }
-    } catch (error) {
-      console.log(error);
+  private async storeQuestionAndIndex() {
+    if (this._questions.length) {
+      await this.storeCurrentQuestionInLocalStorage(this.examMonthId, this.userId, this.currentQuestion);
+      await this.storeCurrentQuestionIndexInLocalStorage(this.examMonthId, this.userId, this._currentQuestionIndex);
     }
   }
 
