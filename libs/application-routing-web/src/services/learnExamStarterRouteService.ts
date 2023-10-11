@@ -5,7 +5,7 @@ import { RouterState, RouterStore } from "mobx-state-router";
 
 @injectable()
 export class LearnExamStarterRouteService {
-  constructor(private userStore: UserStore) {}
+  constructor(@inject(TOKENS.UserStoreToken) private userStore: UserStore) {}
 
   onEnterLearnExamStarter = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();

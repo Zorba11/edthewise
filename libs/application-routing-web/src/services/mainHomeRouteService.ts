@@ -6,7 +6,7 @@ import "reflect-metadata";
 
 @injectable()
 export class MainHomeRouteService {
-  constructor(private userStore: UserStore) {}
+  constructor(@inject(TOKENS.UserStoreToken) private userStore: UserStore) {}
 
   onEnterMainHome = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();

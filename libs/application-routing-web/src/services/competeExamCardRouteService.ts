@@ -11,7 +11,7 @@ export class CompeteExamCardRouteService {
   // verify if this userStore is singleton
   constructor(
     @inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore,
-    private userStore: UserStore,
+    @inject(TOKENS.UserStoreToken) private userStore: UserStore,
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
     @inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore,
   ) {
@@ -38,7 +38,7 @@ export class CompeteExamCardRouteService {
 
     if (!this.examStore.notImplemented) {
       if (!this.userStore?.userId) {
-        await this.userStore.initialize();
+        await this.userStore.getUserId();
       }
 
       /**
@@ -69,7 +69,9 @@ export class CompeteExamCardRouteService {
     this.questionsUiStore.subject = subject;
     this.questionsUiStore.initialize();
 
-    await this.questionsUiStore.setFirstQuestionSet();
+    (await this.examStore.isExamRunning())
+      ? await this.questionsUiStore.setQuestionSetAndCurrentQ(true)
+      : await this.questionsUiStore.setQuestionSetAndCurrentQ();
 
     this.baseLocalCacheStore.storeIsExamRunning(true);
   }

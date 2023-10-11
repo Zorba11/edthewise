@@ -18,7 +18,7 @@ import { BaseLocalCacheStore } from "@edthewise/foundation-local-cache";
 
 const EXAM_DOC_ID_CACHE_NAME = "exam-docId";
 
-const EXAM_DOC_ID = "exam-doc-id";
+const EXAM_DATA_DOC_ID = "exam-data-doc-id";
 
 const IS_EXAM_RUNNING = "exam-isRunning";
 
@@ -64,7 +64,7 @@ export class ExamsService {
       // TODO: Remove this before going live
       await this.clearExams();
 
-      this.examDocId = (await this.baseLocalCacheStore.getDocument(EXAM_DOC_ID)) ?? "";
+      this.examDocId = (await this.baseLocalCacheStore.getDocument(EXAM_DATA_DOC_ID)) ?? "";
 
       if (this.examDocId) {
         const cachedExamData = await this.baseLocalCacheStore.getExam(this.examDocId);
@@ -116,7 +116,7 @@ export class ExamsService {
       exam: JSON.stringify(this.exam),
     };
 
-    const EXAM_DOC_ID_NAME = `exam-docId`;
+    const EXAM_DOC_ID_NAME = `exam-data-doc-id`;
     await this.baseLocalCacheStore.storeDocument(EXAM_DOC_ID_NAME, JSON.stringify(examData));
   }
 

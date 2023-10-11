@@ -111,7 +111,7 @@ export class BaseLocalCacheStore {
 
   getDocument = async (docName: string): Promise<any> => {
     try {
-      const documentId = await this.cacheService.getDocument(docName);
+      const documentId = await this.cacheService.getDocumentByName(docName);
       return documentId;
     } catch (error) {
       console.log(error);

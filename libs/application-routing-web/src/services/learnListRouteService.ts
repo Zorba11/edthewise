@@ -1,10 +1,11 @@
 import { UserStore } from "@edthewise/application-stores-web";
+import { TOKENS } from "@edthewise/common-tokens-web";
 import { inject, injectable } from "inversify";
 import { RouterState, RouterStore } from "mobx-state-router";
 
 @injectable()
 export class LearnListRouteService {
-  constructor(@inject(UserStore) private userStore: UserStore) {}
+  constructor(@inject(TOKENS.UserStoreToken) private userStore: UserStore) {}
 
   onEnterLearnList = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     return Promise.resolve();

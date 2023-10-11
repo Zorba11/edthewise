@@ -15,7 +15,7 @@ export class CompeteListRouteService {
 
   constructor(
     @inject(CompeteListStoreToken) competeListStore: CompeteListStore,
-    private userStore: UserStore,
+    @inject(TOKENS.UserStoreToken) private userStore: UserStore,
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
   ) {
     this.competeListStore = competeListStore;

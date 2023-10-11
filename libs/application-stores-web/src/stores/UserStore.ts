@@ -87,6 +87,8 @@ export class UserStore {
         // TODO: Uncomment in production
         // this.reset();
         // return;
+
+        // TODO: Remove this in production
         await this.createEmailSession("zorbaspixel@gmail.com", "12345678");
         return;
       }
@@ -97,9 +99,9 @@ export class UserStore {
       }
 
       this.countryName = sessionObject.countryName;
-      const { email, userId } = sessionObject;
+      const { providerUid, userId } = sessionObject;
       this.setLoggedIn(true);
-      this.setEmail(email);
+      this.setEmail(providerUid);
       this.setUserId(userId);
       this.setSession(sessionObject);
 
@@ -107,6 +109,25 @@ export class UserStore {
       this.name = user?.username;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  @action
+  async getUserId() {
+    if (this.userId) {
+      return this.userId;
+    }
+
+    const session = await localStorage.getItem(ED_SESSION_NAME);
+
+    if (session) {
+      const sessionObject = JSON.parse(session);
+      this.userId = sessionObject.userId;
+      return this.userId;
+    } else {
+      // TODO: Remove this in production
+      await this.createEmailSession("zorbaspixel@gmail.com", "12345678");
+      return;
     }
   }
 

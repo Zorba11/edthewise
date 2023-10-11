@@ -7,7 +7,10 @@ import { RouterState, RouterStore } from "mobx-state-router";
 export class LearnExamCardRouteService {
   private questionsUiStore: QuestionsStore;
 
-  constructor(@inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore, private userStore: UserStore) {
+  constructor(
+    @inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore,
+    @inject(TOKENS.UserStoreToken) private userStore: UserStore,
+  ) {
     this.questionsUiStore = questionsUiStore;
   }
 
@@ -26,7 +29,7 @@ export class LearnExamCardRouteService {
     // }
 
     this.questionsUiStore.subject = toState.params.subject;
-    await this.questionsUiStore.setFirstQuestionSet();
+    await this.questionsUiStore.setQuestionSetAndCurrentQ();
 
     return Promise.resolve();
   };

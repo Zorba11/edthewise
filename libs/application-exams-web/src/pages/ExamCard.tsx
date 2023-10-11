@@ -105,7 +105,6 @@ export const ExamCard = (props: IExamCardProps) => {
             onQNumClick={props?.onQNumClick}
             totalQuestions={props?.totalQuestions}
           >
-            totalQuestions={props?.totalQuestions}
             <Type4ExamCard {...props} />
           </ExamCardContainer>
         );

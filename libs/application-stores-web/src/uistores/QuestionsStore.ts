@@ -7,6 +7,7 @@ import { action, computed, makeAutoObservable, observable } from "mobx";
 import { CompeteExamsStore } from "../stores/CompeteExamStore";
 import { initialize } from "next/dist/server/lib/render-server";
 import { BaseLocalCacheStore } from "@edthewise/foundation-local-cache";
+import { UserStore } from "../stores/UserStore";
 
 interface IExamCardData {
   qNumber?: number;
@@ -50,6 +51,7 @@ export class QuestionsStore {
     @inject(TOKENS.QuestionsServiceToken) private questionsService: QuestionsService,
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
     @inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore,
+    @inject(TOKENS.UserStoreToken) private userStore: UserStore,
   ) {
     this.currQNumber = "0";
     this.questionsService = questionsService;
@@ -79,21 +81,24 @@ export class QuestionsStore {
   }
 
   @action
-  async setFirstQuestionSet() {
+  async setQuestionSetAndCurrentQ(setCurrentFromCache?: boolean) {
+    // TODO: Simplify and make this logic more readable
     try {
-      if (this._questions.length) {
-        return;
-      }
-
       const qSetKey = this.examStore.examDocId + this.examMonthId;
 
       // Get questions from cache
       const cachedQuestionSet = await this.baseLocalCacheStore.getDocument(qSetKey);
 
+      if (cachedQuestionSet && setCurrentFromCache) {
+        this._questions = JSON.parse(cachedQuestionSet);
+        await this.setCurrentQFromCache();
+        return;
+      }
+
       if (cachedQuestionSet) {
         this._questions = JSON.parse(cachedQuestionSet);
         this.currentQuestion = this._questions[this._currentQuestionIndex];
-        await this.storeQuestionAndIndex();
+        await this.storeCurrentQuestionAndIndex();
       } else {
         // Fetch questions from the server
         const questions = await this.questionsService.getQuestions(this.examMonthId, this.userId);
@@ -104,21 +109,38 @@ export class QuestionsStore {
             return Mappers.mapQuestionToCard(question, index);
           }) || [];
 
+        this.setQuestionByNum(1);
+
         // Store questions in cache
         await this.baseLocalCacheStore.storeDocument(qSetKey, JSON.stringify(this._questions));
       }
-
-      // Set current question and store in local storage
-      await this.storeQuestionAndIndex();
     } catch (error) {
       console.log(error);
     }
   }
 
-  private async storeQuestionAndIndex() {
+  private async storeCurrentQuestionAndIndex() {
     if (this._questions.length) {
       await this.storeCurrentQuestionInLocalStorage(this.examMonthId, this.userId, this.currentQuestion);
       await this.storeCurrentQuestionIndexInLocalStorage(this.examMonthId, this.userId, this._currentQuestionIndex);
+    }
+  }
+
+  @action
+  private async setCurrentQFromCache() {
+    try {
+      if (!this.userId) {
+        await this.userStore.getUserId();
+        this.userId = this.userStore.userId;
+      }
+      const currentQuestion = await this.getCurrentQuestionFromLocalStorage(this.examMonthId, this.userId);
+      const currentQuestionIndex = await this.getCurrentQuestionIndexFromLocalStorage(this.examMonthId, this.userId);
+      if (currentQuestion && currentQuestionIndex) {
+        this._currentQuestionIndex = parseInt(currentQuestionIndex);
+        this.currentQuestion = JSON.parse(currentQuestion);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

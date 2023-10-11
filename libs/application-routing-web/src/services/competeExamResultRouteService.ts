@@ -7,7 +7,7 @@ import { RouterState, RouterStore } from "mobx-state-router";
 export class CompeteExamResultRouteService {
   constructor(
     @inject(TOKENS.QuestionsStoreToken) questionsUiStore: QuestionsStore,
-    private userStore: UserStore,
+    @inject(TOKENS.UserStoreToken) private userStore: UserStore,
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
     @inject(TOKENS.LeaderBoardStoreToken) private leaderBoardStore: LeaderBoardStore,
   ) {}

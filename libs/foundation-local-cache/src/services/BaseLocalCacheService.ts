@@ -5,7 +5,7 @@ export class BaseLocalCacheService {
   examsStore!: LocalForage;
 
   currentQuestionKey!: string;
-  examKey!: string;
+  examDocId!: string;
   examRunningKey!: string;
 
   constructor() {
@@ -45,7 +45,7 @@ export class BaseLocalCacheService {
   storeExam = async (examDocId: string, exam: any) => {
     try {
       if (examDocId) {
-        this.examKey = examDocId;
+        this.examDocId = examDocId;
         await this.examsStore.setItem(examDocId, exam);
       } else {
         throw Error("BaseLocal - Exam key is not defined");
@@ -66,7 +66,7 @@ export class BaseLocalCacheService {
 
   clearExam = async () => {
     try {
-      await this.examsStore.removeItem(this.examKey);
+      await this.examsStore.removeItem(this.examDocId);
     } catch (error) {
       console.log(error);
     }
@@ -85,20 +85,29 @@ export class BaseLocalCacheService {
   setIsExamRunning = async (isRunning: boolean) => {
     try {
       if (isRunning) {
-        this.examRunningKey = this.examKey + "-isRunning";
+        this.examRunningKey = (await this.getExamDocId()) + "-isRunning";
         await this.examsStore.setItem(this.examRunningKey, true);
       } else {
-        await this.examsStore.removeItem(this.examRunningKey);
+        await this.examsStore.setItem(this.examRunningKey, false);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  private async getExamDocId(): Promise<string | unknown> {
+    if (this.examDocId) return this.examDocId;
+
+    const EXAM_DOC_ID_CACHE_NAME = "exam-docId";
+    const examDocId = (await this.getDocumentByName(EXAM_DOC_ID_CACHE_NAME)) ?? "";
+    return examDocId;
+  }
+
   isExamRunning = async () => {
     try {
-      if (this.examRunningKey) {
-        const exam = await this.examsStore.getItem(this.examRunningKey);
+      const examRunningKey = (await this.getExamDocId()) + "-isRunning";
+      if (examRunningKey) {
+        const exam = await this.examsStore.getItem(examRunningKey);
         if (exam) {
           return true;
         } else {
@@ -129,18 +138,18 @@ export class BaseLocalCacheService {
     }
   };
 
-  storeDocument = async (docName: string, documentId: string) => {
+  storeDocument = async (docName: string, document: string) => {
     try {
-      await this.examsStore.setItem(docName, documentId);
+      await this.examsStore.setItem(docName, document);
     } catch (error) {
       console.log(error);
     }
   };
 
-  getDocument = async (docName: string) => {
+  getDocumentByName = async (docName: string) => {
     try {
-      const documentId = await this.examsStore.getItem(docName);
-      return documentId;
+      const document = await this.examsStore.getItem(docName);
+      return document;
     } catch (error) {
       console.log(error);
     }

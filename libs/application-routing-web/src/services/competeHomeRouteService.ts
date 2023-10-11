@@ -8,7 +8,10 @@ import "reflect-metadata";
 export class CompeteHomeRouteService {
   private examStore: CompeteExamsStore;
 
-  constructor(@inject(TOKENS.ExamStoreToken) examStore: CompeteExamsStore, private userStore: UserStore) {
+  constructor(
+    @inject(TOKENS.ExamStoreToken) examStore: CompeteExamsStore,
+    @inject(TOKENS.UserStoreToken) private userStore: UserStore,
+  ) {
     this.examStore = examStore;
   }
 
