@@ -32,7 +32,7 @@ interface IExamSummary {
   correctAnswer: { label: string; value: string };
 }
 
-@injectable()
+@injectable() //This store should be renamed as ExamStore
 export class CompeteExamsStore {
   aCCAsubjectTitles!: string[];
   pSCsubjectTitles!: string[];
@@ -223,5 +223,9 @@ export class CompeteExamsStore {
 
   async isExamRunning(): Promise<boolean> {
     return await this.baseLocalCacheStore.isExamRunning();
+  }
+
+  getStartTime(): number {
+    return this.startTime;
   }
 }

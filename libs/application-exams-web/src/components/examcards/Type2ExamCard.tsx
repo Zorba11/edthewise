@@ -109,19 +109,7 @@ export const Type2ExamCard = observer((props: IExamCardProps) => {
           </Grid>
         </Box>
       </Paper>
-      {/* Timer, Navigation Board, Left & Right Arrows */}
-      {/* Timer */}
-      {props.withTimer && (
-        <Box
-          sx={{
-            position: "relative",
-            left: "14rem",
-            top: "5rem",
-          }}
-        >
-          <Timer />
-        </Box>
-      )}
+      {/* Navigation Board, Left & Right Arrows */}
       {/* Question Navigation Box */}
       {props.withNavigation && (
         <Box

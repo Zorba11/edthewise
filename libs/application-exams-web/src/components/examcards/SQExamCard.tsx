@@ -54,6 +54,7 @@ export const SQExamCard = (props: any) => {
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
             totalQuestions={props.totalQuestions}
+            startTime={props.startTime}
           >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
@@ -70,6 +71,7 @@ export const SQExamCard = (props: any) => {
             submittedQuestions={props.submittedQuestions}
             onQNumClick={props.onQNumClick}
             totalQuestions={props.totalQuestions}
+            startTime={props.startTime}
           >
             <Type5ExamCard {...newProps} />
           </ExamCardContainer>
@@ -83,6 +85,7 @@ export const SQExamCard = (props: any) => {
           submittedQuestions={props.submittedQuestions}
           onQNumClick={props.onQNumClick}
           totalQuestions={props.totalQuestions}
+          startTime={props.startTime}
         >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;
@@ -96,6 +99,7 @@ export const SQExamCard = (props: any) => {
           submittedQuestions={props.submittedQuestions}
           onQNumClick={props.onQNumClick}
           totalQuestions={props.totalQuestions}
+          startTime={props.startTime}
         >
           <Type4ExamCard {...newProps} />
         </ExamCardContainer>;

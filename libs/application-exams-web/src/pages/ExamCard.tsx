@@ -26,6 +26,7 @@ export const ExamCard = (props: IExamCardProps) => {
             submittedQuestions={props?.submittedQuestions}
             onQNumClick={props?.onQNumClick}
             totalQuestions={props?.totalQuestions}
+            startTime={props.startTime}
           >
             <Type5ExamCard
               onSubmitHandler={props?.onSubmitHandler}
@@ -50,6 +51,7 @@ export const ExamCard = (props: IExamCardProps) => {
             submittedQuestions={props?.submittedQuestions}
             onQNumClick={props?.onQNumClick}
             totalQuestions={props?.totalQuestions}
+            startTime={props.startTime}
           >
             <Type5ExamCard
               onSubmitHandler={props?.onSubmitHandler}
@@ -74,6 +76,7 @@ export const ExamCard = (props: IExamCardProps) => {
             submittedQuestions={props?.submittedQuestions}
             onQNumClick={props?.onQNumClick}
             totalQuestions={props?.totalQuestions}
+            startTime={props.startTime}
           >
             <Type5ExamCard {...props} />
           </ExamCardContainer>
@@ -89,6 +92,7 @@ export const ExamCard = (props: IExamCardProps) => {
             submittedQuestions={props?.submittedQuestions}
             onQNumClick={props?.onQNumClick}
             totalQuestions={props?.totalQuestions}
+            startTime={props.startTime}
           >
             <Type4ExamCard {...props} />
           </ExamCardContainer>
@@ -104,6 +108,7 @@ export const ExamCard = (props: IExamCardProps) => {
             submittedQuestions={props?.submittedQuestions}
             onQNumClick={props?.onQNumClick}
             totalQuestions={props?.totalQuestions}
+            startTime={props.startTime}
           >
             <Type4ExamCard {...props} />
           </ExamCardContainer>
@@ -120,6 +125,7 @@ export const ExamCard = (props: IExamCardProps) => {
             submittedQuestions={props?.submittedQuestions}
             onQNumClick={props?.onQNumClick}
             totalQuestions={props?.totalQuestions}
+            startTime={props.startTime}
           >
             <SQExamCard {...props?.questionData} />
           </ExamCardContainer>

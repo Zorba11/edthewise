@@ -20,6 +20,9 @@ export class CompeteExamCardRouteService {
 
   onEnterCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     // this.preventRoutingOnBackButton();
+    if (fromState.routeName === toState.routeName) {
+      return Promise.reject();
+    }
     return Promise.resolve();
   };
 

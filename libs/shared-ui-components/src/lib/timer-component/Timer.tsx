@@ -1,12 +1,27 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { start } from "repl";
 
-export const Timer = () => {
+interface ITimerProps {
+  startTime: number;
+}
+
+export const Timer = (props: ITimerProps) => {
   const [timeLeft, setTimeLeft] = useState(30 * 60 * 1000); // 30 minutes in milliseconds
 
   useEffect(() => {
+    const timeLeft = localStorage.getItem("prevTimeLeft");
+    if (timeLeft) {
+      setTimeLeft(JSON.parse(timeLeft));
+    }
+  }, []);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeLeft((prevTimeLeft) => prevTimeLeft - 10); // decrement by 10 milliseconds
+      setTimeLeft((prevTimeLeft) => {
+        localStorage.setItem("prevTimeLeft", JSON.stringify(prevTimeLeft));
+        return prevTimeLeft - 10;
+      }); // decrement by 10 milliseconds
     }, 10);
     return () => clearInterval(intervalId);
   }, []);

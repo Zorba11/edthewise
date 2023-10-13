@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { QuestionNavigation } from "../QuestionNavigation";
 import { LeftArrow, RightArrow, Timer } from "@edthewise/shared-ui-components";
 import { EdCompeteCard } from "@edthewise/application-assets-web";
+import { container } from "@edthewise/common-inversify";
+import { CompeteExamsStore } from "@edthewise/application-stores-web";
+import { TOKENS } from "@edthewise/common-tokens-web";
 
 interface IExamRightPaneProps {
   withTimer: boolean;
@@ -13,6 +16,7 @@ interface IExamRightPaneProps {
   currentQNumber?: number;
   submittedQuestions?: Set<number>;
   onQNumClick: (event: any, qNumber: number) => void;
+  startTime: number;
 }
 
 const ExamRightPane = ({
@@ -24,6 +28,7 @@ const ExamRightPane = ({
   currentQNumber,
   submittedQuestions,
   onQNumClick,
+  startTime,
 }: IExamRightPaneProps) => {
   return (
     <Box
@@ -39,7 +44,7 @@ const ExamRightPane = ({
     >
       {withEd && <EdCompeteCard />}
       {/* Timer */}
-      {withTimer && <Timer />}
+      {withTimer && <Timer startTime={startTime} />}
       <QuestionNavigation
         submittedQuestions={submittedQuestions}
         currentQNumber={currentQNumber}

@@ -1,5 +1,5 @@
 import { ExamCard, IExamCardProps } from "@edthewise/application-exams-web";
-import { QuestionsStore } from "@edthewise/application-stores-web";
+import { CompeteExamsStore, QuestionsStore } from "@edthewise/application-stores-web";
 import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { observer } from "mobx-react";
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 export const CompeteExamCard = observer(() => {
   const routerStore = useRouterStore();
   const questionsStore = container.get<QuestionsStore>(TOKENS.QuestionsStoreToken);
+  const examsStore = container.get<CompeteExamsStore>(TOKENS.ExamStoreToken);
 
   const goToCompeteExamResult = () => {
     routerStore.goTo("competeExamResult", {
@@ -80,6 +81,7 @@ export const CompeteExamCard = observer(() => {
     totalQuestions: questionsStore.totalQuestions,
     showAnswer: false,
     showErr: questionsStore.showOptionNotSelectedError,
+    startTime: examsStore.getStartTime(),
   };
 
   useEffect(() => {

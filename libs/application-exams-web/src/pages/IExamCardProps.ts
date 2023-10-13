@@ -16,4 +16,5 @@ export interface IExamCardProps {
   totalQuestions: number;
   showAnswer: boolean;
   showErr: boolean;
+  startTime: number;
 }
