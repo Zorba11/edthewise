@@ -45,6 +45,7 @@ export const CompeteList = () => {
       gridTemplateColumns: "repeat(2, 1fr)",
       gridTemplateRows: "repeat(2, 1fr)",
       onClick: competeExamNavigationClick,
+      showLock: true,
     },
   ];
 

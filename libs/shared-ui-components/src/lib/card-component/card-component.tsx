@@ -43,6 +43,7 @@ export const CardComponent = ({ cardProps, showBadge, shouldAnimate = true }: IP
                 subtitle={prop.subtitle}
                 titleFontSize={prop.titleFontSize}
                 cardIndex={index}
+                showLock={prop.showLock}
               />
             </motion.div>
           ) : (

@@ -25,6 +25,7 @@
       "@edthewise/application-leaderboards-web": ["libs/application-leaderboards-web/src/index.ts"],
       "@edthewise/application-learning-web": ["libs/application-learning-web/src/index.ts"],
       "@edthewise/application-pages-web": ["libs/application-pages-web/src/index.ts"],
+      "@edthewise/application-payments-web": ["libs/application-payments-web/src/index.ts"],
       "@edthewise/application-routing-web": ["libs/application-routing-web/src/index.ts"],
       "@edthewise/application-stores-web": ["libs/application-stores-web/src/index.ts"],
       "@edthewise/application-users-web": ["libs/application-users-web/src/index.ts"],

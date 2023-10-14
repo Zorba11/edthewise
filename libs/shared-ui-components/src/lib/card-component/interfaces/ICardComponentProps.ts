@@ -9,4 +9,5 @@ export interface ICardComponentProps {
   gridTemplateColumns?: string;
   gridTemplateRows?: string;
   onClick?: () => void;
+  showLock?: boolean;
 }

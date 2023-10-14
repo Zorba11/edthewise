@@ -1,6 +1,8 @@
 import React from "react";
 import { Paper, Badge, Button, Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import LockTwoToneIcon from "@mui/icons-material/LockTwoTone";
+import PaymentLock from "./PaymentLock";
 
 interface ICardContentProps {
   showBadge?: boolean;
@@ -12,6 +14,7 @@ interface ICardContentProps {
   subtitle?: string;
   titleFontSize?: string;
   cardIndex?: number;
+  showLock?: boolean;
 }
 
 const CardContent = ({
@@ -24,6 +27,7 @@ const CardContent = ({
   subtitle = "",
   titleFontSize = "1.5rem",
   cardIndex = 1,
+  showLock = false,
 }: ICardContentProps) => {
   return (
     <Paper
@@ -31,6 +35,7 @@ const CardContent = ({
       sx={{ margin: "0", padding: "4", background: "white", p: 2, display: "flex", flexDirection: "column" }}
     >
       {showBadge && (
+        // Prize Badge
         <Badge
           badgeContent={
             <motion.div
@@ -87,6 +92,7 @@ const CardContent = ({
           transition: "background-color 0.5s ease-in-out",
           "&:hover": {
             backgroundColor: hoverColor, // Change the background color on hover
+            color: `${showLock ? hoverColor : "white"}`,
           },
         }}
         variant="contained"
@@ -94,6 +100,7 @@ const CardContent = ({
         onClick={onClick}
       >
         <Box>
+          {showLock && <PaymentLock />}
           <Typography
             sx={{
               fontFamily: "Work Sans",
