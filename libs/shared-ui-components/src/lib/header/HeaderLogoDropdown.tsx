@@ -8,9 +8,11 @@ import { motion } from "framer-motion";
 
 interface IHeaderWithLogoProps {
   menuItems?: typeof userSiderMenuItems;
+  pancakeCount?: number;
+  onPanCakeClick?: () => void;
 }
 
-export const HeaderWithLogo: React.FC<IHeaderWithLogoProps> = ({ menuItems }) => {
+export const HeaderWithLogo: React.FC<IHeaderWithLogoProps> = ({ menuItems, pancakeCount, onPanCakeClick }) => {
   const routerStore = useRouterStore();
   return (
     <Box
@@ -34,57 +36,6 @@ export const HeaderWithLogo: React.FC<IHeaderWithLogoProps> = ({ menuItems }) =>
           alignItems: "center",
         }}
       >
-        {/* <BlurCircularSharpIcon
-          sx={{
-            fontSize: "2.8rem",
-            color: "#FDCC45",
-
-            marginRight: "0.5rem",
-          }}
-        />
-        <Typography
-          sx={{
-            fontSize: "1.8rem",
-            fontWeight: "bold",
-            color: "#FDCC45",
-            marginRight: "1rem",
-          }}
-        >
-          10
-        </Typography> */}
-        {/* <Badge
-          badgeContent={
-            <Paper
-              elevation={4}
-              sx={{
-                fontFamily: "Work Sans",
-                width: "3.2rem",
-                height: "3.2rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-                backgroundColor: "gold",
-                borderRadius: "50%",
-                position: "relative",
-                marginRight: "6rem",
-                zIndex: -1,
-              }}
-            >
-         
-              <Typography
-                sx={{
-                  fontFamily: "Work Sans",
-                  color: "white",
-                  fontSize: "1.5rem",
-                }}
-                variant="body2"
-              >
-                10
-              </Typography>
-            </Paper>
-          }
-        ></Badge> */}
         <Box
           sx={{
             display: "flex",
@@ -94,6 +45,7 @@ export const HeaderWithLogo: React.FC<IHeaderWithLogoProps> = ({ menuItems }) =>
             marginRight: "1rem",
             marginBottom: "0.9rem",
           }}
+          onClick={onPanCakeClick}
         >
           <Typography
             sx={{
@@ -105,7 +57,7 @@ export const HeaderWithLogo: React.FC<IHeaderWithLogoProps> = ({ menuItems }) =>
               top: "1.2rem",
             }}
           >
-            10
+            {pancakeCount}
           </Typography>
           <span
             style={{

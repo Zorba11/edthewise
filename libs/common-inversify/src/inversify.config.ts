@@ -1,3 +1,4 @@
+import { PanCakesStore } from "@edthewise/application-payments-web";
 import {
   CompeteExamCardRouteService,
   CompeteExamResultRouteService,
@@ -60,6 +61,7 @@ container.bind<CompeteListStore>(CompeteListStoreToken).to(CompeteListStore).inS
 container.bind<CompeteExamsStore>(TOKENS.ExamStoreToken).to(CompeteExamsStore).inSingletonScope();
 container.bind<LeaderBoardStore>(TOKENS.LeaderBoardStoreToken).to(LeaderBoardStore).inSingletonScope();
 container.bind<BaseLocalCacheStore>(TOKENS.BaseLocalCacheStoreToken).to(BaseLocalCacheStore).inSingletonScope();
+container.bind<PanCakesStore>(TOKENS.PanCakesStoreToken).to(PanCakesStore).inSingletonScope();
 
 /**
  * Service Bindings to IOC container

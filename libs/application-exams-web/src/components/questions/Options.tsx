@@ -40,7 +40,7 @@ export const Options = ({ options, onChange }: IOptionsProps) => {
           onChange={handleOptionChange}
         >
           <Grid container justifyContent="space-between">
-            <Grid container item xs={6} spacing={2}>
+            <Grid container item xs={6} spacing={6}>
               {options.slice(0, numOptions / 2).map((option) => (
                 <Grid
                   sx={{
@@ -66,12 +66,11 @@ export const Options = ({ options, onChange }: IOptionsProps) => {
                 </Grid>
               ))}
             </Grid>
-            <Grid container item xs={6} spacing={2}>
+            <Grid container item xs={6} spacing={6}>
               {options.slice(numOptions / 2).map((option) => (
                 <Grid
                   sx={{
                     position: "relative",
-                    // left: "22rem",
                     width: "50%",
                   }}
                   item

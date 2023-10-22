@@ -4,8 +4,11 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { CardComponent, HeaderWithLogo } from "@edthewise/shared-ui-components";
-import { Container } from "@mui/material";
+import { Backdrop, Container } from "@mui/material";
 import { IExamsListProps } from "./IExamsListProps";
+import { container } from "@edthewise/common-inversify";
+import { PanCakesStore } from "@edthewise/application-payments-web";
+import { TOKENS } from "@edthewise/common-tokens-web";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,6 +44,17 @@ function a11yProps(index: number) {
 
 export const ExamsList = (props: IExamsListProps) => {
   const [value, setValue] = React.useState(0);
+  const panCakesStore = container.get<PanCakesStore>(TOKENS.PanCakesStoreToken);
+
+  const pancakeCount = panCakesStore.getPanCakesCount();
+
+  const [modalOpen, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -53,7 +67,7 @@ export const ExamsList = (props: IExamsListProps) => {
       }}
     >
       {/* Header Container */}
-      <HeaderWithLogo />
+      <HeaderWithLogo onPanCakeClick={handleOpen} pancakeCount={pancakeCount} />
       {/* Title Message, Domain subject tabs */}
       <Container
         sx={{
@@ -96,6 +110,13 @@ export const ExamsList = (props: IExamsListProps) => {
           </CustomTabPanel>
         </Box>
       </Container>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={modalOpen}
+        onClick={handleClose}
+      >
+        <div>Payments Backdrop</div>
+      </Backdrop>
     </Box>
   );
 };

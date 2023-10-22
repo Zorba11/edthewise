@@ -62,6 +62,7 @@ export class CompeteExamCardRouteService {
   onExitCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
     await this.baseLocalCacheStore.clearCache();
     this.baseLocalCacheStore.storeIsExamRunning(true);
+    localStorage.removeItem("prevTimeLeft");
     return Promise.resolve();
   };
 
