@@ -6,7 +6,7 @@ import { RouterState, RouterStore } from "mobx-state-router";
 
 @injectable()
 export class LearnExamCardRouteService {
-  private questionsUiStore: QuestionsStore;
+  private questionsStore: QuestionsStore;
 
   // verify if this userStore is singleton
   constructor(
@@ -15,7 +15,7 @@ export class LearnExamCardRouteService {
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
     @inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore,
   ) {
-    this.questionsUiStore = questionsUiStore;
+    this.questionsStore = questionsUiStore;
   }
 
   onEnterLearnExamCard = (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
@@ -60,15 +60,16 @@ export class LearnExamCardRouteService {
   };
 
   private async handleExamCardRoute(toState: any) {
-    const subject = toState.queryParams.subject;
+    // TODO: make this dynamic
+    const subject = toState.queryParams.subject ? toState.queryParams.subject : "Financial Management (FM)";
     await this.examStore.setExamNameAndId(subject);
     await this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
-    this.questionsUiStore.subject = subject;
-    this.questionsUiStore.initialize();
+    this.questionsStore.subject = subject;
+    this.questionsStore.initialize();
 
     (await this.examStore.isExamRunning())
-      ? await this.questionsUiStore.setQuestionSetAndCurrentQ(true)
-      : await this.questionsUiStore.setQuestionSetAndCurrentQ();
+      ? await this.questionsStore.setQuestionSetAndCurrentQ(true)
+      : await this.questionsStore.setQuestionSetAndCurrentQ();
 
     this.baseLocalCacheStore.storeIsExamRunning(true);
   }

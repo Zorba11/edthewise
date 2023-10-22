@@ -6,7 +6,7 @@ import { RouterState, RouterStore } from "mobx-state-router";
 
 @injectable()
 export class CompeteExamCardRouteService {
-  private questionsUiStore: QuestionsStore;
+  private questionsStore: QuestionsStore;
 
   // verify if this userStore is singleton
   constructor(
@@ -15,7 +15,7 @@ export class CompeteExamCardRouteService {
     @inject(TOKENS.ExamStoreToken) private examStore: CompeteExamsStore,
     @inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore,
   ) {
-    this.questionsUiStore = questionsUiStore;
+    this.questionsStore = questionsUiStore;
   }
 
   onEnterCompeteExamCard = async (fromState: RouterState, toState: RouterState, routerStore: RouterStore) => {
@@ -70,12 +70,12 @@ export class CompeteExamCardRouteService {
     const subject = toState.queryParams.subject;
     await this.examStore.setExamNameAndId(subject);
     await this.examStore.createNewExam(this.userStore?.userId, this.userStore?.name);
-    this.questionsUiStore.subject = subject;
-    this.questionsUiStore.initialize();
+    this.questionsStore.subject = subject;
+    this.questionsStore.initialize();
 
     (await this.examStore.isExamRunning())
-      ? await this.questionsUiStore.setQuestionSetAndCurrentQ(true)
-      : await this.questionsUiStore.setQuestionSetAndCurrentQ();
+      ? await this.questionsStore.setQuestionSetAndCurrentQ(true)
+      : await this.questionsStore.setQuestionSetAndCurrentQ();
 
     this.baseLocalCacheStore.storeIsExamRunning(true);
   }

@@ -108,7 +108,7 @@ export class CompeteExamsStore {
   //   this.exam = await this.examsService.getExamFromCache(this.examId);
   // }
 
-  async setExamNameAndId(subjectName: string): Promise<void> {
+  async setExamNameAndId(subjectName = "Financial Management (FM)"): Promise<void> {
     this.subjectName = subjectName;
 
     const subjectCode = this.getSubjectCode(subjectName);

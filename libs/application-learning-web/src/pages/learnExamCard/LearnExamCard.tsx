@@ -1,14 +1,15 @@
 import { ExamCard, IExamCardProps } from "@edthewise/application-exams-web";
-import { CompeteExamsStore, QuestionsStore } from "@edthewise/application-stores-web";
+import { CompeteExamsStore, QuestionsUiStore } from "@edthewise/application-stores-web";
+import { container } from "@edthewise/common-inversify";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import { Box } from "@mui/material";
-import { useService } from "@redtea/react-inversify";
 import { useRouterStore } from "mobx-state-router";
+import { useEffect } from "react";
 
 export const LearnExamCard = () => {
   const routerStore = useRouterStore();
-  const questionsStore = useService<QuestionsStore>(TOKENS.QuestionsStoreToken);
-  const examsStore = useService<CompeteExamsStore>(TOKENS.ExamStoreToken);
+  const examsStore = container.get<CompeteExamsStore>(TOKENS.ExamStoreToken);
+  const questionsUiStore = container.get<QuestionsUiStore>(TOKENS.QuestionsUiStoreToken);
 
   const goToLearnExamResult = (event: any) => {
     event.preventDefault();
@@ -17,47 +18,45 @@ export const LearnExamCard = () => {
     });
   };
 
-  const onFinishHandler = (event: any) => {
-    event.preventDefault();
-    console.log("onFinishHandler");
-  };
-
   const onSubmitHandler = (event: any): void => {
     event.preventDefault();
-    console.log("onSubmitHandler");
-  };
 
-  const goToNextQuestion = (event: any) => {
-    event.preventDefault();
-    questionsStore.setNextQuestion();
+    questionsUiStore.submitAnswer();
+
     // TODO: Remove this in production
-    if (questionsStore.currentQuestion.qNumber && questionsStore.currentQuestion.qNumber < 3) {
-      return;
+    // if (questionsStore.currentQuestion.qNumber === 3) {
+    //   questionsStore.submitExam();
+    //   goToCompeteExamResult();
+    // }
+
+    // TODO: uncomment in production
+    if (questionsUiStore.shouldSubmitExam) {
+      questionsUiStore.submitExam();
+      goToLearnExamResult(event);
     }
   };
 
-  const goToPreviousQuestion = (event: any) => {
-    event.preventDefault();
-    questionsStore.setPreviousQuestion();
-  };
-
   const examCardProps: IExamCardProps = {
-    onFinishHandler: onFinishHandler,
-    withTimer: true,
-    questionData: questionsStore.currentQuestion,
+    onFinishHandler: questionsUiStore.onFinishHandler,
+    withTimer: false,
+    questionData: questionsUiStore.currentQuestion,
     withNavigation: true,
     disableSubmit: false,
     onSubmitHandler: onSubmitHandler,
     withEd: false,
-    goToNextQuestion: goToNextQuestion,
-    goToPrevQuestion: goToPreviousQuestion,
-    submittedQuestions: questionsStore.submittedQuestions,
-    onQNumClick: (event: any, questionNumber: number) => {},
-    totalQuestions: questionsStore.totalQuestions,
+    goToNextQuestion: questionsUiStore.goToNextQuestion,
+    goToPrevQuestion: questionsUiStore.goToPreviousQuestion,
+    submittedQuestions: questionsUiStore.submittedQuestions,
+    onQNumClick: questionsUiStore.onQNumberClick,
+    totalQuestions: questionsUiStore.totalQuestions,
     showAnswer: false,
-    showErr: false, // needs to change
+    showErr: questionsUiStore.showOptionNotSelectedError,
     startTime: examsStore.getStartTime(),
   };
+
+  useEffect(() => {
+    return questionsUiStore.initkeyBoardNavListeners();
+  });
 
   return (
     <Box
