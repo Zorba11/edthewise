@@ -23,6 +23,7 @@ export const TOKENS = {
   LeaderBoardStoreToken: Symbol.for("LeaderBoardStoreToken"),
   BaseLocalCacheStoreToken: Symbol.for("BaseLocalCacheStoreToken"),
   PanCakesStoreToken: Symbol.for("PanCakesStoreToken"),
+  QuestionsUiStoreToken: Symbol.for("QuestionsUiStoreToken"),
   /**
    * Services tokens
    */

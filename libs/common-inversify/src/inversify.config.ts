@@ -20,6 +20,7 @@ import {
   QuestionsStore,
   UserStore,
   LeaderBoardStore,
+  QuestionsUiStore,
 } from "@edthewise/application-stores-web";
 import { TOKENS } from "@edthewise/common-tokens-web";
 import {
@@ -62,6 +63,8 @@ container.bind<CompeteExamsStore>(TOKENS.ExamStoreToken).to(CompeteExamsStore).i
 container.bind<LeaderBoardStore>(TOKENS.LeaderBoardStoreToken).to(LeaderBoardStore).inSingletonScope();
 container.bind<BaseLocalCacheStore>(TOKENS.BaseLocalCacheStoreToken).to(BaseLocalCacheStore).inSingletonScope();
 container.bind<PanCakesStore>(TOKENS.PanCakesStoreToken).to(PanCakesStore).inSingletonScope();
+
+container.bind<QuestionsUiStore>(TOKENS.QuestionsUiStoreToken).to(QuestionsUiStore).inSingletonScope();
 
 /**
  * Service Bindings to IOC container

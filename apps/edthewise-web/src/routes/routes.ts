@@ -97,6 +97,7 @@ export const routes: Route[] = [
     pattern: "/learn-exam/:id",
     onEnter: learnExamCardRouteService.onEnterLearnExamCard,
     beforeEnter: learnExamCardRouteService.beforeEnterLearnCard,
+    onExit: learnExamCardRouteService.onExitLearnExamCard,
   },
   {
     name: "learnExamResult",

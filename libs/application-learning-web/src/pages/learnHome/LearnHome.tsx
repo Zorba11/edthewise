@@ -124,7 +124,7 @@ export const LearnHome = () => {
     },
   ];
 
-  // return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={mediCalTopics} />);
+  return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={mediCalTopics} />);
 
-  return withFadeIn(<ComingSoon />);
+  // return withFadeIn(<ComingSoon />);
 };
