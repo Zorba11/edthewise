@@ -128,6 +128,10 @@ export const routes: Route[] = [
     onEnter: leaderBoardRouteService.onEnterLeaderBoard,
     beforeEnter: leaderBoardRouteService.beforeEnterLeaderBoard,
   },
+  {
+    name: "chatHome",
+    pattern: "/chat-home",
+  },
 ];
 
 export function initRouter() {

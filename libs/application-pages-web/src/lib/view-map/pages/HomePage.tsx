@@ -7,8 +7,8 @@ import { userSiderMenuItems } from "@edthewise/common-component-data";
 export const HomePage = (props: any) => {
   const routerStore = useRouterStore();
 
-  const BUTTON_CARD_HEIGHT = "15rem";
-  const BUTTON_CARD_WIDTH = "23rem";
+  const BUTTON_CARD_HEIGHT = "10rem";
+  const BUTTON_CARD_WIDTH = "18rem";
   const BUTTON_CARD_FONT_SIZE = "3rem";
 
   const learnNavigationClick = () => {
@@ -17,6 +17,10 @@ export const HomePage = (props: any) => {
 
   const competeNavigationClick = () => {
     routerStore.goTo("competeHome");
+  };
+
+  const chatNavigationClick = () => {
+    routerStore.goTo("chatHome");
   };
 
   const cardProps: ICardComponentProps[] = [
@@ -34,6 +38,16 @@ export const HomePage = (props: any) => {
     },
     {
       id: 2,
+      title: "Chat",
+      subtitle: "with Ed",
+      hoverColor: "#52ddc8", // chat primary color
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: chatNavigationClick,
+    },
+    {
+      id: 3,
       title: "Learn",
       subtitle: "with Ed",
       hoverColor: "#4B82C3", // blueish

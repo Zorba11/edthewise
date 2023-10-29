@@ -29,4 +29,5 @@ export const viewMap = {
   dashboard: <div>dashboard</div>,
   leaderboardsList: <LeaderBoardsList />,
   leaderboard: <LeaderBoardGeneric />,
+  chatHome: <div>chatHome</div>,
 };
