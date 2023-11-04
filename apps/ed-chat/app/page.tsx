@@ -1,9 +1,7 @@
 "use client";
 /*eslint-disable*/
-
-import Link from "@/components/link/Link";
-import MessageBoxChat from "@/components/MessageBox";
-import { ChatBody, OpenAIModel } from "@/types/types";
+import { Link, MessageBox } from "@edthewise/next/application-chat-components-web";
+import { ChatBody, OpenAIModel } from "../../types/types";
 import {
   Accordion,
   AccordionButton,
@@ -265,7 +263,7 @@ export default function Chat(props: { apiKeyApp: string }) {
             >
               <Icon as={MdAutoAwesome} width="20px" height="20px" color="white" />
             </Flex>
-            <MessageBoxChat output={outputCode} />
+            <MessageBox output={outputCode} />
           </Flex>
         </Flex>
         {/* Chat Input */}
