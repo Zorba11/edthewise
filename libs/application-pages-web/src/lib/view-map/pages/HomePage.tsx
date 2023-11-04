@@ -56,6 +56,16 @@ export const HomePage = (props: any) => {
       titleFontSize: BUTTON_CARD_FONT_SIZE,
       onClick: learnNavigationClick,
     },
+    {
+      id: 4,
+      title: "Teach",
+      subtitle: "with Ed",
+      hoverColor: "#4de1f2", // sky blueish
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      onClick: learnNavigationClick,
+    },
   ];
 
   return (

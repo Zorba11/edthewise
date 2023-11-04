@@ -7,7 +7,8 @@
     "start-admin": "nx serve ed-the-wise-admin",
     "lint-web": "nx lint edthewise-web",
     "lint-application-users-web": "nx lint application-users-web",
-    "start-gpt": "nx run gpt4-azure-api:serve"
+    "start-gpt": "nx run gpt4-azure-api:serve",
+    "start-chat": "nx run ed-chat:serve"
   },
   "private": true,
   "dependencies": {
