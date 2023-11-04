@@ -19,6 +19,7 @@
       "@edthewise/application-admin-stores-web": ["libs/application-admin-stores-web/src/index.ts"],
       "@edthewise/application-admin-web": ["libs/application-admin-web/src/index.ts"],
       "@edthewise/application-assets-web": ["libs/application-assets-web/src/index.ts"],
+      "@edthewise/application-chat-web": ["libs/application-chat-web/src/index.ts"],
       "@edthewise/application-compete-web": ["libs/application-compete-web/src/index.ts"],
       "@edthewise/application-exams-web": ["libs/application-exams-web/src/index.ts"],
       "@edthewise/application-fairness-web": ["libs/application-fairness-web/src/index.ts"],

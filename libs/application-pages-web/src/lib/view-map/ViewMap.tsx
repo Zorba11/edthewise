@@ -10,6 +10,7 @@ import { CompeteExamCard, CompeteExamResult, CompeteHome, CompeteList } from "@e
 import HomePage from "./pages/HomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { LeaderBoardGeneric, LeaderBoardsList } from "@edthewise/application-leaderboards-web";
+import { ChatHome } from "@edthewise/application-chat-web";
 
 export const viewMap = {
   home: <HomePage />,
@@ -29,5 +30,5 @@ export const viewMap = {
   dashboard: <div>dashboard</div>,
   leaderboardsList: <LeaderBoardsList />,
   leaderboard: <LeaderBoardGeneric />,
-  chatHome: <div>chatHome</div>,
+  chatHome: <ChatHome />,
 };
