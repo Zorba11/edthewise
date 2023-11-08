@@ -112,7 +112,7 @@ export const LearnHome = () => {
     },
   ];
 
-  const pscExamsList: ICardComponentProps[] = [
+  const lawExamsList: ICardComponentProps[] = [
     {
       id: 9,
       title: "ENT",
@@ -124,7 +124,7 @@ export const LearnHome = () => {
     },
   ];
 
-  return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={mediCalTopics} />);
+  return withFadeIn(<ExamsList lawExamsList={lawExamsList} tabs={tabs} medicalExamList={mediCalTopics} />);
 
   // return withFadeIn(<ComingSoon />);
 };

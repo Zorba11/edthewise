@@ -19,16 +19,16 @@ export const CompeteHome = () => {
 
   const examStore = container.get<CompeteExamsStore>(TOKENS.ExamStoreToken);
 
-  const title = examStore.aCCAsubjectTitles[0];
+  const title = examStore.medSubjectTitles[0];
 
   const domains = [
     {
       id: 1,
-      tabTitle: "ACCA",
+      tabTitle: "Medicine",
     },
     {
       id: 2,
-      tabTitle: "UPSC",
+      tabTitle: "Law",
     },
   ];
 
@@ -43,7 +43,7 @@ export const CompeteHome = () => {
     });
   };
 
-  const examTopics: ICardComponentProps[] = examStore.aCCAsubjectTitles.map((title, index) => ({
+  const medicalExamList: ICardComponentProps[] = examStore.medSubjectTitles.map((title, index) => ({
     id: index + 1,
     title,
     hoverColor: BUTTON_HOVER_COLOR,
@@ -53,7 +53,7 @@ export const CompeteHome = () => {
     onClick: () => competeExamSubjectNavigationClick(title),
   }));
 
-  const pscExamsList: ICardComponentProps[] = examStore.pSCsubjectTitles.map((title, index) => ({
+  const lawExamsList: ICardComponentProps[] = examStore.lawSubjectTitles.map((title, index) => ({
     id: index + 1,
     title,
     hoverColor: BUTTON_HOVER_COLOR,
@@ -63,5 +63,5 @@ export const CompeteHome = () => {
     onClick: () => competeExamSubjectNavigationClick(title),
   }));
 
-  return <ExamsList showBadge={true} tabs={domains} aCCAexamsList={examTopics} pSCExamsList={pscExamsList} />;
+  return <ExamsList showBadge={true} tabs={domains} medicalExamList={medicalExamList} lawExamsList={lawExamsList} />;
 };

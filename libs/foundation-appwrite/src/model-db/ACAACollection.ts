@@ -1,3 +1,6 @@
+export const MedicineSubjectList: string[] = ["Histology", "Anatomy", "Pharmacology"];
+export const LawSubjectList: string[] = ["Indian Constitutional Law"];
+
 export const AccaSubjectList: string[] = [
   "Financial Management (FM)",
   "Business And Technology (BT)",

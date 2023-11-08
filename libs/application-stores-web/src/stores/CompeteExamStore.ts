@@ -34,8 +34,8 @@ interface IExamSummary {
 
 @injectable() //This store should be renamed as ExamStore
 export class CompeteExamsStore {
-  aCCAsubjectTitles!: string[];
-  pSCsubjectTitles!: string[];
+  medSubjectTitles!: string[];
+  lawSubjectTitles!: string[];
   @observable notImplemented!: boolean;
 
   examMonthId!: string;
@@ -58,7 +58,7 @@ export class CompeteExamsStore {
     @inject(TOKENS.ExamsServiceToken) examsService: ExamsService,
     @inject(TOKENS.BaseLocalCacheStoreToken) private baseLocalCacheStore: BaseLocalCacheStore,
   ) {
-    this.aCCAsubjectTitles = ["Hello"];
+    this.medSubjectTitles = ["Hello"];
     this.examsService = examsService;
     this.setSubjectTitles();
   }
@@ -66,8 +66,10 @@ export class CompeteExamsStore {
   async setSubjectTitles() {
     const subjectTitles = await this.examsService.getSubjectTitles();
     if (!subjectTitles) return;
-    this.aCCAsubjectTitles = subjectTitles.ACCA;
-    this.pSCsubjectTitles = subjectTitles.PSC;
+    // this.aCCAsubjectTitles = subjectTitles.ACCA;
+    // this.pSCsubjectTitles = subjectTitles.PSC;
+    this.medSubjectTitles = subjectTitles.Medicine;
+    this.lawSubjectTitles = subjectTitles.Law;
   }
 
   async createNewExam(userId: string, userName: string): Promise<void | undefined> {

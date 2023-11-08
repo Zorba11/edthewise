@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { AccaSubjectList, PscSubjectList } from "../model-db/ACAACollection";
+import { AccaSubjectList, LawSubjectList, MedicineSubjectList, PscSubjectList } from "../model-db/ACAACollection";
 import "reflect-metadata";
 import { database } from "../appwrite-config/config";
 import {
@@ -23,8 +23,8 @@ const EXAM_DATA_DOC_ID = "exam-data-doc-id";
 const IS_EXAM_RUNNING = "exam-isRunning";
 
 export interface ISubjectList {
-  ACCA: string[];
-  PSC: string[];
+  Medicine: string[];
+  Law: string[];
 }
 @injectable()
 export class ExamsService {
@@ -40,8 +40,10 @@ export class ExamsService {
       // const subjectTitles = examListRequest.ACCA;
 
       const subjectTitles = {
-        ACCA: AccaSubjectList,
-        PSC: PscSubjectList,
+        // ACCA: AccaSubjectList,
+        // PSC: PscSubjectList,
+        Medicine: MedicineSubjectList,
+        Law: LawSubjectList,
       };
 
       return subjectTitles;

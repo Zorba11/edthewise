@@ -23,7 +23,7 @@ export const LearnList: React.FC = () => {
     },
   ];
 
-  const aCCATopics: ICardComponentProps[] = [
+  const medicalTopics: ICardComponentProps[] = [
     {
       id: 1,
       title: "1",
@@ -106,7 +106,7 @@ export const LearnList: React.FC = () => {
     },
   ];
 
-  const pscExamsList: ICardComponentProps[] = [
+  const lawExamsList: ICardComponentProps[] = [
     {
       id: 8,
       title: "8",
@@ -119,5 +119,5 @@ export const LearnList: React.FC = () => {
     },
   ];
 
-  return withFadeIn(<ExamsList pSCExamsList={pscExamsList} tabs={tabs} aCCAexamsList={aCCATopics} />);
+  return withFadeIn(<ExamsList lawExamsList={lawExamsList} tabs={tabs} medicalExamList={medicalTopics} />);
 };

@@ -103,10 +103,10 @@ export const ExamsList = (props: IExamsListProps) => {
           </Box>
 
           <CustomTabPanel value={value} index={0}>
-            <CardComponent shouldAnimate={false} showBadge={props.showBadge} cardProps={props.aCCAexamsList} />
+            <CardComponent shouldAnimate={false} showBadge={props.showBadge} cardProps={props.medicalExamList} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <CardComponent shouldAnimate={false} showBadge={props.showBadge} cardProps={props.pSCExamsList} />
+            <CardComponent shouldAnimate={false} showBadge={props.showBadge} cardProps={props.medicalExamList} />
           </CustomTabPanel>
         </Box>
       </Container>
