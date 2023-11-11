@@ -6,7 +6,7 @@ export const ChatHome = () => {
         height: "100vh",
       }}
     >
-      <iframe src="http://localhost:3002" width="100%" height="100%" />;
+      <iframe src="http://127.0.0.1:8000" width="100%" height="100%" />;
     </div>
   );
 };
