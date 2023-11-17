@@ -20,7 +20,18 @@ export const LeaderBoardsList = () => {
   const leaderBoardLisProps: ICardComponentProps[] = [
     {
       id: 1,
-      title: "Financial Management",
+      title: "Histology",
+      hoverColor: "#FDCD46", // yellowish
+      buttonHeight: BUTTON_CARD_HEIGHT,
+      buttonWidth: BUTTON_CARD_WIDTH,
+      titleFontSize: BUTTON_CARD_FONT_SIZE,
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gridTemplateRows: "repeat(2, 1fr)",
+      onClick: goToLeaderBoard,
+    },
+    {
+      id: 2,
+      title: "Anatomy",
       hoverColor: "#FDCD46", // yellowish
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
@@ -40,7 +51,17 @@ export const LeaderBoardsList = () => {
     >
       <HeaderWithLogo />
       {/* exams list container */}
-      <Container>
+      <Container
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+
+          position: "relative",
+          left: "30%",
+        }}
+        maxWidth="md"
+      >
         <Box
           sx={{
             width: "100%",

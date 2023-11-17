@@ -23,6 +23,10 @@ export const HomePage = (props: any) => {
     routerStore.goTo("chatHome");
   };
 
+  const leaderBoardNavigationClick = () => {
+    routerStore.goTo("leaderboardsList");
+  };
+
   const cardProps: ICardComponentProps[] = [
     {
       id: 1,
@@ -38,34 +42,35 @@ export const HomePage = (props: any) => {
     },
     {
       id: 2,
-      title: "Chat",
-      subtitle: "with Ed",
-      hoverColor: "#52ddc8", // chat primary color
-      buttonHeight: BUTTON_CARD_HEIGHT,
-      buttonWidth: BUTTON_CARD_WIDTH,
-      titleFontSize: BUTTON_CARD_FONT_SIZE,
-      onClick: chatNavigationClick,
-    },
-    {
-      id: 3,
-      title: "Learn",
-      subtitle: "with Ed",
+      title: "Leader boards",
+      // subtitle: "with Ed",
       hoverColor: "#4B82C3", // blueish
+      // hoverColor: "#52ddc8", // chat primary color
       buttonHeight: BUTTON_CARD_HEIGHT,
       buttonWidth: BUTTON_CARD_WIDTH,
       titleFontSize: BUTTON_CARD_FONT_SIZE,
-      onClick: learnNavigationClick,
+      onClick: leaderBoardNavigationClick,
     },
-    {
-      id: 4,
-      title: "Teach",
-      subtitle: "with Ed",
-      hoverColor: "#4de1f2", // sky blueish
-      buttonHeight: BUTTON_CARD_HEIGHT,
-      buttonWidth: BUTTON_CARD_WIDTH,
-      titleFontSize: BUTTON_CARD_FONT_SIZE,
-      onClick: learnNavigationClick,
-    },
+    // {
+    //   id: 3,
+    //   title: "Learn",
+    //   subtitle: "with Ed",
+    //   hoverColor: "#4B82C3", // blueish
+    //   buttonHeight: BUTTON_CARD_HEIGHT,
+    //   buttonWidth: BUTTON_CARD_WIDTH,
+    //   titleFontSize: BUTTON_CARD_FONT_SIZE,
+    //   onClick: learnNavigationClick,
+    // },
+    // {
+    //   id: 4,
+    //   title: "Teach",
+    //   subtitle: "with Ed",
+    //   hoverColor: "#4de1f2", // sky blueish
+    //   buttonHeight: BUTTON_CARD_HEIGHT,
+    //   buttonWidth: BUTTON_CARD_WIDTH,
+    //   titleFontSize: BUTTON_CARD_FONT_SIZE,
+    //   onClick: learnNavigationClick,
+    // },
   ];
 
   return (
