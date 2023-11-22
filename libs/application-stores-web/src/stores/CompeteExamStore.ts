@@ -1,5 +1,11 @@
 import { TOKENS } from "@edthewise/common-tokens-web";
-import { ACCA_FM_COMP_JAN_2024, ExamsService, MED_HISTOLOGY_JAN_2024 } from "@edthewise/foundation-appwrite";
+import {
+  ACCA_FM_COMP_JAN_2024,
+  ExamsService,
+  MED_ANATOMY_JAN_2024,
+  MED_HISTOLOGY_JAN_2024,
+  MED_PHARMACOLOGY_JAN_2024,
+} from "@edthewise/foundation-appwrite";
 import { BaseLocalCacheStore } from "@edthewise/foundation-local-cache";
 import { inject, injectable } from "inversify";
 import { action, computed, observable } from "mobx";
@@ -143,6 +149,10 @@ export class CompeteExamsStore {
         return ACCA_FM_COMP_JAN_2024;
       case "Histology":
         return MED_HISTOLOGY_JAN_2024;
+      case "ANATOMY":
+        return MED_ANATOMY_JAN_2024;
+      case "PHARMACOLGY":
+        return MED_PHARMACOLOGY_JAN_2024;
       default:
         return "";
     }
@@ -154,6 +164,10 @@ export class CompeteExamsStore {
         return "ACCA-FM";
       case "Histology":
         return "MED-HISTOLOGY";
+      case "ANATOMY":
+        return "MED-ANATOMY";
+      case "PHARMACOLGY":
+        return "MED-PHARMACOLOGY";
       default:
         return "";
     }

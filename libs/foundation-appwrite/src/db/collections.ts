@@ -11,6 +11,10 @@ export const ACCA_FM_COMP_JAN_2024 = "650f6ee76af26b00b602";
 
 export const MED_HISTOLOGY_JAN_2024 = "6556c0bc75b68e0769aa";
 
+export const MED_ANATOMY_JAN_2024 = "6558d8ee129605fa6acd";
+
+export const MED_PHARMACOLOGY_JAN_2024 = "6558d91f71d3c7ed5a73";
+
 export const GLOBAL_EXAMS_COLL_ID = "6507315dac0addf71a22";
 
 export const ACCA_FM_COMP_JAN_2024_COLL_ID = "65188209a682cbe15eff";
